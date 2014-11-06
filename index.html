@@ -6,7 +6,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<link rel="stylesheet" href="./css/reset.css">
 	<link rel="stylesheet" href="./css/animations.css">
+	<link rel="stylesheet" href="./css/grid.css">
 	<link rel="stylesheet" href="./css/dynamic_bg.css">
+	<script src="./js/zepto.min.js"></script>
+	<script src="./js/fx.js"></script>
 	<style>
 		body,html{
 			margin: 0;
@@ -14,6 +17,11 @@
 			width: 100%; 
 			height: 100%;
 			overflow: hidden;
+		}
+		*,*::before,*::after{
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
 		}
 		.wrp{
 			width: 100%;
@@ -30,6 +38,41 @@
 			font-size: 30px;
 			color: #fff;
 		}
+	
+		.an-flipInY2{
+			-webkit-animation-duration: 300ms;
+			-moz-animation-duration: 300ms;
+			animation-duration: 300ms;
+			-webkit-animation-name: flipInY2;
+			-moz-animation-name: flipInY2;
+			animation-name: flipInY2;
+			-webkit-transform-origin: 0% 50%;
+			-moz-transform-origin: 0% 50%;
+			transform-origin: 0% 50%;
+		}
+		@-webkit-keyframes flipInY2{
+			0% 		{-webkit-transform:perspective(400px) rotateY(90deg);opacity:0;}
+			100% 	{-webkit-transform:perspective(400px) rotateY(0deg);opacity:1;}
+		}
+		@-moz-keyframes flipInY2{
+			0% 		{-moz-transform:perspective(400px) rotateY(90deg);opacity:0;}
+			100% 	{-moz-transform:perspective(400px) rotateY(0deg);opacity:1;}
+		}
+		@keyframes flipInY2{
+			0% 		{transform:perspective(400px) rotateY(90deg);opacity:0;}
+			100% 	{transform:perspective(400px) rotateY(0deg);opacity:1;}
+		}
+		.an-flipOutY2{
+			-webkit-animation-duration: 300ms;
+			-moz-animation-duration: 300ms;
+			animation-duration: 300ms;
+			-webkit-animation-name: flipOutY;
+			-moz-animation-name: flipOutY;
+			animation-name: flipOutY;
+			-webkit-transform-origin: 0% 50%;
+			-moz-transform-origin: 0% 50%;
+			transform-origin: 0% 50%;
+		}
 		.logo{
 			font-size: 38px;
 			color: #fff;
@@ -37,6 +80,7 @@
 			width: 110px;
 			display: block;
 			height: 50px;
+			margin: 0 auto;
 		}
 		.logo p{
 			background: #fff;
@@ -70,17 +114,33 @@
 		.pg{
 			width: 100%;
 			height: 100%;
-			position: absolute;
-			left: 0px;
-			top: 0px;
+			position: relative;
+		}
+		.pg .row{
+			width: 640px;
+			margin: 0 auto;
+		}
+		.pg .title{
+			text-align: center;
+		}
+		@media (max-width: 768px) {
+			.pg .row{
+				width: 100%;
+			}
+			.pg .title{
+				text-align: left;
+			}
+			.logo{
+				margin: 0;
+			}
 		}
 		.pg1{
 			
 		}
 		.pg2{
-			-webkit-transform: translateY(100%);
-			-moz-transform: translateY(100%);
-			transform: translateY(100%);
+			-webkit-transform: rotateX(90deg);
+			-moz-transform: rotateX(90deg);
+			transform: rotateX(90deg);
 		}
 	</style>
 </head>
@@ -93,26 +153,66 @@
 			<div class="dynbg__bg dynbg__bg3"></div>
 			<div class="dynbg__bg dynbg__bg4"></div>
 		</div>
-		<div class="pg pg1">
-			<div class="an-fadeInUp">
-				<div class="logo">UED<p>天机</p></div>
-				<p>专注于分享前端技术</p>
-			</div>
-			
-			<h1 class="welctitle an-fadeInUp an-delay200">欢迎</h1>
-			<p class="pagelink an-fadeInUp an-delay400"><a href="">css教程</a></p>
-			<p class="pagelink an-fadeInUp an-delay600"><a href="">javascript教程</a></p>
+		<div class="pg pg1 an-flipInY2 container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="title">
+						<div class="logo">UED<p>天机</p></div>
+						<p>专注于分享前端技术</p>
+					</div>
+					<h1 class="welctitle">欢迎</h1>
+				</div>
+				<div class="col-md-4">
+					<p class="pagelink"><a href="">css教程</a></p>
+				</div>
+				<div class="col-md-4">
+					<p class="pagelink"><a href="">javascript教程</a></p>
+				</div>
+				<div class="col-md-4">
+					<p class="pagelink"><a href="">javascript教程</a></p>
+				</div>
 
-			<div class="fhint an-bounce an-delay1000" style=""><a href="">?这个页面是如何制作的</a></div>
+			</div>
+			<div class="fhint an-bounce an-delay1000" id="howto" style="">?这个页面是如何制作的</div>
 		</div>
-		<div class="pg pg2">
-			<h1 class="welctitle an-fadeInUp an-delay200">?这个页面是如何制作的</h1>
-			<p class="pagelink an-fadeInUp an-delay400"><a href="">动态背景</a></p>
-			<p class="pagelink an-fadeInUp an-delay600"><a href="">文字动画--animation.css</a></p>
-			<p class="pagelink an-fadeInUp an-delay600"><a href="">bootstrap拆分--栅格系统</a></p>
-			<p class="pagelink an-fadeInUp an-delay600"><a href="">bootstrap拆分--字体库</a></p>
+		<div class="pg pg2 container">
+			<div class="row">
+				<div class="col-md-12">
+					<h1 class="welctitle">?这个页面是如何制作的</h1>
+				</div>
+				<div class="col-md-6">
+					<p class="pagelink"><a href="https://github.com/uedtianji/dynamic_background" target="_blank">动态背景</a></p>
+				</div>
+				<div class="col-md-6">
+					<p class="pagelink"><a href="">文字动画--animation.css</a></p>
+				</div>
+				<div class="col-md-6">
+					<p class="pagelink"><a href="">bootstrap拆分--栅格系统</a></p>
+				</div>
+				<div class="col-md-6">
+					<p class="pagelink"><a href="">bootstrap拆分--字体库</a></p>
+				</div>
+			</div>
+			<div class="fhint an-bounce an-delay1000" id="back" style="">←返回</div>
 		</div>
 		
 	</div>
+	<script>
+		$(function () {
+			/*$("a").click(function(event) {
+				var a = $(this).attr("rel");
+				alert(a);
+				return false;
+			});*/
+			$("#howto").click(function(){
+				$(".pg1").removeClass("an-flipInY2").addClass("an-flipOutY2");
+				$(".pg2").removeClass("an-flipOutY2").addClass("an-flipInY2 an-delay600");
+			});
+			$("#back").click(function(){
+				$(".pg2").removeClass("an-flipInY2").addClass("an-flipOutY2");
+				$(".pg1").removeClass("an-flipOutY2").addClass("an-flipInY2 an-delay600");
+			});
+		});
+	</script>
 </body>
 </html>
