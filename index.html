@@ -7,144 +7,11 @@
 	<link rel="stylesheet" href="./css/reset.css">
 	<link rel="stylesheet" href="./css/animations.css">
 	<link rel="stylesheet" href="./css/grid.css">
+	<link rel="stylesheet" href="./css/icon.css">
 	<link rel="stylesheet" href="./css/dynamic_bg.css">
+	<link rel="stylesheet" href="./css/index.css">
 	<script src="./js/zepto.min.js"></script>
-	<script src="./js/fx.js"></script>
-	<style>
-		body,html{
-			margin: 0;
-			padding: 0; 
-			width: 100%; 
-			height: 100%;
-			overflow: hidden;
-		}
-		*,*::before,*::after{
-			-webkit-box-sizing: border-box;
-			-moz-box-sizing: border-box;
-			box-sizing: border-box;
-		}
-		.wrp{
-			width: 100%;
-			height: 100%;
-			position: relative;
-			color: #fff;
-			-webkit-box-sizing: border-box;
-			-moz-box-sizing: border-box;
-			box-sizing: border-box;
-			font-size: 16px;
-		}
-		.welctitle{
-			font-size: 30px;
-			color: #fff;
-		}
-	
-		.an-flipInY2{
-			-webkit-animation-duration: 300ms;
-			-moz-animation-duration: 300ms;
-			animation-duration: 300ms;
-			-webkit-animation-name: flipInY2;
-			-moz-animation-name: flipInY2;
-			animation-name: flipInY2;
-			-webkit-transform-origin: 0% 50%;
-			-moz-transform-origin: 0% 50%;
-			transform-origin: 0% 50%;
-		}
-		@-webkit-keyframes flipInY2{
-			0% 		{-webkit-transform:perspective(400px) rotateY(90deg);opacity:0;}
-			100% 	{-webkit-transform:perspective(400px) rotateY(0deg);opacity:1;}
-		}
-		@-moz-keyframes flipInY2{
-			0% 		{-moz-transform:perspective(400px) rotateY(90deg);opacity:0;}
-			100% 	{-moz-transform:perspective(400px) rotateY(0deg);opacity:1;}
-		}
-		@keyframes flipInY2{
-			0% 		{transform:perspective(400px) rotateY(90deg);opacity:0;}
-			100% 	{transform:perspective(400px) rotateY(0deg);opacity:1;}
-		}
-		.an-flipOutY2{
-			-webkit-animation-duration: 300ms;
-			-moz-animation-duration: 300ms;
-			animation-duration: 300ms;
-			-webkit-animation-name: flipOutY;
-			-moz-animation-name: flipOutY;
-			animation-name: flipOutY;
-			-webkit-transform-origin: 0% 50%;
-			-moz-transform-origin: 0% 50%;
-			transform-origin: 0% 50%;
-		}
-		.logo{
-			font-size: 38px;
-			color: #fff;
-			position: relative;
-			width: 110px;
-			display: block;
-			height: 50px;
-			margin: 0 auto;
-		}
-		.logo p{
-			background: #fff;
-			color: #e8b340;
-			font-size: 12px;
-			border-radius: 2px;
-			width: 30px;
-			height: 18px;
-			line-height: 18px;
-			text-align: center;
-			position: absolute;
-			right: 0px;
-			top: 0px;
-		}
-		.pagelink{
-			color: #fff;
-			font-size: 20px;
-			border: 2px solid #fff;
-			border-radius: 5px;
-			padding: 0px 10px;
-			margin: 10px 5px;
-			-webkit-box-sizing: border-box;
-			-moz-box-sizing: border-box;
-			box-sizing: border-box;
-		}
-		.fhint{
-			position: absolute;
-			right: 10px;
-			bottom: 10px;
-		}
-		.pg{
-			width: 100%;
-			height: 100%;
-			position: absolute;
-			left: 0px;
-			top: 0px;
-			padding: 10px;
-		}
-		.pg .row{
-			width: 640px;
-			margin: 0 auto;
-		}
-		.pg .title{
-			text-align: center;
-		}
-		@media (max-width: 768px) {
-			.pg .row{
-				width: 100%;
-			}
-			.pg .title{
-				text-align: left;
-			}
-			.logo{
-				margin: 0;
-			}
-		}
-		.pg1{
-			
-		}
-		.pg2{
-			-webkit-transform: rotateX(90deg);
-			-moz-transform: rotateX(90deg);
-			transform: rotateX(90deg);
-		}
-	</style>
+	<script src="./js/index.js"></script>
 </head>
 <body>
 	<div class="wrp">
@@ -155,7 +22,7 @@
 			<div class="dynbg__bg dynbg__bg3"></div>
 			<div class="dynbg__bg dynbg__bg4"></div>
 		</div>
-		<div class="pg pg1 an-flipInY2 container">
+		<div class="pg pg1 an-flipInY2 container" data-page="index">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="title">
@@ -165,28 +32,28 @@
 					<h1 class="welctitle">欢迎</h1>
 				</div>
 				<div class="col-md-4">
-					<p class="pagelink"><a href="">css教程</a></p>
+					<p class="pagelink"><a href="#css">css教程</a></p>
 				</div>
 				<div class="col-md-4">
 					<p class="pagelink"><a href="">javascript教程</a></p>
 				</div>
 				<div class="col-md-4">
-					<p class="pagelink"><a href="">javascript教程</a></p>
+					<p class="pagelink"><a href="">常用连接</a></p>
 				</div>
 
 			</div>
-			<div class="fhint an-bounce an-delay1000" id="howto" style="">?这个页面是如何制作的</div>
+			<div class="fhint an-bounce an-delay1000" style=""><a href="#howto"><i class="icon-question-sign"></i>这个页面是如何制作的</a></div>
 		</div>
-		<div class="pg pg2 container">
+		<div class="pg pgout container" data-page="howto">
 			<div class="row">
 				<div class="col-md-12">
-					<h1 class="welctitle">?这个页面是如何制作的</h1>
+					<h1 class="welctitle"><i class="icon-question-sign"></i>这个页面是如何制作的</h1>
 				</div>
 				<div class="col-md-6">
-					<p class="pagelink"><a href="https://github.com/uedtianji/dynamic_background" target="_blank">动态背景</a></p>
+					<p class="pagelink"><a href="https://github.com/uedtianji/dynamic_background" target="_blank" rel="external">动态背景</a></p>
 				</div>
 				<div class="col-md-6">
-					<p class="pagelink"><a href="">文字动画--animation.css</a></p>
+					<p class="pagelink"><a href="https://github.com/baipengfei/Animation" target="_blank" rel="external">文字动画--animation.css</a></p>
 				</div>
 				<div class="col-md-6">
 					<p class="pagelink"><a href="">bootstrap拆分--栅格系统</a></p>
@@ -195,26 +62,22 @@
 					<p class="pagelink"><a href="">bootstrap拆分--字体库</a></p>
 				</div>
 			</div>
-			<div class="fhint an-bounce an-delay1000" id="back" style="">←返回</div>
+			<div class="fhint" style=""><a href="#" data-page="back"><i class="icon-circle-arrow-left"></i>返回</a></div>
 		</div>
-		
+		<div class="pg pgout container" data-page="css">
+			<div class="row">
+				<div class="col-md-12">
+					<h1 class="welctitle">css教程</h1>
+				</div>
+				<div class="col-md-6">
+					<p class="pagelink"><a href="#bootstrapchai">Bootstrap拆分</a></p>
+				</div>
+				<div class="col-md-6">
+					<p class="pagelink"><a href="https://github.com/baipengfei/Animation" target="_blank" rel="external">动画库--animation.css</a></p>
+				</div>
+			</div>
+			<div class="fhint" style=""><a href="#" data-page="back"><i class="icon-circle-arrow-left"></i>返回</a></div>
+		</div>
 	</div>
-	<script>
-		$(function () {
-			/*$("a").click(function(event) {
-				var a = $(this).attr("rel");
-				alert(a);
-				return false;
-			});*/
-			$("#howto").click(function(){
-				$(".pg1").removeClass("an-flipInY2").addClass("an-flipOutY2");
-				$(".pg2").removeClass("an-flipOutY2").addClass("an-flipInY2 an-delay600");
-			});
-			$("#back").click(function(){
-				$(".pg2").removeClass("an-flipInY2").addClass("an-flipOutY2");
-				$(".pg1").removeClass("an-flipOutY2").addClass("an-flipInY2 an-delay600");
-			});
-		});
-	</script>
 </body>
 </html>
