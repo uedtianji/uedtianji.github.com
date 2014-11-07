@@ -1,5 +1,8 @@
 $(function () {
 	$("a").click(function(event) {
+		if($(this).parents(".pagelink").hasClass("disable")){
+			return false;
+		}
 		if($(this).attr("rel") == "external"){
 			return true;
 		}else{

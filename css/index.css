@@ -129,9 +129,19 @@ body,html{
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
+.pagelink.disable{
+	background: #EDEDED;
+	border-color: #EDEDED;
+	color: #A9A9A9;
+}
 .pagelink:hover{
 	background: #fff;
 	color:#000;
+}
+.pagelink.disable:hover{
+	background: #EDEDED;
+	border-color: #EDEDED;
+	color: #A9A9A9;
 }
 .pagelink a{
 	display: block;
