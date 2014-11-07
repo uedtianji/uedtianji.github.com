@@ -11,8 +11,8 @@ $(function () {
 			var from = $(this).parents(".pg");
 			var fromurl = from.attr("data-page");
 			var back = to.find("a[data-page=back]");
-			if(back.length >0){
-				//后退
+			if($(this).attr("data-page")!="back" && back.length >0 ){
+				//后退按钮
 				back.attr("href",fromurl);
 			}
 			from.removeClass("an-flipInY2 an-delay600").addClass("an-flipOutY2");
