@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>移动单页设计指南</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+	   <meta name="keywords" content="移动单页设计指南">
+	   <meta name="description" content="移动单页设计指南">
+    <link rel="shortcut icon" href="favicon_16.ico">
+    <link rel="bookmark" href="favicon_16.ico">
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/grid.css">
+    <!-- site css -->
+    <link rel="stylesheet" href="./assets/css/layout.css">
+    <link rel="stylesheet" href="./assets/css/highlight.css">
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="./assets/js/html5shiv.min.js"></script>
+      <script src="./assets/js/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+  <body style="background-color: #f1f2f6;">
+    <div class="docs-header">
+      <!--nav-->
+      <nav class="navbar navbar-default navbar-custom" role="navigation">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <a href="index.html"><img class="logo" src="./assets/img/logo.png"></a>
+              <ul class="share clearfix">
+                <li githubpress-website-weibo="" href="http://www.weibo.com/uedtianji"><a href="#"><span class="weibo icon-sina-weibo"></span></a></li>
+                <li githubpress-website-github="" href="https://github.com/uedtianji"><a href="#"><span class="github icon-github"></span></a></li>
+                
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="container">
+      <div class="row">
+<section class="bbox-wrp">
+<div class="info">
+    <div class="timeline">
+        <div class="category">
+                <i class="icon-github"></i>
+        </div>
+        <div class="time" githubpress-date="">12-08</div>
+        <div class="author" githubpress-author="">uedtianji</div>
+    </div>
+</div>
+<div class="blog-box">
+<div class="blog-view">
+    <div class="title clearfix underline" githubpress-title="">移动单页设计指南</div>
+    <div class="content markdown typo" githubpress-content=""><h1 id="-">移动单页设计指南</h1>
+<p>本指南只针对现在流行的交互单页设计，且以微信中浏览为准，分辨率上以iphone手机为基准。<br><img src="https://raw.githubusercontent.com/uedtianji/mobile_design_guide/master/img/1.gif" alt="交互单页"><br>上图就是交互单页的例子，这种页面具有以下特点：  </p>
+<blockquote>
+<p>1.内容分为多个单页。<br>2.每个单页都充满整个屏幕。<br>3.单页之间依靠上下滑进行页面间的转换。  </p>
+</blockquote>
+<p>根据上面的特点，在设计页面时需注意：  </p>
+<h3 id="1-">1.尺寸</h3>
+<p>iphone5的页面设计尺寸为<code>640X1136</code>,iphone4的页面设计尺寸为<code>640X960</code>;<br>为保证iphone5下面可以正常充满屏幕，需要按照<code>640x1136</code>设计。<br>由于在单页中上滑为翻页，所以设计图中的重要内容不能超出屏幕范围，超出的部分将无法显示；屏幕中还有系统任务栏，微信标题栏，两个共计 128px(两倍大小)，所以设计图中的重要内容不能超过<code>832px</code>(960-128)。<br>例如下面的设计图中的重要内容-奖项设置，超过了832px,虽然在iphone5中显示正常，在iphone4中无法显示完整。  </p>
+<h4 id="iphone5">iphone5</h4>
+<p><img src="https://raw.githubusercontent.com/uedtianji/mobile_design_guide/master/img/gaoduiphone5.jpg" alt="iphone5">  </p>
+<h4 id="iphone4">iphone4</h4>
+<p><img src="https://raw.githubusercontent.com/uedtianji/mobile_design_guide/master/img/gaoduiphone4.jpg" alt="iphone4">  </p>
+<h3 id="2-">2.输入框</h3>
+<p>如果设计中出现了输入框，例如让用户输入姓名、电话之类的信息，输入框的位置要在设计图的顶部，否则输入框会被弹出的键盘遮住导致无法输入。<br>例如：<br><img src="https://raw.githubusercontent.com/uedtianji/mobile_design_guide/master/img/shuru.jpg" alt=""><br>将输入框移至顶部后可以正常输入。<br><img src="https://raw.githubusercontent.com/uedtianji/mobile_design_guide/master/img/shurur.jpg" alt="">    </p>
+<h3 id="3-">3.叠加、柔光等</h3>
+<p>如果设计图需要叠加柔光等效果，而且使用该效果的部分需要做动画，请不要使用叠加、柔光等图层混合选项。<br>例如下图中的红色圆圈需要做动画（由外部飘入），左图为设计图，圆圈使用了叠加。将圆圈切出来放入页面中后，由于浏览器无法使用叠加，导致右图中的不透明的红球，与设计图有误。  </p>
+<p><img src="https://raw.githubusercontent.com/uedtianji/mobile_design_guide/master/img/diejia.jpg" alt="">    </p>
+<p>更多教程请访问：<a href="http://ued.sexy">ued.sexy</a>  </p>
+</div>
+</div>
+  <div id="comments" class="comments-view">
+      <div class="publish-comment">
+          <!-- 多说评论框 start -->
+          <div class="ds-thread" data-short-name="uedsexy" data-thread-key="uedtianji/mobile_design_guide" data-title="移动单页设计指南" data-url="http://ued.sexy/1418022536925.html"></div>
+          <!-- 多说评论框 end -->
+      </div>
+  </div>
+</div>
+</section>
+      </div>
+    </div>
+    <div class="site-footer">
+      <div class="container">
+        <div class="copyright clearfix">
+          <p>Copyright © 2014 <a href="http://ued.sexy" target="_blank">ued.sexy</a></p>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:document.querySelector(".ds-thread").getAttribute("data-short-name")};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0] 
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script>
+  </body>
+</html>

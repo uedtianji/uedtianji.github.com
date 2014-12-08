@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>用Canvas制作可以根据手势摆动的树</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+	   <meta name="keywords" content="用Canvas制作可以根据手势摆动的树">
+	   <meta name="description" content="用Canvas制作可以根据手势摆动的树">
+    <link rel="shortcut icon" href="favicon_16.ico">
+    <link rel="bookmark" href="favicon_16.ico">
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/grid.css">
+    <!-- site css -->
+    <link rel="stylesheet" href="./assets/css/layout.css">
+    <link rel="stylesheet" href="./assets/css/highlight.css">
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="./assets/js/html5shiv.min.js"></script>
+      <script src="./assets/js/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+  <body style="background-color: #f1f2f6;">
+    <div class="docs-header">
+      <!--nav-->
+      <nav class="navbar navbar-default navbar-custom" role="navigation">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <a href="index.html"><img class="logo" src="./assets/img/logo.png"></a>
+              <ul class="share clearfix">
+                <li githubpress-website-weibo="" href="http://www.weibo.com/uedtianji"><a href="#"><span class="weibo icon-sina-weibo"></span></a></li>
+                <li githubpress-website-github="" href="https://github.com/uedtianji"><a href="#"><span class="github icon-github"></span></a></li>
+                
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="container">
+      <div class="row">
+<section class="bbox-wrp">
+<div class="info">
+    <div class="timeline">
+        <div class="category">
+                <i class="icon-github"></i>
+        </div>
+        <div class="time" githubpress-date="">12-08</div>
+        <div class="author" githubpress-author="">cyclegtx</div>
+    </div>
+</div>
+<div class="blog-box">
+<div class="blog-view">
+    <div class="title clearfix underline" githubpress-title="">用Canvas制作可以根据手势摆动的树</div>
+    <div class="content markdown typo" githubpress-content=""><h1 id="-canvas-">用Canvas制作可以根据手势摆动的树</h1>
+<p><img src="https://raw.githubusercontent.com/cyclegtx/rocked_tree/master/images/1.gif" alt="最终效果"><br>根据工作的需要，制作一个摆动的树做为页面的背景。为了增加页面的交互性，我又为背景中的树增加了鼠标（触控）事件，使他能够根据鼠标（触控）做出相应的动作，当手指做上下或者左右滑动的时候树会跟着摆动。  </p>
+<h4 id="step1-html-tree-">Step1.完成HTML页面，新建一个Tree类</h4>
+<p>完成HTML页面后新建一个Tree类用来记录树的各个属性。其中<code>x,y</code>为树根部的坐标值，<code>branchLen,branchWidth</code>分别是树枝的长度与宽度，<code>depth</code>为树枝的层数，<code>canvas</code>用来接页面中的canvas元素（默认是ID为canvas的元素）。</p>
+<pre class="hljs"><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Tree</span><span class="hljs-params">(x,y,branchLen,branchWidth,depth,canvas)</span></span>{
+    <span class="hljs-keyword">this</span>.canvas = canvas || <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'canvas'</span>);
+    <span class="hljs-keyword">this</span>.ctx = <span class="hljs-keyword">this</span>.canvas.getContext(<span class="hljs-string">'2d'</span>);
+    <span class="hljs-keyword">this</span>.x = x||<span class="hljs-number">0</span>;
+    <span class="hljs-keyword">this</span>.y = y||<span class="hljs-number">0</span>;
+    <span class="hljs-keyword">this</span>.branchLen = branchLen||<span class="hljs-number">0</span>;
+    <span class="hljs-keyword">this</span>.branchWidth = branchWidth||<span class="hljs-number">0</span>;
+    <span class="hljs-keyword">var</span> depth = depth || <span class="hljs-number">5</span>;
+}
+</code></pre>
+<p><a href="https://github.com/cyclegtx/rocked_tree/tree/9cd00a685bd310b6824b1f006822b590b315ed5f" target="_blank">点击查看历史代码</a></p>
+<h4 id="step2-drawroot-">Step2.添加drawRoot方法，用来绘制树干</h4>
+<p>首先在drawRoot中画第一个枝干。drawRoot的参数意义同上。并且在Tree类的构造函数中运行drawRoot并把Tree接受到的参数传入。最后new一个Tree类，使树根位于屏幕的底部正中心，树枝长100px，树枝宽度为8px，树枝层数为8层（暂时用不上）。<code>var atree = new Tree(canvas.width/2-4,canvas.height,100,8,8,canvas);</code>  </p>
+<p>在drawRoot中我们需要用<code>lineTo()</code>画出树枝。树枝的起始的坐标值<code>(x,y)</code>已经给出，结束的坐标值<code>(toX,toY)</code>需要进行计算。第一个画的是树干，由于树干垂直于地面所以结束坐标<code>toX</code>等于初始坐标<code>x</code>,而结束坐标<code>toY</code>等于初始<code>y</code>减去树干长度<code>branchLen</code>(注意坐标的0,0点在canvas的左上角)。<code>var toX = x;var toY = y-branchLen;</code></p>
+<pre class="hljs"><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Tree</span><span class="hljs-params">(x,y,branchLen,branchWidth,depth,canvas)</span></span>{
+    <span class="hljs-keyword">this</span>.canvas = canvas || <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'canvas'</span>);
+    <span class="hljs-keyword">this</span>.ctx = <span class="hljs-keyword">this</span>.canvas.getContext(<span class="hljs-string">'2d'</span>);
+    <span class="hljs-keyword">this</span>.x = x||<span class="hljs-number">0</span>;
+    <span class="hljs-keyword">this</span>.y = y||<span class="hljs-number">0</span>;
+    <span class="hljs-keyword">this</span>.branchLen = branchLen||<span class="hljs-number">0</span>;
+    <span class="hljs-keyword">this</span>.branchWidth = branchWidth||<span class="hljs-number">0</span>;
+    <span class="hljs-keyword">var</span> depth = depth || <span class="hljs-number">5</span>;
+    <span class="hljs-keyword">this</span>.drawRoot(<span class="hljs-keyword">this</span>.x,<span class="hljs-keyword">this</span>.y,<span class="hljs-keyword">this</span>.branchLen,<span class="hljs-keyword">this</span>.branchWidth);
+}
+Tree.prototype.drawRoot = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(x,y,branchLen,branchWidth)</span></span>{
+    <span class="hljs-keyword">var</span> toX = x;
+    <span class="hljs-keyword">var</span> toY = y-branchLen;
+    <span class="hljs-keyword">this</span>.ctx.save();
+    <span class="hljs-keyword">this</span>.ctx.strokeStyle=<span class="hljs-string">"rgba(37, 141, 194, 0.93)"</span>;
+    <span class="hljs-keyword">this</span>.ctx.beginPath();
+    <span class="hljs-keyword">this</span>.ctx.lineCap = <span class="hljs-string">"butt"</span>;
+    <span class="hljs-keyword">this</span>.ctx.lineJoin=<span class="hljs-string">"round"</span>;
+    <span class="hljs-keyword">this</span>.ctx.lineWidth = branchWidth;
+    <span class="hljs-keyword">this</span>.ctx.moveTo(x,y);
+    <span class="hljs-keyword">this</span>.ctx.lineTo(toX,toY);
+    <span class="hljs-keyword">this</span>.ctx.closePath();
+    <span class="hljs-keyword">this</span>.ctx.stroke();
+    <span class="hljs-keyword">this</span>.ctx.restore();
+}
+<span class="hljs-keyword">var</span> atree = <span class="hljs-keyword">new</span> Tree(canvas.width/<span class="hljs-number">2</span>-<span class="hljs-number">4</span>,canvas.height,<span class="hljs-number">100</span>,<span class="hljs-number">8</span>,<span class="hljs-number">8</span>,canvas);
+</code></pre>
+<p>运行代码：<br><img src="https://raw.githubusercontent.com/cyclegtx/rocked_tree/master/images/2.jpg" alt="效果图"><br><a href="https://github.com/cyclegtx/rocked_tree/tree/dba5140fd14365d228147e936d97573364ab23fa" target="_blank">点击查看历史代码</a></p>
+<h4 id="step3-drawbranch-">Step3.添加drawBranch方法，用来绘制树枝</h4>
+<p>drawBranch同样是根据初始与结束坐标画出一条直线代表树枝。与树干不同的是树枝不再是垂直与地面而是与树干保持一定的角度，而且树枝的初始值是树干的结束点<code>(toX,toY)</code>。所以在drawBranch中我们加入新参数<code>angle</code>用来表示树枝与树干的垂直夹角α，这样就可以根据α算出toX与toY。请看图。<br><img src="https://raw.githubusercontent.com/cyclegtx/rocked_tree/master/images/3-1.jpg" alt="效果图"><br>这样我们在画完树干后再分别画两个不同角度的树枝，一个是<code>30°</code>一个<code>-30°</code>。并将传给树枝的宽度branchWidth减小一个像素，使其与树干粗细不同。</p>
+<pre class="hljs"><code class="lang-javascript">Tree.prototype.drawRoot = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(x,y,branchLen,branchWidth)</span></span>{
+    <span class="hljs-keyword">var</span> toX = x;
+    <span class="hljs-keyword">var</span> toY = y-branchLen;
+    <span class="hljs-keyword">this</span>.ctx.save();
+    <span class="hljs-keyword">this</span>.ctx.strokeStyle=<span class="hljs-string">"rgba(37, 141, 194, 0.93)"</span>;
+    <span class="hljs-keyword">this</span>.ctx.beginPath();
+    <span class="hljs-keyword">this</span>.ctx.lineCap = <span class="hljs-string">"butt"</span>;
+    <span class="hljs-keyword">this</span>.ctx.lineJoin=<span class="hljs-string">"round"</span>;
+    <span class="hljs-keyword">this</span>.ctx.lineWidth = branchWidth;
+    <span class="hljs-keyword">this</span>.ctx.moveTo(x,y);
+    <span class="hljs-keyword">this</span>.ctx.lineTo(toX,toY);
+    <span class="hljs-keyword">this</span>.ctx.closePath();
+    <span class="hljs-keyword">this</span>.ctx.stroke();
+    <span class="hljs-keyword">this</span>.ctx.restore();
+    <span class="hljs-keyword">this</span>.drawBranch(toX,toY,branchLen,branchWidth-<span class="hljs-number">1</span>,<span class="hljs-number">30</span>);
+    <span class="hljs-keyword">this</span>.drawBranch(toX,toY,branchLen,branchWidth-<span class="hljs-number">1</span>,-<span class="hljs-number">30</span>);
+}
+Tree.prototype.drawBranch = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(x,y,branchLen,branchWidth,angle)</span></span>{
+    <span class="hljs-keyword">var</span> angle = angle || <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">var</span> radian = (<span class="hljs-number">90</span>-angle)*(<span class="hljs-built_in">Math</span>.PI/<span class="hljs-number">180</span>);
+    <span class="hljs-keyword">var</span> toX = x+<span class="hljs-built_in">Math</span>.cos(radian)*branchLen;
+    <span class="hljs-keyword">var</span> toY = y-<span class="hljs-built_in">Math</span>.sin(radian)*branchLen;
+    <span class="hljs-keyword">this</span>.ctx.save();
+    <span class="hljs-keyword">this</span>.ctx.strokeStyle=<span class="hljs-string">"rgba(37, 141, 194, 0.93)"</span>;
+    <span class="hljs-keyword">this</span>.ctx.beginPath();
+    <span class="hljs-keyword">this</span>.ctx.lineCap = <span class="hljs-string">"butt"</span>;
+    <span class="hljs-keyword">this</span>.ctx.lineJoin=<span class="hljs-string">"round"</span>;
+    <span class="hljs-keyword">this</span>.ctx.lineWidth = branchWidth;
+    <span class="hljs-keyword">this</span>.ctx.moveTo(x,y);
+    <span class="hljs-keyword">this</span>.ctx.lineTo(toX,toY);
+    <span class="hljs-keyword">this</span>.ctx.closePath();
+    <span class="hljs-keyword">this</span>.ctx.stroke();
+    <span class="hljs-keyword">this</span>.ctx.restore();
+}
+</code></pre>
+<p>运行代码：<br><img src="https://raw.githubusercontent.com/cyclegtx/rocked_tree/master/images/3.jpg" alt="效果图"><br><a href="https://github.com/cyclegtx/rocked_tree/tree/355ea5357df9b516950a3c368c440434d728bda1" target="_blank">点击查看历史代码</a>  </p>
+<h4 id="step4-drawbranch-">Step4.修改drawBranch函数，重复画树枝</h4>
+<p>在drawBranch函数的最后再次调用两次drawBranch  </p>
+<pre class="hljs"><code class="lang-javascript"><span class="hljs-keyword">this</span>.drawBranch(toX,toY,branchLen,branchWidth-<span class="hljs-number">1</span>,angle+<span class="hljs-number">30</span>);
+<span class="hljs-keyword">this</span>.drawBranch(toX,toY,branchLen,branchWidth-<span class="hljs-number">1</span>,angle-<span class="hljs-number">30</span>);
+</code></pre>
+<p>使其调用自己完成递归,注意这里传入的角度是在之前的角度的基础上在增加或者减少30度。<br>为了使递归停下来我们需要一个停止条件，就是之前一直没有用到的<code>depth</code>参数。我们在每次画下一层之前使其减1表示已经完成了一层树枝的绘制，直至depth减小到0表示绘制完所有的层数。  </p>
+<pre class="hljs"><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Tree</span><span class="hljs-params">(x,y,branchLen,branchWidth,depth,canvas)</span></span>{
+    <span class="hljs-keyword">this</span>.canvas = canvas || <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'canvas'</span>);
+    <span class="hljs-keyword">this</span>.ctx = <span class="hljs-keyword">this</span>.canvas.getContext(<span class="hljs-string">'2d'</span>);
+    <span class="hljs-keyword">this</span>.x = x||<span class="hljs-number">0</span>;
+    <span class="hljs-keyword">this</span>.y = y||<span class="hljs-number">0</span>;
+    <span class="hljs-keyword">this</span>.branchLen = branchLen||<span class="hljs-number">0</span>;
+    <span class="hljs-keyword">this</span>.branchWidth = branchWidth||<span class="hljs-number">0</span>;
+    <span class="hljs-keyword">var</span> depth = depth || <span class="hljs-number">5</span>;
+    <span class="hljs-keyword">this</span>.drawRoot(<span class="hljs-keyword">this</span>.x,<span class="hljs-keyword">this</span>.y,<span class="hljs-keyword">this</span>.branchLen,<span class="hljs-keyword">this</span>.branchWidth,depth);
+}
+Tree.prototype.drawRoot = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(x,y,branchLen,branchWidth,depth)</span></span>{
+    <span class="hljs-keyword">var</span> toX = x;
+    <span class="hljs-keyword">var</span> toY = y-branchLen;
+    <span class="hljs-keyword">var</span> depth = depth||<span class="hljs-number">5</span>;
+    <span class="hljs-keyword">this</span>.ctx.save();
+    <span class="hljs-keyword">this</span>.ctx.strokeStyle=<span class="hljs-string">"rgba(37, 141, 194, 0.93)"</span>;
+    <span class="hljs-keyword">this</span>.ctx.beginPath();
+    <span class="hljs-keyword">this</span>.ctx.lineCap = <span class="hljs-string">"butt"</span>;
+    <span class="hljs-keyword">this</span>.ctx.lineJoin=<span class="hljs-string">"round"</span>;
+    <span class="hljs-keyword">this</span>.ctx.lineWidth = branchWidth;
+    <span class="hljs-keyword">this</span>.ctx.moveTo(x,y);
+    <span class="hljs-keyword">this</span>.ctx.lineTo(toX,toY);
+    <span class="hljs-keyword">this</span>.ctx.closePath();
+    <span class="hljs-keyword">this</span>.ctx.stroke();
+    <span class="hljs-keyword">this</span>.ctx.restore();
+    depth--;
+    <span class="hljs-keyword">if</span>(depth&gt;<span class="hljs-number">0</span>){
+      <span class="hljs-keyword">this</span>.drawBranch(toX,toY,branchLen,branchWidth-<span class="hljs-number">1</span>,<span class="hljs-number">30</span>,depth);
+      <span class="hljs-keyword">this</span>.drawBranch(toX,toY,branchLen,branchWidth-<span class="hljs-number">1</span>,-<span class="hljs-number">30</span>,depth);
+    }
+}
+Tree.prototype.drawBranch = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(x,y,branchLen,branchWidth,angle,depth)</span></span>{
+    <span class="hljs-keyword">var</span> angle = angle || <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">var</span> radian = (<span class="hljs-number">90</span>-angle)*(<span class="hljs-built_in">Math</span>.PI/<span class="hljs-number">180</span>);
+    <span class="hljs-keyword">var</span> toX = x+<span class="hljs-built_in">Math</span>.cos(radian)*branchLen;
+    <span class="hljs-keyword">var</span> toY = y-<span class="hljs-built_in">Math</span>.sin(radian)*branchLen;
+    <span class="hljs-keyword">this</span>.ctx.save();
+    <span class="hljs-keyword">this</span>.ctx.strokeStyle=<span class="hljs-string">"rgba(37, 141, 194, 0.93)"</span>;
+    <span class="hljs-keyword">this</span>.ctx.beginPath();
+    <span class="hljs-keyword">this</span>.ctx.lineCap = <span class="hljs-string">"butt"</span>;
+    <span class="hljs-keyword">this</span>.ctx.lineJoin=<span class="hljs-string">"round"</span>;
+    <span class="hljs-keyword">this</span>.ctx.lineWidth = branchWidth;
+    <span class="hljs-keyword">this</span>.ctx.moveTo(x,y);
+    <span class="hljs-keyword">this</span>.ctx.lineTo(toX,toY);
+    <span class="hljs-keyword">this</span>.ctx.closePath();
+    <span class="hljs-keyword">this</span>.ctx.stroke();
+    <span class="hljs-keyword">this</span>.ctx.restore();
+    depth--;
+    <span class="hljs-keyword">if</span>(depth&gt;<span class="hljs-number">0</span>){
+      <span class="hljs-keyword">this</span>.drawBranch(toX,toY,branchLen,branchWidth-<span class="hljs-number">1</span>,angle+<span class="hljs-number">30</span>,depth);
+      <span class="hljs-keyword">this</span>.drawBranch(toX,toY,branchLen,branchWidth-<span class="hljs-number">1</span>,angle-<span class="hljs-number">30</span>,depth);
+    }
+}
+</code></pre>
+<p>运行代码：<br><img src="https://raw.githubusercontent.com/cyclegtx/rocked_tree/master/images/4-1.jpg" alt="效果图"><br>由于树之间角度过大，而且所有树枝长度都相等，看起来并不像一棵树。所以我们需要在Tree的构造函数中加入几个参数用来调整树的姿态。   </p>
+<pre class="hljs"><code class="lang-javasript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Tree</span><span class="hljs-params">(x,y,branchLen,branchWidth,depth,canvas)</span></span>{
+    ......
+    <span class="hljs-keyword">this</span>.branchLenFactor = <span class="hljs-number">0.8</span>;
+    <span class="hljs-keyword">this</span>.rootLenFactor = <span class="hljs-number">1.2</span>;
+    <span class="hljs-keyword">this</span>.branchAngle = <span class="hljs-number">20</span>;
+    ......
+}
+</code></pre>
+<p>branchLenFactor:画每一层树枝的时候乘在branchLen上面，用来控制树枝长度。
+rootLenFactor:画树根的时候乘在branchLen上面，用来控制树根长度。
+branchAngle: 用来控制树枝之间的角度。   </p>
+<pre class="hljs"><code class="lang-javascript">  Tree.prototype.drawRoot = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(x,y,branchLen,branchWidth,depth)</span></span>{
+    <span class="hljs-keyword">var</span> toX = x;
+    <span class="hljs-keyword">var</span> toY = y-branchLen*<span class="hljs-keyword">this</span>.rootLenFactor;
+    <span class="hljs-keyword">var</span> depth = depth||<span class="hljs-number">5</span>;
+    <span class="hljs-keyword">this</span>.ctx.save();
+    <span class="hljs-keyword">this</span>.ctx.strokeStyle=<span class="hljs-string">"rgba(37, 141, 194, 0.93)"</span>;
+    <span class="hljs-keyword">this</span>.ctx.beginPath();
+    <span class="hljs-keyword">this</span>.ctx.lineCap = <span class="hljs-string">"butt"</span>;
+    <span class="hljs-keyword">this</span>.ctx.lineJoin=<span class="hljs-string">"round"</span>;
+    <span class="hljs-keyword">this</span>.ctx.lineWidth = branchWidth;
+    <span class="hljs-keyword">this</span>.ctx.moveTo(x,y);
+    <span class="hljs-keyword">this</span>.ctx.lineTo(toX,toY);
+    <span class="hljs-keyword">this</span>.ctx.closePath();
+    <span class="hljs-keyword">this</span>.ctx.stroke();
+    <span class="hljs-keyword">this</span>.ctx.restore();
+    depth--;
+    <span class="hljs-keyword">if</span>(depth&gt;<span class="hljs-number">0</span>){
+      <span class="hljs-keyword">this</span>.drawBranch(toX,toY,branchLen*<span class="hljs-keyword">this</span>.branchLenFactor,branchWidth-<span class="hljs-number">1</span>,<span class="hljs-keyword">this</span>.branchAngle,depth);
+      <span class="hljs-keyword">this</span>.drawBranch(toX,toY,branchLen*<span class="hljs-keyword">this</span>.branchLenFactor,branchWidth-<span class="hljs-number">1</span>,-<span class="hljs-keyword">this</span>.branchAngle,depth);
+    }
+  }
+  Tree.prototype.drawBranch = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(x,y,branchLen,branchWidth,angle,depth)</span></span>{
+    <span class="hljs-keyword">var</span> angle = angle || <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">var</span> radian = (<span class="hljs-number">90</span>-angle)*(<span class="hljs-built_in">Math</span>.PI/<span class="hljs-number">180</span>);
+    <span class="hljs-keyword">var</span> toX = x+<span class="hljs-built_in">Math</span>.cos(radian)*branchLen;
+    <span class="hljs-keyword">var</span> toY = y-<span class="hljs-built_in">Math</span>.sin(radian)*branchLen;
+    <span class="hljs-keyword">this</span>.ctx.save();
+    <span class="hljs-keyword">this</span>.ctx.strokeStyle=<span class="hljs-string">"rgba(37, 141, 194, 0.93)"</span>;
+    <span class="hljs-keyword">this</span>.ctx.beginPath();
+    <span class="hljs-keyword">this</span>.ctx.lineCap = <span class="hljs-string">"butt"</span>;
+    <span class="hljs-keyword">this</span>.ctx.lineJoin=<span class="hljs-string">"round"</span>;
+    <span class="hljs-keyword">this</span>.ctx.lineWidth = branchWidth;
+    <span class="hljs-keyword">this</span>.ctx.moveTo(x,y);
+    <span class="hljs-keyword">this</span>.ctx.lineTo(toX,toY);
+    <span class="hljs-keyword">this</span>.ctx.closePath();
+    <span class="hljs-keyword">this</span>.ctx.stroke();
+    <span class="hljs-keyword">this</span>.ctx.restore();
+    depth--;
+    <span class="hljs-keyword">if</span>(depth&gt;<span class="hljs-number">0</span>){
+      <span class="hljs-keyword">this</span>.drawBranch(toX,toY,branchLen*<span class="hljs-keyword">this</span>.branchLenFactor,branchWidth-<span class="hljs-number">1</span>,angle+<span class="hljs-keyword">this</span>.branchAngle,depth);
+      <span class="hljs-keyword">this</span>.drawBranch(toX,toY,branchLen*<span class="hljs-keyword">this</span>.branchLenFactor,branchWidth-<span class="hljs-number">1</span>,angle-<span class="hljs-keyword">this</span>.branchAngle,depth);
+    }
+  }
+</code></pre>
+<p>运行代码：<br><img src="https://raw.githubusercontent.com/cyclegtx/rocked_tree/master/images/4-2.jpg" alt="效果图"><br><a href="https://github.com/cyclegtx/rocked_tree/tree/a450d7faedbc6dfff2f78773ce2c8299a971178b" target="_blank">点击查看历史代码</a>  </p>
+<h4 id="step5-">Step5.使树枝晃动起来</h4>
+<p>为了使树枝有摇晃的效果，我们只需要改变树枝之间的角度branchAngle就可以了。我需要在Tree的构造函数中增加三个新属性：<code>oBranchAngle</code>用来记录初始角度；<code>branchAngleFactor</code>用来控制角度随时间变化的变化量；<code>swingAngle</code>:随时间增加用来记录摇动的角度。<br>同时修改下drawRoot函数使其不用接受参数。调用更加方便。</p>
+<pre class="hljs"><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Tree</span><span class="hljs-params">(x,y,branchLen,branchWidth,depth,canvas)</span></span>{
+    ......
+    <span class="hljs-keyword">this</span>.branchAngle = <span class="hljs-number">20</span>;
+    <span class="hljs-keyword">this</span>.oBranchAngle = <span class="hljs-keyword">this</span>.branchAngle;
+    <span class="hljs-keyword">this</span>.branchAngleFactor = <span class="hljs-number">5</span>;
+    <span class="hljs-keyword">this</span>.swingAngle = <span class="hljs-number">0</span>;
+    ......
+    <span class="hljs-keyword">this</span>.drawRoot();
+}
+
+Tree.prototype.drawRoot = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-keyword">var</span> x = <span class="hljs-keyword">this</span>.x,y=<span class="hljs-keyword">this</span>.y,branchLen = <span class="hljs-keyword">this</span>.branchLen,depth = <span class="hljs-keyword">this</span>.depth,branchWidth = <span class="hljs-keyword">this</span>.branchWidth;
+    <span class="hljs-keyword">var</span> toX = x;
+    <span class="hljs-keyword">var</span> toY = y-branchLen*<span class="hljs-keyword">this</span>.rootLenFactor;
+    <span class="hljs-keyword">var</span> depth = depth||<span class="hljs-number">5</span>;
+    <span class="hljs-keyword">this</span>.ctx.save();
+    <span class="hljs-keyword">this</span>.ctx.strokeStyle=<span class="hljs-string">"rgba(37, 141, 194, 0.93)"</span>;
+    <span class="hljs-keyword">this</span>.ctx.beginPath();
+    <span class="hljs-keyword">this</span>.ctx.lineCap = <span class="hljs-string">"butt"</span>;
+    <span class="hljs-keyword">this</span>.ctx.lineJoin=<span class="hljs-string">"round"</span>;
+    <span class="hljs-keyword">this</span>.ctx.lineWidth = <span class="hljs-keyword">this</span>.branchWidth;
+    <span class="hljs-keyword">this</span>.ctx.moveTo(x,y);
+    <span class="hljs-keyword">this</span>.ctx.lineTo(toX,toY);
+    <span class="hljs-keyword">this</span>.ctx.closePath();
+    <span class="hljs-keyword">this</span>.ctx.stroke();
+    <span class="hljs-keyword">this</span>.ctx.restore();
+    depth--;
+    <span class="hljs-keyword">if</span>(depth&gt;<span class="hljs-number">0</span>){
+      <span class="hljs-keyword">this</span>.drawBranch(toX,toY,branchLen*<span class="hljs-keyword">this</span>.branchLenFactor,branchWidth-<span class="hljs-number">1</span>,<span class="hljs-keyword">this</span>.branchAngle,depth);
+      <span class="hljs-keyword">this</span>.drawBranch(toX,toY,branchLen*<span class="hljs-keyword">this</span>.branchLenFactor,branchWidth-<span class="hljs-number">1</span>,-<span class="hljs-keyword">this</span>.branchAngle,depth);
+    }
+  }
+</code></pre>
+<p>增加循环函数，在循环函数中重绘整个树，并且每次重绘都要修改branchAngle值，使大树摇动起来。<code>atree.swingAngle++;</code>使摇动角度随时间变化。这里使用<code>Math.sin(atree.swingAngle*(Math.PI/180))</code>可以获得一个-1至1之间的连续变化值。<code>atree.branchAngle = Math.sin(atree.swingAngle*(Math.PI/180))*atree.branchAngleFactor+atree.oBranchAngle;</code>乘以系数并加在原角度上。</p>
+<pre class="hljs"><code class="lang-javascript">function <span class="hljs-built_in">loop</span>(time){
+    ctx.clearRect(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,canvas.<span class="hljs-variable">width</span>,canvas.<span class="hljs-variable">height</span>);
+    atree.branchAngle = Math.<span class="hljs-built_in">sin</span>(atree.swingAngle*(Math.<span class="hljs-constant">PI</span>/<span class="hljs-number">180</span>))*atree.branchAngleFactor+atree.oBranchAngle;
+    atree.drawRoot()
+    requestAnimFrame(<span class="hljs-built_in">loop</span>);
+  }
+  <span class="hljs-built_in">loop</span>(<span class="hljs-number">0</span>);
+</code></pre>
+<p>运行代码：<br><img src="https://raw.githubusercontent.com/cyclegtx/rocked_tree/master/images/5.gif" alt="效果图"><br><a href="https://github.com/cyclegtx/rocked_tree/tree/1fc535215e0fdc86f95329518d4de8aae73b8c61" target="_blank">点击查看历史代码</a>    </p>
+<h4 id="step6-">Step6.添加手势</h4>
+<p>这里为了省事只添加了touch事件，mouse事件与touch事件的处理方法大体一致。<br>首先为Tree新加一个属性<code>swingSwitch = true</code>用来表示大树是否摆动。当手指触控到屏幕的时候摆动停止，离开屏幕的时候摆动继续。<br>添加<code>strengthX</code>,<code>strengthY</code>两个属性;分别表示树在x轴与y轴因受到的力而移动的距离。<br>添加<code>strengthXFactor</code>,<code>strengthYFactor</code>；分别用来表示再一次滑动中x轴与y轴移动的最大距离。  </p>
+<pre class="hljs"><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Tree</span><span class="hljs-params">(x,y,branchLen,branchWidth,depth,canvas)</span></span>{
+    ......
+    <span class="hljs-keyword">this</span>.swingSwitch = <span class="hljs-literal">true</span>;
+    ......
+    <span class="hljs-keyword">this</span>.strengthX = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">this</span>.strengthY = <span class="hljs-number">0</span>;
+    ......
+  }
+</code></pre>
+<pre class="hljs"><code class="lang-javascript"><span class="hljs-comment">//记录触控开始时的信息</span>
+<span class="hljs-keyword">var</span> touchStart = {x:<span class="hljs-number">0</span>,y:<span class="hljs-number">0</span>,strengthX:<span class="hljs-number">0</span>,strengthY:<span class="hljs-number">0</span>};
+<span class="hljs-built_in">document</span>.addEventListener(<span class="hljs-string">'touchstart'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span></span>{
+    <span class="hljs-comment">//让树停止摆动</span>
+    atree.swingSwitch = <span class="hljs-literal">false</span>;
+    touchStart.x = e.touches[<span class="hljs-number">0</span>].clientX;
+    touchStart.y = e.touches[<span class="hljs-number">0</span>].clientY;
+    <span class="hljs-comment">//记录触控开始时,原strength的值</span>
+    touchStart.strengthX = atree.strengthX;
+    touchStart.strengthY = atree.strengthY;
+});
+<span class="hljs-built_in">document</span>.addEventListener(<span class="hljs-string">'touchmove'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span></span>{
+    <span class="hljs-comment">//阻止浏览器默认动作</span>
+    e.preventDefault();
+    <span class="hljs-comment">//(touchStart.x-e.touches[0].clientX)/canvas.width可以根据滑动距离获得一个0-1的值</span>
+    atree.strengthX = touchStart.strengthX-(touchStart.x-e.touches[<span class="hljs-number">0</span>].clientX)/canvas.width*atree.strengthXFactor;
+    atree.strengthY = touchStart.strengthY-(touchStart.y-e.touches[<span class="hljs-number">0</span>].clientY)/canvas.height*atree.strengthYFactor;
+});
+<span class="hljs-built_in">document</span>.addEventListener(<span class="hljs-string">'touchend'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span></span>{
+    <span class="hljs-comment">//恢复摆动</span>
+    atree.swingSwitch = <span class="hljs-literal">true</span>;
+});
+</code></pre>
+<p>修改drawBranch将strength的变化添加到角度与toX，toY的计算中，详情见注释。</p>
+<pre class="hljs"><code class="lang-javascript">Tree.prototype.drawBranch = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(x,y,branchLen,branchWidth,angle,depth)</span></span>{
+
+    <span class="hljs-keyword">var</span> angle = angle || <span class="hljs-number">0</span>;
+    <span class="hljs-comment">//用strengthX乘以(depth/this.depth)使得树枝末梢对角度的变化不敏感</span>
+    angle += <span class="hljs-keyword">this</span>.strengthX*(depth/<span class="hljs-keyword">this</span>.depth)/<span class="hljs-keyword">this</span>.strengthXFactor*<span class="hljs-keyword">this</span>.branchAngle;
+    <span class="hljs-keyword">var</span> radian = (<span class="hljs-number">90</span>-angle)*(<span class="hljs-built_in">Math</span>.PI/<span class="hljs-number">180</span>);
+    <span class="hljs-comment">//用strengthX乘以(1-depth/this.depth)使得树枝末梢对角度的变化敏感</span>
+    <span class="hljs-keyword">var</span> toX = x+<span class="hljs-built_in">Math</span>.cos(radian)*branchLen+<span class="hljs-keyword">this</span>.strengthX*(<span class="hljs-number">1</span>-depth/<span class="hljs-keyword">this</span>.depth);
+    <span class="hljs-keyword">var</span> toY = y-<span class="hljs-built_in">Math</span>.sin(radian)*branchLen+<span class="hljs-keyword">this</span>.strengthY*(<span class="hljs-number">1</span>-depth/<span class="hljs-keyword">this</span>.depth);
+    ......
+}
+</code></pre>
+<p>在动画循环中添加恢复代码，使strengthX，strengthY恢复为0，并增加swingSwitch的判断。</p>
+<pre class="hljs"><code class="lang-javascript">function <span class="hljs-keyword">loop</span>(time){
+    <span class="hljs-attribute">...</span><span class="hljs-attribute">...</span>
+    <span class="hljs-comment">//当swingSwitch开启时开始摆动</span>
+    <span class="hljs-keyword">if</span>(atree<span class="hljs-built_in">.</span>swingSwitch){
+        <span class="hljs-comment">//将strength恢复到0</span>
+      <span class="hljs-keyword">if</span>(atree<span class="hljs-built_in">.</span>strengthX <span class="hljs-subst">&gt;</span><span class="hljs-number">0</span>){
+        atree<span class="hljs-built_in">.</span>strengthX <span class="hljs-subst">-=</span> <span class="hljs-number">1</span>;
+      }
+      <span class="hljs-keyword">if</span>(atree<span class="hljs-built_in">.</span>strengthX <span class="hljs-subst">&lt;</span><span class="hljs-number">0</span>){
+        atree<span class="hljs-built_in">.</span>strengthX <span class="hljs-subst">+=</span> <span class="hljs-number">1</span>;
+      }
+      <span class="hljs-keyword">if</span>(atree<span class="hljs-built_in">.</span>strengthY <span class="hljs-subst">&gt;</span><span class="hljs-number">0</span>){
+        atree<span class="hljs-built_in">.</span>strengthY <span class="hljs-subst">-=</span> <span class="hljs-number">1</span>;
+      }
+      <span class="hljs-keyword">if</span>(atree<span class="hljs-built_in">.</span>strengthY <span class="hljs-subst">&lt;</span><span class="hljs-number">0</span>){
+        atree<span class="hljs-built_in">.</span>strengthY <span class="hljs-subst">+=</span> <span class="hljs-number">1</span>;
+      }
+      atree<span class="hljs-built_in">.</span>swingAngle<span class="hljs-subst">++</span>;
+      atree<span class="hljs-built_in">.</span>branchAngle <span class="hljs-subst">=</span> Math<span class="hljs-built_in">.</span>sin(atree<span class="hljs-built_in">.</span>swingAngle<span class="hljs-subst">*</span>(Math<span class="hljs-built_in">.</span>PI/<span class="hljs-number">180</span>))<span class="hljs-subst">*</span>atree<span class="hljs-built_in">.</span>branchAngleFactor<span class="hljs-subst">+</span>atree<span class="hljs-built_in">.</span>oBranchAngle;
+    }
+    <span class="hljs-attribute">...</span><span class="hljs-attribute">...</span>
+}
+<span class="hljs-keyword">loop</span>(<span class="hljs-number">0</span>);
+</code></pre>
+<p>运行代码：<br><img src="https://raw.githubusercontent.com/cyclegtx/rocked_tree/master/images/6.gif" alt="效果图"><br><a href="https://github.com/cyclegtx/rocked_tree/tree/fc396c3490ad873c061145baed773ad83057e1b5" target="_blank">点击查看历史代码</a>  </p>
+<h4 id="step7-">Step7.添加缓动效果</h4>
+<p>Step6中的恢复strengthX,strengthY的代码过于简单，动画匀速恢复到0，显得过于突兀。比较真实的情况应该是由快变慢的恢复，所以我们要为恢复代码加上缓动。首先在Tree中添加<code>recoverStartTime = 0</code>用来记录恢复开始的时间，在手指离开屏幕的时候(touchend)将其赋为0，同时用<code>oStrengthX</code>,<code>oStrengthY</code>记录下来strengthX与strengthY的目标值。</p>
+<pre class="hljs"><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Tree</span><span class="hljs-params">(x,y,branchLen,branchWidth,depth,canvas)</span></span>{
+    ......
+    <span class="hljs-keyword">this</span>.recoverStartTime = <span class="hljs-number">0</span>;
+    ......
+}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loop</span><span class="hljs-params">(time)</span></span>{
+    ......
+    <span class="hljs-keyword">if</span>(atree.swingSwitch){
+      <span class="hljs-keyword">if</span>(atree.strengthX &gt; <span class="hljs-number">0</span>){
+        <span class="hljs-keyword">if</span>(atree.recoverStartTime == <span class="hljs-number">0</span>){
+          atree.recoverStartTime = time;
+        }
+        <span class="hljs-keyword">var</span> t = time-atree.recoverStartTime;
+        <span class="hljs-comment">//五次方的缓动</span>
+        atree.strengthX =  <span class="hljs-built_in">Math</span>.max(atree.oStrengthX-atree.oStrengthX*((t=t/<span class="hljs-number">2000</span>-<span class="hljs-number">1</span>)*t*t*t*t + <span class="hljs-number">1</span>)+<span class="hljs-number">0</span>,<span class="hljs-number">0</span>);
+      }
+      <span class="hljs-keyword">if</span>(atree.strengthX &lt; <span class="hljs-number">0</span>){
+        <span class="hljs-keyword">if</span>(atree.recoverStartTime == <span class="hljs-number">0</span>){
+          atree.recoverStartTime = time;
+        }
+        <span class="hljs-keyword">var</span> t = time-atree.recoverStartTime;
+        <span class="hljs-comment">//五次方的缓动</span>
+        atree.strengthX =  <span class="hljs-built_in">Math</span>.min(atree.oStrengthX-atree.oStrengthX*((t=t/<span class="hljs-number">2000</span>-<span class="hljs-number">1</span>)*t*t*t*t + <span class="hljs-number">1</span>)+<span class="hljs-number">0</span>,<span class="hljs-number">0</span>);
+      }
+      <span class="hljs-keyword">if</span>(atree.strengthY &gt; <span class="hljs-number">0</span>){
+        <span class="hljs-keyword">if</span>(atree.recoverStartTime == <span class="hljs-number">0</span>){
+          atree.recoverStartTime = time;
+        }
+        <span class="hljs-keyword">var</span> t = time-atree.recoverStartTime;
+        <span class="hljs-comment">//五次方的缓动</span>
+        atree.strengthY =  <span class="hljs-built_in">Math</span>.max(atree.oStrengthY-atree.oStrengthY*((t=t/<span class="hljs-number">2000</span>-<span class="hljs-number">1</span>)*t*t*t*t + <span class="hljs-number">1</span>)+<span class="hljs-number">0</span>,<span class="hljs-number">0</span>);
+      }
+      <span class="hljs-keyword">if</span>(atree.strengthY &lt; <span class="hljs-number">0</span>){
+        <span class="hljs-keyword">if</span>(atree.recoverStartTime == <span class="hljs-number">0</span>){
+          atree.recoverStartTime = time;
+        }
+        <span class="hljs-keyword">var</span> t = time-atree.recoverStartTime;
+        <span class="hljs-comment">//五次方的缓动</span>
+        atree.strengthY =  <span class="hljs-built_in">Math</span>.min(atree.oStrengthY-atree.oStrengthY*((t=t/<span class="hljs-number">2000</span>-<span class="hljs-number">1</span>)*t*t*t*t + <span class="hljs-number">1</span>)+<span class="hljs-number">0</span>,<span class="hljs-number">0</span>);
+      }
+    }
+    ......
+}
+<span class="hljs-built_in">document</span>.addEventListener(<span class="hljs-string">'touchend'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span></span>{
+  atree.recoverStartTime = <span class="hljs-number">0</span>;
+  atree.oStrengthX = atree.strengthX;
+  atree.oStrengthY = atree.strengthY;
+  ......
+});
+</code></pre>
+<p>运行代码：<br><img src="https://raw.githubusercontent.com/cyclegtx/rocked_tree/master/images/7.gif" alt="效果图">
+<a href="https://github.com/cyclegtx/rocked_tree/tree/ed015c82fe1dd310058bf07a1ea98314583c73a7" target="_blank">点击查看历史代码</a>      </p>
+<h4 id="step7-">Step7.使树干摇动并移至屏幕左边</h4>
+<p>修改drawRoot使树干也可以晃动，并修改<code>var atree = new Tree(10,canvas.height,100,8,8,canvas);</code>使其移至左边。</p>
+<pre class="hljs"><code class="lang-javascript">Tree.prototype.drawRoot = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+    ......
+    <span class="hljs-comment">//增加strength</span>
+    <span class="hljs-keyword">var</span> angle = <span class="hljs-number">0</span>;
+    angle += <span class="hljs-keyword">this</span>.strengthX/<span class="hljs-keyword">this</span>.strengthXFactor*<span class="hljs-keyword">this</span>.branchAngle;
+    <span class="hljs-keyword">var</span> radian = (<span class="hljs-number">90</span>-angle)*(<span class="hljs-built_in">Math</span>.PI/<span class="hljs-number">180</span>);
+    <span class="hljs-keyword">var</span> toX = x+<span class="hljs-built_in">Math</span>.cos(radian)*branchLen*<span class="hljs-keyword">this</span>.rootLenFactor;
+    <span class="hljs-keyword">var</span> toY = y-<span class="hljs-built_in">Math</span>.sin(radian)*branchLen*<span class="hljs-keyword">this</span>.rootLenFactor;
+    ......
+}
+<span class="hljs-keyword">var</span> atree = <span class="hljs-keyword">new</span> Tree(<span class="hljs-number">10</span>,canvas.height,<span class="hljs-number">100</span>,<span class="hljs-number">8</span>,<span class="hljs-number">8</span>,canvas);
+</code></pre>
+<p>运行代码：<br><img src="https://raw.githubusercontent.com/cyclegtx/rocked_tree/master/images/1.gif" alt="效果图">
+<a href="https://github.com/cyclegtx/rocked_tree/tree/ed015c82fe1dd310058bf07a1ea98314583c73a7" target="_blank">点击查看历史代码</a>     </p>
+<h4 id="step8-">Step8.</h4>
+<p>将动画循环中处理角度的部分添加到Tree的swing()中。   </p>
+<pre class="hljs"><code class="lang-javascript">Tree.prototype.swing = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(time)</span></span>{
+    <span class="hljs-keyword">this</span>.ctx.clearRect(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-keyword">this</span>.canvas.width,<span class="hljs-keyword">this</span>.canvas.height);
+    <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.swingSwitch){
+      <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.strengthX &gt; <span class="hljs-number">0</span>){
+        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.recoverStartTime == <span class="hljs-number">0</span>){
+          <span class="hljs-keyword">this</span>.recoverStartTime = time;
+        }
+        <span class="hljs-keyword">var</span> t = time-<span class="hljs-keyword">this</span>.recoverStartTime;
+        <span class="hljs-keyword">this</span>.strengthX =  <span class="hljs-built_in">Math</span>.max(<span class="hljs-keyword">this</span>.oStrengthX-<span class="hljs-keyword">this</span>.oStrengthX*((t=t/<span class="hljs-number">2000</span>-<span class="hljs-number">1</span>)*t*t*t*t + <span class="hljs-number">1</span>)+<span class="hljs-number">0</span>,<span class="hljs-number">0</span>);
+      }
+      <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.strengthX &lt; <span class="hljs-number">0</span>){
+        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.recoverStartTime == <span class="hljs-number">0</span>){
+          <span class="hljs-keyword">this</span>.recoverStartTime = time;
+        }
+        <span class="hljs-keyword">var</span> t = time-<span class="hljs-keyword">this</span>.recoverStartTime;
+        <span class="hljs-keyword">this</span>.strengthX =  <span class="hljs-built_in">Math</span>.min(<span class="hljs-keyword">this</span>.oStrengthX-<span class="hljs-keyword">this</span>.oStrengthX*((t=t/<span class="hljs-number">2000</span>-<span class="hljs-number">1</span>)*t*t*t*t + <span class="hljs-number">1</span>)+<span class="hljs-number">0</span>,<span class="hljs-number">0</span>);
+      }
+      <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.strengthY &gt; <span class="hljs-number">0</span>){
+        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.recoverStartTime == <span class="hljs-number">0</span>){
+          <span class="hljs-keyword">this</span>.recoverStartTime = time;
+        }
+        <span class="hljs-keyword">var</span> t = time-<span class="hljs-keyword">this</span>.recoverStartTime;
+        <span class="hljs-keyword">this</span>.strengthY =  <span class="hljs-built_in">Math</span>.max(<span class="hljs-keyword">this</span>.oStrengthY-<span class="hljs-keyword">this</span>.oStrengthY*((t=t/<span class="hljs-number">2000</span>-<span class="hljs-number">1</span>)*t*t*t*t + <span class="hljs-number">1</span>)+<span class="hljs-number">0</span>,<span class="hljs-number">0</span>);
+      }
+      <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.strengthY &lt; <span class="hljs-number">0</span>){
+        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.recoverStartTime == <span class="hljs-number">0</span>){
+          <span class="hljs-keyword">this</span>.recoverStartTime = time;
+        }
+        <span class="hljs-keyword">var</span> t = time-<span class="hljs-keyword">this</span>.recoverStartTime;
+        <span class="hljs-keyword">this</span>.strengthY =  <span class="hljs-built_in">Math</span>.min(<span class="hljs-keyword">this</span>.oStrengthY-<span class="hljs-keyword">this</span>.oStrengthY*((t=t/<span class="hljs-number">2000</span>-<span class="hljs-number">1</span>)*t*t*t*t + <span class="hljs-number">1</span>)+<span class="hljs-number">0</span>,<span class="hljs-number">0</span>);
+      }
+      <span class="hljs-keyword">this</span>.swingAngle++;
+      <span class="hljs-keyword">this</span>.branchAngle = <span class="hljs-built_in">Math</span>.sin(<span class="hljs-keyword">this</span>.swingAngle*(<span class="hljs-built_in">Math</span>.PI/<span class="hljs-number">180</span>))*<span class="hljs-keyword">this</span>.branchAngleFactor+<span class="hljs-keyword">this</span>.oBranchAngle;
+    }
+    <span class="hljs-keyword">this</span>.drawRoot();
+}
+<span class="hljs-keyword">var</span> atree = <span class="hljs-keyword">new</span> Tree(<span class="hljs-number">10</span>,canvas.height,<span class="hljs-number">100</span>,<span class="hljs-number">8</span>,<span class="hljs-number">8</span>,canvas);
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loop</span><span class="hljs-params">(time)</span></span>{
+    atree.swing(time);
+    requestAnimFrame(loop);
+}
+loop(<span class="hljs-number">0</span>);
+</code></pre>
+<p>运行代码：<br><img src="https://raw.githubusercontent.com/cyclegtx/rocked_tree/master/images/1.gif" alt="效果图"></p>
+<p>更多教程请访问：<a href="http://ued.sexy">ued.sexy</a>  </p>
+</div>
+</div>
+  <div id="comments" class="comments-view">
+      <div class="publish-comment">
+          <!-- 多说评论框 start -->
+          <div class="ds-thread" data-short-name="uedsexy" data-thread-key="cyclegtx/rocked_tree" data-title="用Canvas制作可以根据手势摆动的树" data-url="http://ued.sexy/1418022539186.html"></div>
+          <!-- 多说评论框 end -->
+      </div>
+  </div>
+</div>
+</section>
+      </div>
+    </div>
+    <div class="site-footer">
+      <div class="container">
+        <div class="copyright clearfix">
+          <p>Copyright © 2014 <a href="http://ued.sexy" target="_blank">ued.sexy</a></p>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:document.querySelector(".ds-thread").getAttribute("data-short-name")};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0] 
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script>
+  </body>
+</html>

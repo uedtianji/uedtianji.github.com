@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>canvas制作波浪状动态背景</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+	   <meta name="keywords" content="canvas制作波浪状动态背景">
+	   <meta name="description" content="canvas制作波浪状动态背景">
+    <link rel="shortcut icon" href="favicon_16.ico">
+    <link rel="bookmark" href="favicon_16.ico">
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/grid.css">
+    <!-- site css -->
+    <link rel="stylesheet" href="./assets/css/layout.css">
+    <link rel="stylesheet" href="./assets/css/highlight.css">
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="./assets/js/html5shiv.min.js"></script>
+      <script src="./assets/js/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+  <body style="background-color: #f1f2f6;">
+    <div class="docs-header">
+      <!--nav-->
+      <nav class="navbar navbar-default navbar-custom" role="navigation">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <a href="index.html"><img class="logo" src="./assets/img/logo.png"></a>
+              <ul class="share clearfix">
+                <li githubpress-website-weibo="" href="http://www.weibo.com/uedtianji"><a href="#"><span class="weibo icon-sina-weibo"></span></a></li>
+                <li githubpress-website-github="" href="https://github.com/uedtianji"><a href="#"><span class="github icon-github"></span></a></li>
+                
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="container">
+      <div class="row">
+<section class="bbox-wrp">
+<div class="info">
+    <div class="timeline">
+        <div class="category">
+                <i class="icon-github"></i>
+        </div>
+        <div class="time" githubpress-date="">12-08</div>
+        <div class="author" githubpress-author="">cyclegtx</div>
+    </div>
+</div>
+<div class="blog-box">
+<div class="blog-view">
+    <div class="title clearfix underline" githubpress-title="">canvas制作波浪状动态背景</div>
+    <div class="content markdown typo" githubpress-content=""><h1 id="canvas-">canvas制作波浪状动态背景</h1>
+<p>先看效果图<br><img src="https://raw.githubusercontent.com/cyclegtx/wave_background/gh-pages/images/1.gif" alt="效果图">  </p>
+<p>此页面是微信公众帐号《玩转三里屯》中的“消费指南”功能所用的页面。考虑到页面只在手机中浏览，而且手机对canvas的支持又非常好，所以打算使用canvas做点不一样的动画。  </p>
+<p><a href="http://cssdeck.com/labs/collab/u73pt0ew" target="_blank">代码在线预览</a>  </p>
+<h4 id="step1-html-">Step1.HTML页面</h4>
+<p>  完成HTML页面</p>
+<p><img src="https://raw.githubusercontent.com/cyclegtx/wave_background/gh-pages/images/1.1.jpg" alt="效果图"></p>
+<p> <a href="https://github.com/cyclegtx/wave_background/tree/ef35a31908e6a735a3f4b576d80fd622375e731f" target="_blank">点击查看历史代码</a></p>
+<h4 id="step2-canvas">Step2.添加Canvas</h4>
+<p>  新建一个画布<code>&lt;canvas&gt;</code>元素，并放在在所有按钮和logo的下方以免遮挡前面的元素。</p>
+<pre class="hljs"><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">canvas</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"canvas"</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">"position:absolute;top:0px;left:0px;z-index:1;"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">canvas</span>&gt;</span>
+</code></pre>
+<p>  将Canvas的宽高设定成其父元素的宽高，以充满他的父元素。也可以直接使用<code>window.innerHeight</code> <code>window.innerWidth</code>
+  使其充满整个屏幕。</p>
+<pre class="hljs"><code class="lang-javascript">var <span class="hljs-keyword">canvas</span> = document.getElementById(<span class="hljs-string">'canvas'</span>);  
+var ctx = <span class="hljs-keyword">canvas</span>.getContext(<span class="hljs-string">'2d'</span>);  
+<span class="hljs-keyword">canvas</span>.width = <span class="hljs-keyword">canvas</span>.parentNode.offsetWidth;  
+<span class="hljs-keyword">canvas</span>.height = <span class="hljs-keyword">canvas</span>.parentNode.offsetHeight;
+</code></pre>
+<p> <a href="https://github.com/cyclegtx/wave_background/tree/2cf051efbf4dd95838b56e16f1d83feec0780a82" target="_blank">点击查看历史代码</a></p>
+<h4 id="step3-">Step3.画矩形</h4>
+<p>  在画布中画一个充满半个屏幕的矩形。
+  我们只需要找到矩形的四个定点的坐标，使用Canvas的绘制路径并填充这个路径。四个点分别是：<code>(0, 画布高度t/2)</code>
+<code>(画布宽度, 画布高度t/2)</code>
+<code>(画布宽度 画布高度t/2)</code>
+<code>(0, 画布高度t/2)</code></p>
+<p>  注意：坐标的（0，0）在画布的左上角。  </p>
+<pre class="hljs"><code class="lang-javascript"><span class="hljs-comment">//填充颜色</span>
+ctx.fillStyle = <span class="hljs-string">"rgba(0,222,255, 0.2)"</span>;
+<span class="hljs-comment">//开始绘制路径</span>
+ctx.beginPath();
+<span class="hljs-comment">//左上角</span>
+ctx.moveTo(<span class="hljs-number">0</span>, canvas.<span class="hljs-variable">height</span>/<span class="hljs-number">2</span>);
+<span class="hljs-comment">//右上角</span>
+ctx.lineTo(canvas.<span class="hljs-variable">width</span>, canvas.<span class="hljs-variable">height</span>/<span class="hljs-number">2</span>);
+<span class="hljs-comment">//右下角</span>
+ctx.lineTo(canvas.<span class="hljs-variable">width</span>, canvas.<span class="hljs-variable">height</span>);
+<span class="hljs-comment">//左下角</span>
+ctx.lineTo(<span class="hljs-number">0</span>, canvas.<span class="hljs-variable">height</span>);
+<span class="hljs-comment">//左上角</span>
+ctx.lineTo(<span class="hljs-number">0</span>, canvas.<span class="hljs-variable">height</span>/<span class="hljs-number">2</span>);
+<span class="hljs-comment">//闭合路径</span>
+ctx.closePath();
+<span class="hljs-comment">//填充路径</span>
+ctx.<span class="hljs-built_in">fill</span>();
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/cyclegtx/wave_background/gh-pages/images/2.1.jpg" alt="效果图"></p>
+<p><a href="https://github.com/cyclegtx/wave_background/tree/60be5b0e29bad3012627e27cbe86daa1d6678160" target="_blank">点击查看历史代码</a></p>
+<h4 id="step4-">Step4.使矩形运动</h4>
+<p>  让矩形动起来。要做动画我们需要持续的清空画布并重新绘制新的矩形，就像电影每秒播放24张图片。我们新建一个loop函数，用来绘制每一帧的图像，并使用requestAnimFrame来告诉浏览器每一帧都要使用loop来绘制。</p>
+<pre class="hljs"><code class="lang-javascript"><span class="hljs-comment">//如果浏览器支持requestAnimFrame则使用requestAnimFrame否则使用setTimeout</span>
+<span class="hljs-built_in">window</span>.requestAnimFrame = (<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+<span class="hljs-keyword">return</span>  <span class="hljs-built_in">window</span>.requestAnimationFrame       ||
+        <span class="hljs-built_in">window</span>.webkitRequestAnimationFrame ||
+        <span class="hljs-built_in">window</span>.mozRequestAnimationFrame    ||
+        <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">( callback )</span></span>{
+          <span class="hljs-built_in">window</span>.setTimeout(callback, <span class="hljs-number">1000</span> / <span class="hljs-number">60</span>);
+        };
+})();
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span></span>{
+    requestAnimFrame(loop);
+}
+loop();
+</code></pre>
+<p>  把之前绘制矩形的代码放到loop中，并在绘制矩形的代码之前清空画布中所有的图形。</p>
+<pre class="hljs"><code class="lang-javascript"><span class="hljs-component">function loop(){
+    //清空canvas
+    ctx<span class="hljs-string">.clearRect(0</span>,0,canvas<span class="hljs-string">.width</span>,canvas<span class="hljs-string">.height)</span>;
+    //绘制矩形
+    ctx<span class="hljs-string">.fillStyle</span> = "rgba(0,222,255, 0.2)";
+    ctx<span class="hljs-string">.beginPath()</span>;
+    ctx<span class="hljs-string">.moveTo(0</span>, canvas<span class="hljs-string">.height/2)</span>;
+    ctx<span class="hljs-string">.lineTo(canvas.width</span>, canvas<span class="hljs-string">.height/2)</span>;
+    ctx<span class="hljs-string">.lineTo(canvas.width</span>, canvas<span class="hljs-string">.height)</span>;
+    ctx<span class="hljs-string">.lineTo(0</span>, canvas<span class="hljs-string">.height)</span>;
+    ctx<span class="hljs-string">.lineTo(0</span>, canvas<span class="hljs-string">.height/2)</span>;
+    ctx<span class="hljs-string">.closePath()</span>;
+    ctx<span class="hljs-string">.fill()</span>;
+    requestAnimFrame(loop);
+}</span>
+</code></pre>
+<p>  接下来我们更改每一帧中的矩形的高度来模拟波浪的形态。</p>
+<p>  波浪其实是在波峰与波谷之间做周期性运动。我们假设波峰与波谷的大小都是50px，那么矩形的高度的变化值应该在-50px到50px之间。为了达到周期性的效果我们采用正弦函数<code>sin(x)</code>乘以50，因为不管x值怎么变化sin(x)的值始终在-1与1之间。</p>
+<p>  我们新建一个变量<code>var step =0</code> 使其在每一帧中自增，表示每一帧角度增加一度，并用<code>Math.sin()</code>取他的正弦值。JS中的sin使用的弧度值，我们需要把step转换成弧度值<code>var angle = step*Math.PI/180;</code>取角度的正弦值乘以50得到了矩形高度的变化量。将变化量加在矩形的左上与右上两个顶点的y坐标上。</p>
+<pre class="hljs"><code class="lang-javascript"><span class="hljs-comment">//初始角度为0</span>
+var step = <span class="hljs-number">0</span>;
+function <span class="hljs-built_in">loop</span>(){
+    ctx.clearRect(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,canvas.<span class="hljs-variable">width</span>,canvas.<span class="hljs-variable">height</span>);
+    ctx.fillStyle = <span class="hljs-string">"rgba(0,222,255, 0.2)"</span>;
+    <span class="hljs-comment">//角度增加一度</span>
+    step++;
+    <span class="hljs-comment">//角度转换成弧度</span>
+    var angle = step*Math.<span class="hljs-constant">PI</span>/<span class="hljs-number">180</span>;
+    <span class="hljs-comment">//矩形高度的变化量</span>
+    var deltaHeight   = Math.<span class="hljs-built_in">sin</span>(angle) * <span class="hljs-number">50</span>;
+    ctx.beginPath();
+    <span class="hljs-comment">//在矩形的左上与右上两个顶点加上高度变化量</span>
+    ctx.moveTo(<span class="hljs-number">0</span>, canvas.<span class="hljs-variable">height</span>/<span class="hljs-number">2</span>+deltaHeight);
+    ctx.lineTo(canvas.<span class="hljs-variable">width</span>, canvas.<span class="hljs-variable">height</span>/<span class="hljs-number">2</span>+deltaHeight);
+    ctx.lineTo(canvas.<span class="hljs-variable">width</span>, canvas.<span class="hljs-variable">height</span>);
+    ctx.lineTo(<span class="hljs-number">0</span>, canvas.<span class="hljs-variable">height</span>);
+    ctx.lineTo(<span class="hljs-number">0</span>, canvas.<span class="hljs-variable">height</span>/<span class="hljs-number">2</span>+deltaHeight);
+    ctx.closePath();
+    ctx.<span class="hljs-built_in">fill</span>();
+    requestAnimFrame(<span class="hljs-built_in">loop</span>);
+}
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/cyclegtx/wave_background/gh-pages/images/2.gif" alt="效果图"></p>
+<p><a href="https://github.com/cyclegtx/wave_background/tree/5d855717cb6b788dabbe5268e6674300f5731e80" target="_blank">点击查看历史代码</a></p>
+<h4 id="step5-">Step5.使矩形左右运动不同步</h4>
+<p>将右上顶点的变化值改为角度的余弦，使其左右不同步<code>var deltaHeightRight   = Math.cos(angle) * 50;</code></p>
+<pre class="hljs"><code class="lang-javascript"><span class="hljs-comment">//初始角度为0</span>
+var step = <span class="hljs-number">0</span>;
+function <span class="hljs-built_in">loop</span>(){
+    ctx.clearRect(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,canvas.<span class="hljs-variable">width</span>,canvas.<span class="hljs-variable">height</span>);
+    ctx.fillStyle = <span class="hljs-string">"rgba(0,222,255, 0.2)"</span>;
+    <span class="hljs-comment">//角度增加一度</span>
+    step++;
+    <span class="hljs-comment">//角度转换成弧度</span>
+    var angle = step*Math.<span class="hljs-constant">PI</span>/<span class="hljs-number">180</span>;
+    <span class="hljs-comment">//矩形高度的变化量</span>
+    var deltaHeight   = Math.<span class="hljs-built_in">sin</span>(angle) * <span class="hljs-number">50</span>;
+    <span class="hljs-comment">//矩形高度的变化量(右上顶点)</span>
+    var deltaHeightRight   = Math.<span class="hljs-built_in">cos</span>(angle) * <span class="hljs-number">50</span>;
+    ctx.beginPath();
+    ctx.moveTo(<span class="hljs-number">0</span>, canvas.<span class="hljs-variable">height</span>/<span class="hljs-number">2</span>+deltaHeight);
+    <span class="hljs-comment">//右上顶点</span>
+    ctx.lineTo(canvas.<span class="hljs-variable">width</span>, canvas.<span class="hljs-variable">height</span>/<span class="hljs-number">2</span>+deltaHeightRight);
+    ctx.lineTo(canvas.<span class="hljs-variable">width</span>, canvas.<span class="hljs-variable">height</span>);
+    ctx.lineTo(<span class="hljs-number">0</span>, canvas.<span class="hljs-variable">height</span>);
+    ctx.lineTo(<span class="hljs-number">0</span>, canvas.<span class="hljs-variable">height</span>/<span class="hljs-number">2</span>+deltaHeight);
+    ctx.closePath();
+    ctx.<span class="hljs-built_in">fill</span>();
+    requestAnimFrame(<span class="hljs-built_in">loop</span>);
+}
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/cyclegtx/wave_background/gh-pages/images/3.gif" alt="效果图"></p>
+<p><a href="https://github.com/cyclegtx/wave_background/tree/1f42946f10836110e16dbfd76a65fcd88cd16ae1" target="_blank">点击查看历史代码</a></p>
+<h4 id="step6-">Step6.模拟波浪的形态</h4>
+<p>将矩形的最上面的边变成曲线来模拟波浪的起伏。在上面的代码中我们用<code>lineTo</code>来绘制矩形的边，为了要绘制曲线我们需要<code>bezierCurveTo(cpX1, cpY1, cpX2, cpY2, x, y)</code>函数。</p>
+<p>绘制的起点是矩形的左上顶点，结束点为右上顶点。<code>bezierCurveTo</code>函数的参数中<code>(cpX1,cpY1)</code>与<code>(cpX2,cpY2)</code>分别是起点与结束点的控制点，<code>(x,y)</code>为结束点。我们将两个控制点的x值设定在画布的正中心，y值在起始点与终点的y值上面减去50;<code>(canvas.width /2, canvas.height/2+deltaHeight-50)</code> <code>(canvas.width/2,canvas.height/2+deltaHeightRight-50)</code>(可以根据效果调整)。</p>
+<pre class="hljs"><code class="lang-javascript">ctx.beginPath();
+ctx.moveTo(<span class="hljs-number">0</span>, <span class="hljs-keyword">canvas</span>.height/<span class="hljs-number">2</span>+deltaHeight);
+<span class="hljs-comment">//ctx.lineTo(canvas.width, canvas.height/2+deltaHeightRight);</span>
+<span class="hljs-comment">//画曲线</span>
+ctx.bezierCurveTo(<span class="hljs-keyword">canvas</span>.width /<span class="hljs-number">2</span>, <span class="hljs-keyword">canvas</span>.height/<span class="hljs-number">2</span>+deltaHeight-<span class="hljs-number">50</span>, <span class="hljs-keyword">canvas</span>.width / <span class="hljs-number">2</span>, <span class="hljs-keyword">canvas</span>.height/<span class="hljs-number">2</span>+deltaHeightRight-<span class="hljs-number">50</span>, <span class="hljs-keyword">canvas</span>.width, <span class="hljs-keyword">canvas</span>.height/<span class="hljs-number">2</span>+deltaHeightRight);
+ctx.lineTo(<span class="hljs-keyword">canvas</span>.width, <span class="hljs-keyword">canvas</span>.height);
+ctx.lineTo(<span class="hljs-number">0</span>, <span class="hljs-keyword">canvas</span>.height);
+ctx.lineTo(<span class="hljs-number">0</span>, <span class="hljs-keyword">canvas</span>.height/<span class="hljs-number">2</span>+deltaHeight);
+ctx.closePath();
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/cyclegtx/wave_background/gh-pages/images/4.gif" alt="效果图"></p>
+<p><a href="https://github.com/cyclegtx/wave_background/tree/32ae5d1096f906c697458201c2273ff8abb49fbb" target="_blank">点击查看历史代码</a></p>
+<h4 id="step7-3-">Step7.3个波浪</h4>
+<p>一个波浪画好了。我们只需要同时画3个不同颜色的波浪，并且使不同波浪的角度不同就可以得到效果图中的效果了。</p>
+<pre class="hljs"><code class="lang-javascript"><span class="hljs-comment">//定义三条不同波浪的颜色</span>
+var lines = [<span class="hljs-string">"rgba(0,222,255, 0.2)"</span>,
+               <span class="hljs-string">"rgba(157,192,249, 0.2)"</span>,
+               <span class="hljs-string">"rgba(0,168,255, 0.2)"</span>];
+function <span class="hljs-built_in">loop</span>(){
+    ctx.clearRect(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,canvas.<span class="hljs-variable">width</span>,canvas.<span class="hljs-variable">height</span>);
+    step++;
+    <span class="hljs-comment">//画3个不同颜色的矩形</span>
+    <span class="hljs-keyword">for</span>(var j = lines.length - <span class="hljs-number">1</span>; j &gt;= <span class="hljs-number">0</span>; j--) {
+        ctx.fillStyle = lines[j];
+        <span class="hljs-comment">//每个矩形的角度都不同，每个之间相差45度</span>
+        var angle = (step+j*<span class="hljs-number">45</span>)*Math.<span class="hljs-constant">PI</span>/<span class="hljs-number">180</span>;
+        var deltaHeight   = Math.<span class="hljs-built_in">sin</span>(angle) * <span class="hljs-number">50</span>;
+        var deltaHeightRight   = Math.<span class="hljs-built_in">cos</span>(angle) * <span class="hljs-number">50</span>;
+        ctx.beginPath();
+        ctx.moveTo(<span class="hljs-number">0</span>, canvas.<span class="hljs-variable">height</span>/<span class="hljs-number">2</span>+deltaHeight);
+        ctx.bezierCurveTo(canvas.<span class="hljs-variable">width</span> /<span class="hljs-number">2</span>, canvas.<span class="hljs-variable">height</span>/<span class="hljs-number">2</span>+deltaHeight-<span class="hljs-number">50</span>, canvas.<span class="hljs-variable">width</span> / <span class="hljs-number">2</span>, canvas.<span class="hljs-variable">height</span>/<span class="hljs-number">2</span>+deltaHeightRight-<span class="hljs-number">50</span>, canvas.<span class="hljs-variable">width</span>, canvas.<span class="hljs-variable">height</span>/<span class="hljs-number">2</span>+deltaHeightRight);
+        ctx.lineTo(canvas.<span class="hljs-variable">width</span>, canvas.<span class="hljs-variable">height</span>);
+        ctx.lineTo(<span class="hljs-number">0</span>, canvas.<span class="hljs-variable">height</span>);
+        ctx.lineTo(<span class="hljs-number">0</span>, canvas.<span class="hljs-variable">height</span>/<span class="hljs-number">2</span>+deltaHeight);
+        ctx.closePath();
+        ctx.<span class="hljs-built_in">fill</span>();
+    }
+    requestAnimFrame(<span class="hljs-built_in">loop</span>);
+}
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/cyclegtx/wave_background/gh-pages/images/5.gif" alt="效果图"></p>
+<p><a href="https://github.com/cyclegtx/wave_background/tree/1f316066805f48ccc312aad35f83963c6b5fb6a3" target="_blank">点击查看历史代码</a></p>
+<h4 id="step8-">Step8.完成</h4>
+<p>删掉按钮与logo的HTML代码就大功告成了。</p>
+<p><img src="https://raw.githubusercontent.com/cyclegtx/wave_background/gh-pages/images/1.gif" alt="效果图"></p>
+<p><a href="http://cssdeck.com/labs/collab/u73pt0ew" target="_blank">代码在线预览</a></p>
+<h3 id="-a-href-http-weibo-com-uedtianji-target-_blank-ued-a-">如有问题或者建议请微博<a href="http://weibo.com/uedtianji" target="_blank">@UED天机</a>。我会及时回复</h3>
+<p>==========</p>
+<h4 id="-">相关阅读</h4>
+<p>1.<a href="https://github.com/uedtianji/dynamic_background">状动态背景</a></p>
+<p>更多教程请访问：<a href="http://ued.sexy">ued.sexy</a>  </p>
+</div>
+</div>
+  <div id="comments" class="comments-view">
+      <div class="publish-comment">
+          <!-- 多说评论框 start -->
+          <div class="ds-thread" data-short-name="uedsexy" data-thread-key="cyclegtx/wave_background" data-title="canvas制作波浪状动态背景" data-url="http://ued.sexy/1418022539849.html"></div>
+          <!-- 多说评论框 end -->
+      </div>
+  </div>
+</div>
+</section>
+      </div>
+    </div>
+    <div class="site-footer">
+      <div class="container">
+        <div class="copyright clearfix">
+          <p>Copyright © 2014 <a href="http://ued.sexy" target="_blank">ued.sexy</a></p>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:document.querySelector(".ds-thread").getAttribute("data-short-name")};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0] 
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script>
+  </body>
+</html>

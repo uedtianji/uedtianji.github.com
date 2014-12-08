@@ -1,128 +1,243 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>UED天机</title>
-	<meta name="description" content="UED天机--专注于分享前端技术">
-	<meta name="keywords" content="UED天机,前端技术,zepto,bootstrap,css,javascript">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<link rel="stylesheet" href="./css/reset.css">
-	<link rel="stylesheet" href="./css/animations.css">
-	<link rel="stylesheet" href="./css/grid.css">
-	<link rel="stylesheet" href="./css/icon.css">
-	<link rel="stylesheet" href="./css/dynamic_bg.css">
-	<link rel="stylesheet" href="./css/index.css">
-	<script src="./js/zepto.min.js"></script>
-	<script src="./js/index.js"></script>
-</head>
-<body>
-	<div class="wrp">
-		<div class="dynbg">
-			<div class="dynbg__bg dynbg__bg0"></div>
-			<div class="dynbg__bg dynbg__bg1"></div>
-			<div class="dynbg__bg dynbg__bg2"></div>
-			<div class="dynbg__bg dynbg__bg3"></div>
-			<div class="dynbg__bg dynbg__bg4"></div>
-		</div>
-		<div class="pg pg1 an-flipInY2 container" data-page="index">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="title">
-						<div class="logo">UED<p>天机</p></div>
-						<p>专注于分享前端技术</p>
-					</div>
-					<h1 class="welctitle">欢迎</h1>
-				</div>
-				<div class="col-md-4">
-					<p class="pagelink"><a href="#css">css教程</a></p>
-				</div>
-				<div class="col-md-4">
-					<p class="pagelink disable"><a href="">javascript教程</a></p>
-				</div>
-				<div class="col-md-4">
-					<p class="pagelink"><a href="#design">设计指南</a></p>
-				</div>
-				<div class="col-md-4">
-					<p class="pagelink disable"><a href="#">常用连接</a></p>
-				</div>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>解读UED天书--UED天机</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+	   <meta name="keywords" content="UED,前端,javascript,css,html,nodejs">
+	   <meta name="description" content="揭秘UED技术，分享自己的前端技术；UED天机欢迎你的加入。">
+    <link rel="shortcut icon" href="favicon_16.ico">
+    <link rel="bookmark" href="favicon_16.ico">
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/grid.css">
+    <link rel="stylesheet" href="./assets/css/layout.css">
+    <link rel="stylesheet" href="./assets/css/highlight.css">
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="./assets/js/html5shiv.min.js"></script>
+      <script src="./assets/js/respond.min.js"></script>
+    <![endif]-->
 
-			</div>
-			<div class="fhint an-bounce an-delay1000" style=""><a href="#howto"><i class="icon-question-sign"></i>这个页面是如何制作的</a></div>
-		</div>
-
-		<div class="pg pgout container" data-page="howto">
-			<div class="row">
-				<div class="col-md-12">
-					<h1 class="welctitle"><i class="icon-question-sign"></i>这个页面是如何制作的</h1>
-				</div>
-				<div class="col-md-6">
-					<p class="pagelink"><a href="https://github.com/uedtianji/dynamic_background" target="_blank" rel="external">动态光影背景</a></p>
-				</div>
-				<div class="col-md-6">
-					<p class="pagelink"><a href="https://github.com/baipengfei/Animation" target="_blank" rel="external">文字动画--animation.css</a></p>
-				</div>
-				<div class="col-md-6">
-					<p class="pagelink"><a href="https://github.com/uedtianji/bootSplit" target="_blank" rel="external">bootstrap拆分--栅格系统</a></p>
-				</div>
-				<div class="col-md-6">
-					<p class="pagelink"><a href="https://github.com/uedtianji/bootSplit" target="_blank" rel="external">bootstrap拆分--字体库</a></p>
-				</div>
-			</div>
-			<div class="fhint" style=""><a href="#" data-page="back"><i class="icon-circle-arrow-left"></i>返回</a></div>
-		</div>
-
-		<div class="pg pgout container" data-page="css">
-			<div class="row">
-				<div class="col-md-12">
-					<h1 class="welctitle">css教程</h1>
-				</div>
-				<div class="col-md-6">
-					<p class="pagelink"><a href="https://github.com/uedtianji/bootSplit" target="_blank" rel="external">Bootstrap拆分</a></p>
-				</div>
-				<div class="col-md-6">
-					<p class="pagelink"><a href="https://github.com/baipengfei/Animation" target="_blank" rel="external">动画库--animation.css</a></p>
-				</div>
-				<div class="col-md-6">
-					<p class="pagelink"><a href="#background">动态背景</a></p>
-				</div>
-			</div>
-			<div class="fhint" style=""><a href="#" data-page="back"><i class="icon-circle-arrow-left"></i>返回</a></div>
-		</div>
-
-		<div class="pg pgout container" data-page="background">
-			<div class="row">
-				<div class="col-md-12">
-					<h1 class="welctitle">动态背景</h1>
-				</div>
-				<div class="col-md-6">
-					<p class="pagelink"><a href="https://github.com/cyclegtx/rocked_tree" target="_blank" rel="external">动态树背景</a></p>
-				</div>
-				<div class="col-md-6">
-					<p class="pagelink"><a href="https://github.com/cyclegtx/wave_background" target="_blank" rel="external">波浪背景</a></p>
-				</div>
-				<div class="col-md-6">
-					<p class="pagelink"><a href="https://github.com/uedtianji/dynamic_background" target="_blank" rel="external">动态光影背景</a></p>
-				</div>
-			</div>
-			<div class="fhint" style=""><a href="#" data-page="back"><i class="icon-circle-arrow-left"></i>返回</a></div>
-		</div>
-
-		<div class="pg pgout container" data-page="design">
-			<div class="row">
-				<div class="col-md-12">
-					<h1 class="welctitle">设计指南</h1>
-				</div>
-				<div class="col-md-6">
-					<p class="pagelink"><a href="https://github.com/uedtianji/mobile_design_guide" target="_blank" rel="external">移动单页设计指南</a></p>
-				</div>
-			</div>
-			<div class="fhint" style=""><a href="#" data-page="back"><i class="icon-circle-arrow-left"></i>返回</a></div>
-		</div>
-		
-	</div>
-<script type="text/javascript">
-var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F545f1574a4f72705e13d0477422d54b6' type='text/javascript'%3E%3C/script%3E"));
-</script>
-</body>
+  </head>
+  <body style="background-color: #f1f2f6;">
+    <div class="docs-header">
+      <!--nav-->
+      <nav class="navbar navbar-default navbar-custom" role="navigation">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <a href="index.html"><img class="logo" src="./assets/img/logo.png"></a>
+              <ul class="share clearfix">
+                <li githubpress-website-weibo="" href="http://www.weibo.com/uedtianji"><a href="#"><span class="weibo icon-sina-weibo"></span></a></li>
+                <li githubpress-website-github="" href="https://github.com/uedtianji"><a href="#"><span class="github icon-github"></span></a></li>
+                
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <!--TimeLine
+    ================================================== -->
+    <div class="container">
+      <div class="row" githubpress-posts="">
+        
+      <section class="bbox-wrp">
+    <div class="info">
+      <div class="timeline">
+        <div class="category">
+          <i class="icon-github"></i>
+        </div>
+        <div class="time" githubpress-date="">12-08</div>
+        <div class="author" githubpress-author="">cyclegtx</div>
+      </div>
+    </div>
+    <div class="blog-box">
+        <div class="blog-detail">
+            <div class="title"><a href="1418022539849.html" githubpress-title="">canvas制作波浪状动态背景</a></div>
+            <div class="desc markdown mui-ellipsis-3" githubpress-content=""><h1 id="canvas-">canvas制作波浪状动态背景</h1>
+<p>先看效果图<br>  </p>
+<p>此页面是微信公众帐号《玩转三里屯》中的“消费指南”功能所用的页面。考虑到页面只在手机中浏览，而且手机对canvas的支持又非常好，所以打算使用canvas做点不一样的动画。  </p>
+<p><a href="http://cssdeck.com/labs/collab/u73pt0ew" target="_blank">代码在线预览</a>  </p>
+</div>
+        </div>
+    </div>
+</section><section class="bbox-wrp">
+    <div class="info">
+      <div class="timeline">
+        <div class="category">
+          <i class="icon-github"></i>
+        </div>
+        <div class="time" githubpress-date="">12-08</div>
+        <div class="author" githubpress-author="">cyclegtx</div>
+      </div>
+    </div>
+    <div class="blog-box">
+        <div class="blog-detail">
+            <div class="title"><a href="1418022539186.html" githubpress-title="">用Canvas制作可以根据手势摆动的树</a></div>
+            <div class="desc markdown mui-ellipsis-3" githubpress-content=""><h1 id="-canvas-">用Canvas制作可以根据手势摆动的树</h1>
+<p><br>根据工作的需要，制作一个摆动的树做为页面的背景。为了增加页面的交互性，我又为背景中的树增加了鼠标（触控）事件，使他能够根据鼠标（触控）做出相应的动作，当手指做上下或者左右滑动的时候树会跟着摆动。  </p>
+<h4 id="step1-html-tree-">Step1.完成HTML页面，新建一个Tree类</h4>
+<p>完成HTML页面后新建一个Tree类用来记录树的各个属性。其中<code>x,y</code>为树根部的坐标值，<code>branchLen,branchWidth</code>分别是树枝的长度与宽度，<code>depth</code>为树枝的层数，<code>canvas</code>用来接页面中的canvas元素（默认是ID为canvas的元素）。
+```javascript</p>
+</div>
+        </div>
+    </div>
+</section><section class="bbox-wrp">
+    <div class="info">
+      <div class="timeline">
+        <div class="category">
+          <i class="icon-github"></i>
+        </div>
+        <div class="time" githubpress-date="">12-08</div>
+        <div class="author" githubpress-author="">cyclegtx</div>
+      </div>
+    </div>
+    <div class="blog-box">
+        <div class="blog-detail">
+            <div class="title"><a href="1418022538049.html" githubpress-title="">dynamic_background</a></div>
+            <div class="desc markdown mui-ellipsis-3" githubpress-content=""><h1 id="dynamic_background">dynamic_background</h1>
+<h4 id="-">动态背景</h4>
+<p>利用多层背景的交替淡入淡出，实现一种背景在不停变换的效果，先看图。
+效果图：<br><br></p><p>DEMO地址</p>  <p></p>
+<h5 id="-">步骤</h5>
+</div>
+        </div>
+    </div>
+</section><section class="bbox-wrp">
+    <div class="info">
+      <div class="timeline">
+        <div class="category">
+          <i class="icon-github"></i>
+        </div>
+        <div class="time" githubpress-date="">12-08</div>
+        <div class="author" githubpress-author="">uedtianji</div>
+      </div>
+    </div>
+    <div class="blog-box">
+        <div class="blog-detail">
+            <div class="title"><a href="1418022537857.html" githubpress-title="">修改Zepto One Page Scroll by Pete R.</a></div>
+            <div class="desc markdown mui-ellipsis-3" githubpress-content=""><h1 id="-zepto-one-page-scroll-by-pete-r-">修改Zepto One Page Scroll by Pete R.</h1>
+<p>修改自Pete R.的Zepto One Page Scroll插件，查看原版或者使用方法点</p><p>这里</p><p></p>
+<p>修改部分：  </p>
+<blockquote>
+<p>1.将高度改为百分比<br>2.如果body节点含有class<code>disabled-onepage-scroll</code>则插件停止响应滚动。  </p>
+</blockquote>
+</div>
+        </div>
+    </div>
+</section><section class="bbox-wrp">
+    <div class="info">
+      <div class="timeline">
+        <div class="category">
+          <i class="icon-github"></i>
+        </div>
+        <div class="time" githubpress-date="">12-08</div>
+        <div class="author" githubpress-author="">uedtianji</div>
+      </div>
+    </div>
+    <div class="blog-box">
+        <div class="blog-detail">
+            <div class="title"><a href="1418022537560.html" githubpress-title="">微信OAuth2.0网页授权接口</a></div>
+            <div class="desc markdown mui-ellipsis-3" githubpress-content=""><h1 id="-oauth2-0-">微信OAuth2.0网页授权接口</h1>
+<p>微信OAuth2.0网页授权接口的thinkphp实现版本，主要实现了oauth网页受权，以及部分其他接口。<br></p><p>使用方法</p><p></p>
+<h4 id="-oauth2-0-">为什么用OAuth2.0受权？</h4>
+<p>通过OAuth2.0受权的网页将会获取到打开者的微信信息，甚至包括微信昵称、头像等有用的数据，开发者们可以凭此设计出更多更丰富的页面应用，比如最近一直很火爆的红包类活动。除此之外还有个额外的好处，就是可以控制页面在非微信浏览器中无法打开，可以减少代码被人窥窃的风险。   </p>
+<h4 id="-oauth2-0-">那么红包类活动是如何使用OAuth2.0受权接口的呢？</h4>
+</div>
+        </div>
+    </div>
+</section><section class="bbox-wrp">
+    <div class="info">
+      <div class="timeline">
+        <div class="category">
+          <i class="icon-github"></i>
+        </div>
+        <div class="time" githubpress-date="">12-08</div>
+        <div class="author" githubpress-author="">cyclegtx</div>
+      </div>
+    </div>
+    <div class="blog-box">
+        <div class="blog-detail">
+            <div class="title"><a href="1418022537501.html" githubpress-title="">zepto.slitslider.js</a></div>
+            <div class="desc markdown mui-ellipsis-3" githubpress-content=""><h1 id="zepto-slitslider-js">zepto.slitslider.js</h1>
+<p>A slitslider remake using Zepto.js same with </p><p>jquery.slitslider.js</p>.<br><p>DEMO</p><br>Required files:<br>1.zepto.js<br>2.zepto.fx.js  <p></p>
+</div>
+        </div>
+    </div>
+</section><section class="bbox-wrp">
+    <div class="info">
+      <div class="timeline">
+        <div class="category">
+          <i class="icon-github"></i>
+        </div>
+        <div class="time" githubpress-date="">12-08</div>
+        <div class="author" githubpress-author="">uedtianji</div>
+      </div>
+    </div>
+    <div class="blog-box">
+        <div class="blog-detail">
+            <div class="title"><a href="1418022536925.html" githubpress-title="">移动单页设计指南</a></div>
+            <div class="desc markdown mui-ellipsis-3" githubpress-content=""><h1 id="-">移动单页设计指南</h1>
+<p>本指南只针对现在流行的交互单页设计，且以微信中浏览为准，分辨率上以iphone手机为基准。<br><br>上图就是交互单页的例子，这种页面具有以下特点：  </p>
+<blockquote>
+<p>1.内容分为多个单页。<br>2.每个单页都充满整个屏幕。<br>3.单页之间依靠上下滑进行页面间的转换。  </p>
+</blockquote>
+</div>
+        </div>
+    </div>
+</section><section class="bbox-wrp">
+    <div class="info">
+      <div class="timeline">
+        <div class="category">
+          <i class="icon-github"></i>
+        </div>
+        <div class="time" githubpress-date="">12-08</div>
+        <div class="author" githubpress-author="">cyclegtx</div>
+      </div>
+    </div>
+    <div class="blog-box">
+        <div class="blog-detail">
+            <div class="title"><a href="1418022536915.html" githubpress-title="">腾讯Burberry线上营销页面特效</a></div>
+            <div class="desc markdown mui-ellipsis-3" githubpress-content=""><h1 id="-burberry-">腾讯Burberry线上营销页面特效</h1>
+<p>  </p>
+<p>4月24日，Burberry亚太地区规模最大的旗舰店在上海开幕。Burberry突破性地运用了诸多创新的数字营销模式，借助与腾讯的合作，为更多未能到场的用户创造了一个“平行的体验”，也正式开启了Burberry的创新数字营销之旅。  </p>
+<p></p><p>腾讯的营销页面:</p>
+<p></p>
+<p>其中多次用到了开头的图片中类似于云雾褪去的效果。      </p>
+</div>
+        </div>
+    </div>
+</section><section class="bbox-wrp">
+    <div class="info">
+      <div class="timeline">
+        <div class="category">
+          <i class="icon-github"></i>
+        </div>
+        <div class="time" githubpress-date="">12-08</div>
+        <div class="author" githubpress-author="">uedtianji</div>
+      </div>
+    </div>
+    <div class="blog-box">
+        <div class="blog-detail">
+            <div class="title"><a href="1418022536900.html" githubpress-title="">bootstrap拆分</a></div>
+            <div class="desc markdown mui-ellipsis-3" githubpress-content=""><h3 id="bootstrap-">bootstrap拆分</h3>
+<p>===================<br>Bootstrap是目前最受欢迎的前端框架。他功能强大囊括了页面编写的方方面面，但有时候我们只需要其中部分功能，例如栅格、按钮；却不得不引用整个bootstrap的css。文件庞大不说还容易造成class的污染，一些css属性被莫名其妙的重置，且class优先级混乱。  </p>
+<p>本项目的目的就是将bootstrap按功能拆分为几个单独文件，去掉一些影响全局的属性。需要某个功能时可以直接引用单个文件，且尽量不影响原有css。<br>本项目使用的版本为 </p><p>Bootstrap v3.3.0</p> <p></p>
+<blockquote>
+<p>bootstrap拆分为：<br>样式重置：css/reset.css  </p>
+</blockquote>
+</div>
+        </div>
+    </div>
+</section></div>
+    </div>
+    <div class="site-footer">
+      <div class="container">
+        <div class="copyright clearfix">
+          <p>Copyright © 2014 <a href="http://ued.sexy" target="_blank">ued.sexy</a></p>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

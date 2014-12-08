@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>腾讯Burberry线上营销页面特效</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+	   <meta name="keywords" content="腾讯Burberry线上营销页面特效">
+	   <meta name="description" content="腾讯Burberry线上营销页面特效">
+    <link rel="shortcut icon" href="favicon_16.ico">
+    <link rel="bookmark" href="favicon_16.ico">
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/grid.css">
+    <!-- site css -->
+    <link rel="stylesheet" href="./assets/css/layout.css">
+    <link rel="stylesheet" href="./assets/css/highlight.css">
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="./assets/js/html5shiv.min.js"></script>
+      <script src="./assets/js/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+  <body style="background-color: #f1f2f6;">
+    <div class="docs-header">
+      <!--nav-->
+      <nav class="navbar navbar-default navbar-custom" role="navigation">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <a href="index.html"><img class="logo" src="./assets/img/logo.png"></a>
+              <ul class="share clearfix">
+                <li githubpress-website-weibo="" href="http://www.weibo.com/uedtianji"><a href="#"><span class="weibo icon-sina-weibo"></span></a></li>
+                <li githubpress-website-github="" href="https://github.com/uedtianji"><a href="#"><span class="github icon-github"></span></a></li>
+                
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="container">
+      <div class="row">
+<section class="bbox-wrp">
+<div class="info">
+    <div class="timeline">
+        <div class="category">
+                <i class="icon-github"></i>
+        </div>
+        <div class="time" githubpress-date="">12-08</div>
+        <div class="author" githubpress-author="">cyclegtx</div>
+    </div>
+</div>
+<div class="blog-box">
+<div class="blog-view">
+    <div class="title clearfix underline" githubpress-title="">腾讯Burberry线上营销页面特效</div>
+    <div class="content markdown typo" githubpress-content=""><h1 id="-burberry-">腾讯Burberry线上营销页面特效</h1>
+<p><img src="https://raw.githubusercontent.com/cyclegtx/burberryshow/master/images/xg.gif" alt="最终效果">  </p>
+<p>4月24日，Burberry亚太地区规模最大的旗舰店在上海开幕。Burberry突破性地运用了诸多创新的数字营销模式，借助与腾讯的合作，为更多未能到场的用户创造了一个“平行的体验”，也正式开启了Burberry的创新数字营销之旅。  </p>
+<p><a href="http://burberryshow.act.qq.com/unlock/index.html">腾讯的营销页面:</a>
+<img src="https://raw.githubusercontent.com/cyclegtx/burberryshow/master/images/txqr.png" alt="最终效果"></p>
+<p>其中多次用到了开头的图片中类似于云雾褪去的效果。<br>我对这种神奇的特效产生的极大的兴趣，于是通过chrome的审查元素里面Resources找到下面这张图片（由于图片是白色的png，为了让大家看清楚我将背景调成了黑色）。<br><img src="https://raw.githubusercontent.com/cyclegtx/burberryshow/master/images/Touch1.jpg" alt="最终效果"><br>于是效果的实现方式就显而易见了，是利用css3的<code>-webkit-mask</code>来实现的。  </p>
+<pre class="hljs"><code class="lang--webkit-mask%60%60%60%u7C7B%u4F3C%u4E8Ephotoshop%u91CC%u9762%u7684%u8499%u677F%uFF0C%u5728%u80CC%u666F%u56FE%u7247%u4E0A%u52A0%u4E0A%u4E00%u5C42%u8499%u677F%uFF0C%u80CC%u666F%u4E2D%u7684%u56FE%u7247%u4F1A%u900F%u8FC7%u8499%u677F%u4E2D%u7684%u767D%u8272%u90E8%u5206%u663E%u793A%u51FA%u6765%uFF0C%u8499%u677F%u4E2D%u7684%u900F%u660E%u90E8%u5206%u5219%u906E%u6321%u4F4F%u4E86%u80CC%u666F%u3002">###<span class="hljs-id">#Step1</span>.为背景加上蒙板  
+
+```<span class="hljs-tag">html</span>
+&lt;body&gt;
+    &lt;<span class="hljs-tag">div</span> class=<span class="hljs-string">"stage"</span>&gt;
+        &lt;<span class="hljs-tag">div</span> class=<span class="hljs-string">"sprite1"</span>&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+</code></pre>
+<pre class="hljs"><code class="lang-css"><span class="hljs-class">.stage</span><span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">320px</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">height</span>:<span class="hljs-value"> <span class="hljs-number">480px</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value"> absolute</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">left</span>:<span class="hljs-value"> <span class="hljs-number">50%</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">top</span>:<span class="hljs-value"> <span class="hljs-number">50%</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">margin-top</span>:<span class="hljs-value">-<span class="hljs-number">240px</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">margin-left</span>:<span class="hljs-value">-<span class="hljs-number">160px</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-function">url</span>(<span class="hljs-string">'./img/bg.jpg'</span>) no-repeat</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">background-size</span>:<span class="hljs-value"> auto <span class="hljs-number">100%</span></span></span>;
+<span class="hljs-rule">}</span></span>
+<span class="hljs-class">.stage</span> <span class="hljs-class">.sprite1</span><span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">100%</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">height</span>:<span class="hljs-value"> <span class="hljs-number">100%</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-function">url</span>(<span class="hljs-string">'./img/bg2.jpg'</span>) no-repeat</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">background-size</span>:<span class="hljs-value"> auto <span class="hljs-number">100%</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">-webkit-mask</span>:<span class="hljs-value"><span class="hljs-function">url</span>(<span class="hljs-string">'./img/Touch1.png'</span>) no-repeat</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">-webkit-mask-size</span>:<span class="hljs-value"> <span class="hljs-number">100%</span> <span class="hljs-number">100%</span></span></span>;
+<span class="hljs-rule">}</span></span>
+</code></pre>
+<p>这里为了在桌面浏览器中观看方便，将画面大小调整成了320*480并居中。在<code>sprite1</code>中添加<code>background</code>的同时也增加了蒙板。  </p>
+<pre class="hljs"><code>-webkit-<span class="hljs-attribute">mask</span><span class="hljs-value">:<span class="hljs-function">url</span>(<span class="hljs-string">'./img/Touch1.png'</span>) no-repeat;</span>
+-webkit-<span class="hljs-attribute">mask</span>-size<span class="hljs-value">: <span class="hljs-number">100%</span> <span class="hljs-number">100%</span>;</span>
+</code></pre><p>我们这里将蒙板的大小设置为100%来观察蒙板的效果。图中画圈圈的地方就是sprite1透过蒙板展示出来的部分。<br><img src="https://raw.githubusercontent.com/cyclegtx/burberryshow/master/images/1.jpg" alt="最终效果"><br>我们看到这个蒙板<code>Touch1.png</code>应该是一个序列帧组成的图片，我们只需要将其一帧帧的显示出来就可以实现动画了。<br><a href="https://github.com/cyclegtx/burberryshow/tree/ebbf08ef8c771dfcd9a92901aa1db37cbcd90437" target="_blank">点击查看历史代码</a>  </p>
+<h4 id="step2-">Step2.序列帧动画</h4>
+<pre class="hljs"><code class="lang-css"><span class="hljs-class">.stage</span> <span class="hljs-class">.sprite1</span>{
+    ......
+    -webkit-<span class="hljs-attribute">mask</span>-size<span class="hljs-value">: <span class="hljs-number">400%</span> <span class="hljs-number">300%</span>;</span>
+    -webkit-<span class="hljs-attribute">mask</span>-<span class="hljs-attribute">position</span><span class="hljs-value">: <span class="hljs-number">0%</span> <span class="hljs-number">0%</span>;</span>
+}
+</code></pre>
+<p><code>Touch1.png</code>是序列帧的整合图片，其中一排有4帧一共有3排，所以我们将<code>-webkit-mask-size</code>设为<code>400% 300%</code>。将<code>-webkit-mask-postion</code>设为<code>0% 0%</code>表示从第一帧开始。做动画时只需要依次修改<code>-webkit-mask-position</code>的x与y值，每次将x增加33.3333%（100/每排的帧数4-1）直到100%，y增加50%（100/每牌的帧数3-1）直到100%。我们需要将每一帧的position状态在不同的时间赋给sprite1，这只需要用<code>setTimeout</code>就可以了。<br>我们新建一个<code>spriteClip</code>类，并传入<code>(dom,w,h,time)</code>四个参数，其中dom用来定位sprite1这个元素，w为一排有几帧，h为一共有几行，time为每一帧之间的间隔。  </p>
+<pre class="hljs"><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">spriteClip</span><span class="hljs-params">(dom,w,h,time)</span></span>{
+    <span class="hljs-keyword">if</span>(dom){
+        <span class="hljs-keyword">this</span>.dom = dom;
+        <span class="hljs-keyword">this</span>.w = w ||<span class="hljs-number">0</span>;
+        <span class="hljs-keyword">this</span>.h = h ||<span class="hljs-number">0</span>;
+        <span class="hljs-keyword">this</span>.time = time || <span class="hljs-number">0</span>;
+    }<span class="hljs-keyword">else</span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+}
+</code></pre>
+<p>新建run方法。遍历w与h算出时间与位置，用setTimeout设置好延时执行</p>
+<pre class="hljs"><code class="lang-javascript">spriteClip.prototype.run = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> w=<span class="hljs-number">0</span>;w&lt;this.w;w++){
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> h =<span class="hljs-number">0</span>;h&lt;this.h;h++){
+            <span class="hljs-comment">//这里使用闭包以免w,h值随循环改变。</span>
+            (<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(w,h,self)</span></span>{
+                <span class="hljs-comment">//计算时间</span>
+                <span class="hljs-keyword">var</span> time = (h*<span class="hljs-keyword">self</span>.time*<span class="hljs-keyword">self</span>.w+w*<span class="hljs-keyword">self</span>.time);
+                setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+                    <span class="hljs-comment">//计算位置</span>
+                    <span class="hljs-keyword">self</span>.dom.style.webkitMaskPosition = (<span class="hljs-number">100</span>/(<span class="hljs-keyword">self</span>.w-<span class="hljs-number">1</span>))*w+<span class="hljs-string">'% '</span>+(<span class="hljs-number">100</span>/(<span class="hljs-keyword">self</span>.h-<span class="hljs-number">1</span>))*h+<span class="hljs-string">'%'</span>;
+                },time);
+            })(w,h,this);
+        }
+    }
+}
+</code></pre>
+<p>新建并运行spriteClip。</p>
+<pre class="hljs"><code class="lang-javascript"><span class="hljs-keyword">var</span> sprite1 = <span class="hljs-built_in">document</span>.<span class="hljs-built_in">querySelector</span>(<span class="hljs-string">'.sprite1'</span>);
+<span class="hljs-keyword">var</span> sp1 = <span class="hljs-keyword">new</span> spriteClip(sprite1,<span class="hljs-number">4</span>,<span class="hljs-number">3</span>,<span class="hljs-number">50</span>);
+sp1.run();
+</code></pre>
+<p>运行代码：<br><img src="https://raw.githubusercontent.com/cyclegtx/burberryshow/master/images/2.gif" alt="最终效果"><br><a href="https://github.com/cyclegtx/burberryshow/tree/b10e12cc9ef5f36e9999e0beebc2a600caa8f6a7" target="_blank">点击查看历史代码</a>    </p>
+<h4 id="step3-">Step3.添加动画控制</h4>
+<p>有了sprite1后，再添加3个sprite，将所有的动画按照顺序播放来形成完整的转场。为了实现按照顺序的播放，我们需要为动画添加播放控制。即在播放动画完成后给dom触发一个<code>finish</code>事件，dom接到完成事件后执行下一个动画。同时添加<code>show</code>和<code>hide</code>用来控制动画的显示/隐藏。   </p>
+<pre class="hljs"><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">spriteClip</span><span class="hljs-params">(dom,w,h,time)</span></span>{
+    <span class="hljs-keyword">if</span>(dom){
+        ......
+        <span class="hljs-comment">//记录dom初始的display状态</span>
+        <span class="hljs-keyword">this</span>.display = <span class="hljs-keyword">this</span>.dom.style.display;
+        <span class="hljs-comment">//记录动画是否播放过</span>
+        <span class="hljs-keyword">this</span>.played = <span class="hljs-literal">false</span>;
+    }<span class="hljs-keyword">else</span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+}
+spriteClip.prototype.run = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-comment">//如果动画已经播放过则不做任何动画</span>
+    <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.played)
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    <span class="hljs-comment">//标记为已播放完成</span>
+    <span class="hljs-keyword">this</span>.played = <span class="hljs-literal">true</span>;
+    <span class="hljs-comment">//让dom显示</span>
+    <span class="hljs-keyword">this</span>.show();
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> w=<span class="hljs-number">0</span>;w&lt;<span class="hljs-keyword">this</span>.w;w++){
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> h =<span class="hljs-number">0</span>;h&lt;<span class="hljs-keyword">this</span>.h;h++){
+            (<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(w,h,self)</span></span>{
+                <span class="hljs-keyword">var</span> time = (h*self.time*self.w+w*self.time);
+                setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+                    ......
+                    <span class="hljs-keyword">if</span>(w &gt;= self.w-<span class="hljs-number">1</span> &amp;&amp; h&gt;=self.h-<span class="hljs-number">1</span>){
+                        <span class="hljs-comment">//动画结束</span>
+                        <span class="hljs-keyword">var</span> event = <span class="hljs-built_in">document</span>.createEvent(<span class="hljs-string">'HTMLEvents'</span>);
+                        event.initEvent(<span class="hljs-string">'finish'</span>, <span class="hljs-literal">true</span>, <span class="hljs-literal">true</span>);
+                        event.eventType = <span class="hljs-string">'message'</span>;
+                        event.content =  <span class="hljs-string">'finish'</span>;
+                        <span class="hljs-comment">//触发finish事件</span>
+                        self.dom.dispatchEvent(event);
+                    }
+                },time);
+            })(w,h,<span class="hljs-keyword">this</span>);
+        }
+    }
+}
+<span class="hljs-comment">//隐藏dom</span>
+spriteClip.prototype.hide = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-keyword">this</span>.dom.style.display = <span class="hljs-string">'none'</span>;
+}
+<span class="hljs-comment">//显示dom</span>
+spriteClip.prototype.show = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-keyword">this</span>.dom.style.display = <span class="hljs-keyword">this</span>.display;
+}
+<span class="hljs-comment">//接收finish时间并用callback函数处理</span>
+spriteClip.prototype.finish = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(callback)</span></span>{
+    <span class="hljs-keyword">this</span>.dom.addEventListener(<span class="hljs-string">'finish'</span>,callback);
+}
+<span class="hljs-keyword">var</span> sprite1 = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'.sprite1'</span>);
+<span class="hljs-keyword">var</span> sp1 = <span class="hljs-keyword">new</span> spriteClip(sprite1,<span class="hljs-number">4</span>,<span class="hljs-number">3</span>,<span class="hljs-number">50</span>);
+<span class="hljs-comment">//在做动画之前让sprite隐藏</span>
+sp1.hide();
+<span class="hljs-built_in">document</span>.addEventListener(<span class="hljs-string">'touchend'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-comment">//手指抬起后运行动画</span>
+    sp1.run();
+});
+<span class="hljs-built_in">document</span>.addEventListener(<span class="hljs-string">'click'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-comment">//点击后运行动画</span>
+    sp1.run();
+});
+sp1.finish(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-comment">//动画完成</span>
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'finish'</span>);
+});
+</code></pre>
+<p>下面添加剩下的3个sprite。  </p>
+<pre class="hljs"><code class="lang-html">......
+.stage .sprite2{
+    width: <span class="hljs-number">100</span>%;
+    height: <span class="hljs-number">100</span>%;
+    position: absolute;
+    left: <span class="hljs-number">0</span>px;
+    top: <span class="hljs-number">0</span>px;
+    background: url(<span class="hljs-string">'./img/bg2.jpg'</span>) no-repeat;
+    background-size: auto <span class="hljs-number">100</span>%;
+    -webkit-mask:url(<span class="hljs-string">'./img/Touch2.png'</span>) no-repeat;
+    -webkit-mask-size: <span class="hljs-number">400</span>% <span class="hljs-number">300</span>%;
+    -webkit-mask-position: <span class="hljs-number">0</span>% <span class="hljs-number">0</span>%;
+}
+.stage .sprite3{
+    width: <span class="hljs-number">100</span>%;
+    height: <span class="hljs-number">100</span>%;
+    position: absolute;
+    left: <span class="hljs-number">0</span>px;
+    top: <span class="hljs-number">0</span>px;
+    background: url(<span class="hljs-string">'./img/bg2.jpg'</span>) no-repeat;
+    background-size: auto <span class="hljs-number">100</span>%;
+    -webkit-mask:url(<span class="hljs-string">'./img/Touch3.png'</span>) no-repeat;
+    -webkit-mask-size: <span class="hljs-number">400</span>% <span class="hljs-number">300</span>%;
+    -webkit-mask-position: <span class="hljs-number">0</span>% <span class="hljs-number">0</span>%;
+}
+.stage .sprite4{
+    width: <span class="hljs-number">100</span>%;
+    height: <span class="hljs-number">100</span>%;
+    position: absolute;
+    left: <span class="hljs-number">0</span>px;
+    top: <span class="hljs-number">0</span>px;
+    background: url(<span class="hljs-string">'./img/bg2.jpg'</span>) no-repeat;
+    background-size: auto <span class="hljs-number">100</span>%;
+    -webkit-mask:url(<span class="hljs-string">'./img/Touch4.png'</span>) no-repeat;
+    <span class="hljs-comment">/* Touch4是4*5 */</span>
+    -webkit-mask-size: <span class="hljs-number">400</span>% <span class="hljs-number">500</span>%;
+    -webkit-mask-position: <span class="hljs-number">0</span>% <span class="hljs-number">0</span>%;
+}
+......
+&lt;div <span class="hljs-keyword">class</span>=<span class="hljs-string">"stage"</span>&gt;
+    &lt;div <span class="hljs-keyword">class</span>=<span class="hljs-string">"sprite1"</span>&gt;&lt;/div&gt;
+    &lt;div <span class="hljs-keyword">class</span>=<span class="hljs-string">"sprite2"</span>&gt;&lt;/div&gt;
+    &lt;div <span class="hljs-keyword">class</span>=<span class="hljs-string">"sprite3"</span>&gt;&lt;/div&gt;
+    &lt;div <span class="hljs-keyword">class</span>=<span class="hljs-string">"sprite4"</span>&gt;&lt;/div&gt;
+&lt;/div&gt;
+.....
+<span class="hljs-comment">//新建4个sprite</span>
+<span class="hljs-keyword">var</span> sprite1 = document.querySelector(<span class="hljs-string">'.sprite1'</span>);
+<span class="hljs-keyword">var</span> sprite2 = document.querySelector(<span class="hljs-string">'.sprite2'</span>);
+<span class="hljs-keyword">var</span> sprite3 = document.querySelector(<span class="hljs-string">'.sprite3'</span>);
+<span class="hljs-keyword">var</span> sprite4 = document.querySelector(<span class="hljs-string">'.sprite4'</span>);
+<span class="hljs-keyword">var</span> sp1 = <span class="hljs-keyword">new</span> spriteClip(sprite1,<span class="hljs-number">4</span>,<span class="hljs-number">3</span>,<span class="hljs-number">80</span>);
+<span class="hljs-keyword">var</span> sp2 = <span class="hljs-keyword">new</span> spriteClip(sprite2,<span class="hljs-number">4</span>,<span class="hljs-number">3</span>,<span class="hljs-number">80</span>);
+<span class="hljs-keyword">var</span> sp3 = <span class="hljs-keyword">new</span> spriteClip(sprite3,<span class="hljs-number">4</span>,<span class="hljs-number">3</span>,<span class="hljs-number">80</span>);
+<span class="hljs-keyword">var</span> sp4 = <span class="hljs-keyword">new</span> spriteClip(sprite4,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">80</span>);
+sp1.hide();
+sp2.hide();
+sp3.hide();
+sp4.hide();
+document.addEventListener(<span class="hljs-string">'touchend'</span>,function(){
+    sp1.run();
+});
+document.addEventListener(<span class="hljs-string">'click'</span>,function(){
+    sp1.run();
+});
+sp1.finish(function(){
+    <span class="hljs-comment">//sprite1结束后运行sprite2</span>
+    sp2.run();
+});
+sp2.finish(function(){
+    <span class="hljs-comment">//sprite2结束后运行sprite3</span>
+    sp3.run();
+});
+sp3.finish(function(){
+    <span class="hljs-comment">//sprite3结束后运行sprite4</span>
+    sp4.run();
+})
+......
+</code></pre>
+<p>运行代码：<br><img src="https://raw.githubusercontent.com/cyclegtx/burberryshow/master/images/3.gif" alt="最终效果">    </p>
+<p>更多教程请访问：<a href="http://ued.sexy">ued.sexy</a>  </p>
+</div>
+</div>
+  <div id="comments" class="comments-view">
+      <div class="publish-comment">
+          <!-- 多说评论框 start -->
+          <div class="ds-thread" data-short-name="uedsexy" data-thread-key="cyclegtx/burberryshow" data-title="腾讯Burberry线上营销页面特效" data-url="http://ued.sexy/1418022536915.html"></div>
+          <!-- 多说评论框 end -->
+      </div>
+  </div>
+</div>
+</section>
+      </div>
+    </div>
+    <div class="site-footer">
+      <div class="container">
+        <div class="copyright clearfix">
+          <p>Copyright © 2014 <a href="http://ued.sexy" target="_blank">ued.sexy</a></p>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:document.querySelector(".ds-thread").getAttribute("data-short-name")};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0] 
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script>
+  </body>
+</html>

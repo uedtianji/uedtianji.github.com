@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>zepto.slitslider.js</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+	   <meta name="keywords" content="zepto.slitslider.js">
+	   <meta name="description" content="zepto.slitslider.js">
+    <link rel="shortcut icon" href="favicon_16.ico">
+    <link rel="bookmark" href="favicon_16.ico">
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/grid.css">
+    <!-- site css -->
+    <link rel="stylesheet" href="./assets/css/layout.css">
+    <link rel="stylesheet" href="./assets/css/highlight.css">
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="./assets/js/html5shiv.min.js"></script>
+      <script src="./assets/js/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+  <body style="background-color: #f1f2f6;">
+    <div class="docs-header">
+      <!--nav-->
+      <nav class="navbar navbar-default navbar-custom" role="navigation">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <a href="index.html"><img class="logo" src="./assets/img/logo.png"></a>
+              <ul class="share clearfix">
+                <li githubpress-website-weibo="" href="http://www.weibo.com/uedtianji"><a href="#"><span class="weibo icon-sina-weibo"></span></a></li>
+                <li githubpress-website-github="" href="https://github.com/uedtianji"><a href="#"><span class="github icon-github"></span></a></li>
+                
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="container">
+      <div class="row">
+<section class="bbox-wrp">
+<div class="info">
+    <div class="timeline">
+        <div class="category">
+                <i class="icon-github"></i>
+        </div>
+        <div class="time" githubpress-date="">12-08</div>
+        <div class="author" githubpress-author="">cyclegtx</div>
+    </div>
+</div>
+<div class="blog-box">
+<div class="blog-view">
+    <div class="title clearfix underline" githubpress-title="">zepto.slitslider.js</div>
+    <div class="content markdown typo" githubpress-content=""><h1 id="zepto-slitslider-js">zepto.slitslider.js</h1>
+<p>A slitslider remake using Zepto.js same with <a href="https://github.com/codrops/SlitSlider">jquery.slitslider.js</a>.<br><a href="http://www.iloushi.cn/ued/zepto-slitslider/">DEMO</a><br>Required files:<br>1.zepto.js<br>2.zepto.fx.js  </p>
+<p>===================
+zepto版本的 <a href="https://github.com/codrops/SlitSlider">jquery.slitslider.js</a>。  </p>
+<p><a href="http://www.iloushi.cn/ued/zepto-slitslider/">DEMO</a><br><a href="http://www.iloushi.cn/ued/zepto-slitslider/desktop.html">桌面版DEMO</a>  </p>
+<p>默认参数，改变其中的参数可以制作各种转场效果。  </p>
+<pre class="hljs"><code class="lang-javascript">{
+    <span class="hljs-attribute">orientation</span>:<span class="hljs-string">'horizontal'</span>, <span class="hljs-comment">//动画移动方向。horizontal:垂直,vertical:水平</span>
+    <span class="hljs-attribute">easing</span>: <span class="hljs-string">'ease-in-out'</span>,           <span class="hljs-comment">// the easing function</span>
+    <span class="hljs-attribute">speed</span>: <span class="hljs-number">350</span>,                <span class="hljs-comment">//动画持续时间</span>
+    <span class="hljs-attribute">scale</span>:<span class="hljs-number">1</span>,  <span class="hljs-comment">//图片缩放大小</span>
+    <span class="hljs-attribute">rotateZ</span>:<span class="hljs-number">0</span>,  <span class="hljs-comment">//图片旋转角度</span>
+    <span class="hljs-attribute">opacity</span>:<span class="hljs-number">1</span>,  <span class="hljs-comment">//图片透明度</span>
+    <span class="hljs-attribute">maxTrans</span>:<span class="hljs-number">200</span>, <span class="hljs-comment">//图片最大移动距离</span>
+    <span class="hljs-attribute">loop</span>:false <span class="hljs-comment">//是否循环</span>
+}
+</code></pre>
+<p>在实例化的的时候可以修改默认参数。在html节点中可以使用<code>data-*</code>的方式修改单个页面的参数。例如<code>data-orientation=&quot;vertical&quot;</code>可以让第二个页面的转场变为左右分开，并且<code>data-*</code>不会影响其他页面。  </p>
+<pre class="hljs"><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"slider"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">data-orientation</span>=<span class="hljs-value">"vertical"</span> <span class="hljs-attribute">data-scale</span>=<span class="hljs-value">"2"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">script</span>&gt;</span><span class="javascript">
+    <span class="hljs-keyword">var</span> sslider = $(<span class="hljs-string">'.slider'</span>).SlitSlider({speed:<span class="hljs-number">1000</span>,loop:<span class="hljs-literal">true</span>});
+    $(<span class="hljs-built_in">document</span>).swipeUp(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-comment">//下一页</span>
+        sslider.next();
+    });
+    $(<span class="hljs-built_in">document</span>).swipeDown(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-comment">//上一页</span>
+        sslider.prev();
+    });
+    <span class="hljs-comment">//去往第3页</span>
+    sslider.to(<span class="hljs-number">2</span>)
+</span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+</code></pre>
+<p>调用<code>.next()</code>为下一页，<code>.prev()</code>为上一页，<code>.to(n)</code>为跳往第n页   </p>
+<h5 id="-">大体实现方法：</h5>
+<p>当调用<code>next()</code>的时候会根据<code>.slider````上的</code>data-step<code>来确定当前是第几页，并取得当前页面的节点。和页面的宽度高度</code>pW,pH```  </p>
+<pre class="hljs"><code class="lang-javscript">var item = this.items.e<span class="hljs-string">q(itemIndex)</span>;
+var pW = item.width(),pH = item.height();
+</code></pre>
+<p>然后是关键部分，将当页的<em>内部节点</em>包在一个class为<code>wrapInner</code>的新div中，这个div是为了改变当前内容的位置所用，下面会用到。然后再包一层class为<code>half1</code>的div，这个层是为了做动画。把包好的节点half1复制一份出来，并将half1换成half2加到当前页面根节点之下。没错half1与half2就是动画中页面裂开的两个部分。  </p>
+<pre class="hljs"><code class="lang-javscript"><span class="hljs-property">item</span>.wrapInner('&lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"wrapInner"</span>&gt;&lt;/<span class="hljs-keyword">div</span>&gt;').wrapInner('&lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"half1"</span>&gt;');
+var half1 = <span class="hljs-property">item</span>.find('.half1');
+half1.clone().removeClass('half1').addClass('half2').appendTo(<span class="hljs-property">item</span>);
+var half2 = <span class="hljs-property">item</span>.find('.half2');
+</code></pre>
+<p>剩下的部分就是根据是垂直还是水平来为half1,half2加上不同的样式，使其宽度或者高度为其父节点的一半，并使两部分对其。  </p>
+<pre class="hljs"><code class="lang-javascript"><span class="hljs-tag">if</span>......
+<span class="hljs-comment">//垂直</span>
+  <span class="hljs-tag">half1</span><span class="hljs-class">.css</span>({<span class="hljs-attribute">width</span>:pW,<span class="hljs-attribute">height</span>:pH/<span class="hljs-number">2</span>,<span class="hljs-string">'overflow'</span>:<span class="hljs-string">'hidden'</span>});
+  <span class="hljs-tag">half2</span><span class="hljs-class">.css</span>({<span class="hljs-attribute">width</span>:pW,<span class="hljs-attribute">height</span>:pH/<span class="hljs-number">2</span>,<span class="hljs-string">'overflow'</span>:<span class="hljs-string">'hidden'</span>});
+  <span class="hljs-tag">half1</span><span class="hljs-class">.find</span>(<span class="hljs-string">'.wrapInner'</span>)<span class="hljs-class">.css</span>({<span class="hljs-attribute">width</span>:pW,<span class="hljs-attribute">height</span>:pH});
+  <span class="hljs-tag">half2</span><span class="hljs-class">.find</span>(<span class="hljs-string">'.wrapInner'</span>)<span class="hljs-class">.css</span>({<span class="hljs-attribute">width</span>:pW,<span class="hljs-attribute">height</span>:pH,<span class="hljs-string">'margin-top'</span>:-pH/<span class="hljs-number">2</span>});
+  ......
+}<span class="hljs-tag">else</span>{
+  <span class="hljs-comment">//水平</span>
+  <span class="hljs-tag">half1</span><span class="hljs-class">.css</span>({<span class="hljs-attribute">width</span>:pW/<span class="hljs-number">2</span>,<span class="hljs-attribute">height</span>:pH,<span class="hljs-string">'overflow'</span>:<span class="hljs-string">'hidden'</span>,<span class="hljs-string">'position'</span>:<span class="hljs-string">'absolute'</span>,<span class="hljs-string">'top'</span>:<span class="hljs-string">'0px'</span>,<span class="hljs-string">'left'</span>:<span class="hljs-string">'0px'</span>});
+  <span class="hljs-tag">half2</span><span class="hljs-class">.css</span>({<span class="hljs-attribute">width</span>:pW/<span class="hljs-number">2</span>,<span class="hljs-attribute">height</span>:pH,<span class="hljs-string">'overflow'</span>:<span class="hljs-string">'hidden'</span>,<span class="hljs-string">'position'</span>:<span class="hljs-string">'absolute'</span>,<span class="hljs-string">'top'</span>:<span class="hljs-string">'0px'</span>,<span class="hljs-string">'right'</span>:<span class="hljs-string">'0px'</span>});
+  <span class="hljs-tag">half1</span><span class="hljs-class">.find</span>(<span class="hljs-string">'.wrapInner'</span>)<span class="hljs-class">.css</span>({<span class="hljs-attribute">width</span>:pW,<span class="hljs-attribute">height</span>:pH});
+  <span class="hljs-tag">half2</span><span class="hljs-class">.find</span>(<span class="hljs-string">'.wrapInner'</span>)<span class="hljs-class">.css</span>({<span class="hljs-attribute">width</span>:pW,<span class="hljs-attribute">height</span>:pH,<span class="hljs-string">'margin-left'</span>:-pW/<span class="hljs-number">2</span>});
+  ......
+}
+</code></pre>
+<p>最后就是按照设置的参数做转场动画了。<br>当调用<code>prev()</code>的时候将half1，half2的参数归为零来做返回动画，动画做完后将half2与之前包的div删掉，使其恢复之前的节点层次。这样动画就做完了。</p>
+<p>欢迎关注我的微博<a href="http://weibo.com/uedtianji">@UED天机</a></p>
+<p>更多教程请访问：<a href="http://ued.sexy">ued.sexy</a>  </p>
+</div>
+</div>
+  <div id="comments" class="comments-view">
+      <div class="publish-comment">
+          <!-- 多说评论框 start -->
+          <div class="ds-thread" data-short-name="uedsexy" data-thread-key="cyclegtx/zepto-slitslider" data-title="zepto.slitslider.js" data-url="http://ued.sexy/1418022537501.html"></div>
+          <!-- 多说评论框 end -->
+      </div>
+  </div>
+</div>
+</section>
+      </div>
+    </div>
+    <div class="site-footer">
+      <div class="container">
+        <div class="copyright clearfix">
+          <p>Copyright © 2014 <a href="http://ued.sexy" target="_blank">ued.sexy</a></p>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:document.querySelector(".ds-thread").getAttribute("data-short-name")};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0] 
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script>
+  </body>
+</html>

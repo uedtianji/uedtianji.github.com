@@ -1,0 +1,27 @@
+{
+  "repos": [
+    "cyclegtx/burberryshow",
+    "cyclegtx/dynamic_background",
+    "uedtianji/bootSplit",
+    "uedtianji/mobile_design_guide",
+    "cyclegtx/zepto-slitslider",
+    "cyclegtx/rocked_tree",
+    "cyclegtx/wave_background",
+    "uedtianji/weixin_auth",
+    "uedtianji/zepto-onepage-scroll"
+  ],
+  "ignore": [
+    "cyclegtx/githubapi_test",
+    "uedtianji/dynamic_background",
+    "uedtianji/uedtianji.github.com",
+    "uedtianji/githubpress",
+    "cyclegtx/candy",
+    "cyclegtx/chuangling",
+    "cyclegtx/cyclegtx.github.com",
+    "cyclegtx/cyclegtx.github.io",
+    "cyclegtx/hyperc",
+    "cyclegtx/ng-contenteditable",
+    "cyclegtx/scrat",
+    "cyclegtx/test"
+  ]
+}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>微信OAuth2.0网页授权接口</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+	   <meta name="keywords" content="微信OAuth2.0网页授权接口">
+	   <meta name="description" content="微信OAuth2.0网页授权接口">
+    <link rel="shortcut icon" href="favicon_16.ico">
+    <link rel="bookmark" href="favicon_16.ico">
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/grid.css">
+    <!-- site css -->
+    <link rel="stylesheet" href="./assets/css/layout.css">
+    <link rel="stylesheet" href="./assets/css/highlight.css">
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="./assets/js/html5shiv.min.js"></script>
+      <script src="./assets/js/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+  <body style="background-color: #f1f2f6;">
+    <div class="docs-header">
+      <!--nav-->
+      <nav class="navbar navbar-default navbar-custom" role="navigation">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <a href="index.html"><img class="logo" src="./assets/img/logo.png"></a>
+              <ul class="share clearfix">
+                <li githubpress-website-weibo="" href="http://www.weibo.com/uedtianji"><a href="#"><span class="weibo icon-sina-weibo"></span></a></li>
+                <li githubpress-website-github="" href="https://github.com/uedtianji"><a href="#"><span class="github icon-github"></span></a></li>
+                
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="container">
+      <div class="row">
+<section class="bbox-wrp">
+<div class="info">
+    <div class="timeline">
+        <div class="category">
+                <i class="icon-github"></i>
+        </div>
+        <div class="time" githubpress-date="">12-08</div>
+        <div class="author" githubpress-author="">uedtianji</div>
+    </div>
+</div>
+<div class="blog-box">
+<div class="blog-view">
+    <div class="title clearfix underline" githubpress-title="">微信OAuth2.0网页授权接口</div>
+    <div class="content markdown typo" githubpress-content=""><h1 id="-oauth2-0-">微信OAuth2.0网页授权接口</h1>
+<p>微信OAuth2.0网页授权接口的thinkphp实现版本，主要实现了oauth网页受权，以及部分其他接口。<br><a href="#usage">使用方法</a></p>
+<h4 id="-oauth2-0-">为什么用OAuth2.0受权？</h4>
+<p>通过OAuth2.0受权的网页将会获取到打开者的微信信息，甚至包括微信昵称、头像等有用的数据，开发者们可以凭此设计出更多更丰富的页面应用，比如最近一直很火爆的红包类活动。除此之外还有个额外的好处，就是可以控制页面在非微信浏览器中无法打开，可以减少代码被人窥窃的风险。   </p>
+<h4 id="-oauth2-0-">那么红包类活动是如何使用OAuth2.0受权接口的呢？</h4>
+<p>1.首先用户打开页面连接（php页面），php接收到请求后将页面跳转到微信的OAuth2.0受权页面，在获取到受权后再次将页面跳转回php服务器；此次跳转中带有用户的各种信息，php服务器记录后返回用户所看到的页面。<br>2.然后用户转发此页面，在转发的连接中带有自己的标识参数。当好友点击分享后的连接的时候也会重复第1步的步骤，当php服务器发现从微信OAuth2.0受权返回的数据中的用户数据与标识参数对应的分享者的用户数据不一致的时候，则可以判断出有好友打开了分享页面，给用户增加一个红包。  </p>
+<p>====================
+<a name="usage"></a></p>
+<h3 id="-">使用方法</h3>
+<p>AuthAction.class.php ---- 认证基类<br>IndexAction.class.php --- 测试类<br>index/Conf/config.php --- 设置  </p>
+<blockquote>
+<p>wx_appID                        微信公众账号的appid<br>wx_appsecret                    微信公众账号的appsecret<br>weixin_token                    微信公众账号接口配置信息的Token<br>wx_webauth_callback_url      OAuth2.0授权后跳转到的默认页面<br>wx_webauth_expire              OAuth2.0授权Token过期时间默认6500   </p>
+</blockquote>
+<p>配置好config.php后在微信公号后台设置<code>index.php/Index/wechatInitAuth</code>进行微信API认证，提示&quot;配置成功&quot;后方可使用。<br><em>测试公众号申请与具体的测试步骤见下方。</em>  </p>
+<p>====================</p>
+<h3 id="-">测试</h3>
+<blockquote>
+<p>IndexAction.class.php --- 测试类  </p>
+</blockquote>
+<h6 id="-">申请微信测试公众帐号</h6>
+<p>微信提供测试用的公众账号，此帐号只能添加100个关注者且只有<strong>已关注</strong>的用户才可以进行OAuth2.0受权。<br><a href="http://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login">点此开通测试帐号</a>  </p>
+<p>1.开通后将<code>appID</code>、<code>appsecret</code>、<code>Token</code>填入<code>index/Conf/config.php</code>中。然后将接口配置信息中的URL改至php服务器，将地址定位到<code>index.php/Index/wechatInitAuth</code>进行微信API认证，直到提示&quot;配置成功&quot;。<br><img src="https://raw.githubusercontent.com/uedtianji/weixin_auth/master/images/1.jpg" alt=""><br>2.点击‘体验接口权限表--OAuth2.0网页授权（仅关注者才能授权）’中的修改，将授权回调页面域名改为php服务器地址。直到出现‘通过安全监测’。<br><img src="https://raw.githubusercontent.com/uedtianji/weixin_auth/master/images/2.jpg" alt=""><br><img src="https://raw.githubusercontent.com/uedtianji/weixin_auth/master/images/3.jpg" alt="">  </p>
+<p>配置完微信测试号后，在微信中打开<code>http://项目目录/index.php</code>（例：<code>http://121.40.135.90/weixin_auth/index.php</code>）将会在页面中打印出session中的受权数据，表示测试受权成功。  </p>
+<p>===================</p>
+<h4 id="-">代码结构</h4>
+<p>在AuthAction中的初始化函数<code>_initialize</code>中进行了OAuth2.0受权，所有基于AuthAction的控制器都将进行受权过程(除了微信API认证过程wechatInitAuth)。<br>对于同一用户在受权过期时间内多次打开此控制器的页面，将不会进行多次受权，因为其受权信息记录在session中，以免重复受权，减慢访问速度。受权过期时间在<code>index/Conf/config.php</code>中<code>wx_webauth_expire</code>设置，建议不要大于微信的过期时间7200秒。<br>注意：</p>
+<ul>
+<li>微信OAuth2.0受权分为snsapi_base （不弹出授权页面，直接跳转，只能获取用户openid），snsapi_userinfo （弹出授权页面，可通过openid拿到昵称、性别、所在地。并且，即使在未关注的情况下，只要用户授权，也能获取其信息）,AuthAction.class.php默认为snsapi_base，而且session中只记录了snsapi_base中的基础数据，如需要snsapi_userinfo请自行修改。</li>
+<li>具体的实现方法见代码注释。  </li>
+</ul>
+<p>更多教程请访问：<a href="http://ued.sexy">ued.sexy</a><br>微博<a href="http://weibo.com/uedtianji">@UED天机</a>。  </p>
+</div>
+</div>
+  <div id="comments" class="comments-view">
+      <div class="publish-comment">
+          <!-- 多说评论框 start -->
+          <div class="ds-thread" data-short-name="uedsexy" data-thread-key="uedtianji/weixin_auth" data-title="微信OAuth2.0网页授权接口" data-url="http://ued.sexy/1418022537560.html"></div>
+          <!-- 多说评论框 end -->
+      </div>
+  </div>
+</div>
+</section>
+      </div>
+    </div>
+    <div class="site-footer">
+      <div class="container">
+        <div class="copyright clearfix">
+          <p>Copyright © 2014 <a href="http://ued.sexy" target="_blank">ued.sexy</a></p>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:document.querySelector(".ds-thread").getAttribute("data-short-name")};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0] 
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script>
+  </body>
+</html>

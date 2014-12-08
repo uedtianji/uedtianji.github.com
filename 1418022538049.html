@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>dynamic_background</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+	   <meta name="keywords" content="dynamic_background">
+	   <meta name="description" content="dynamic_background">
+    <link rel="shortcut icon" href="favicon_16.ico">
+    <link rel="bookmark" href="favicon_16.ico">
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/grid.css">
+    <!-- site css -->
+    <link rel="stylesheet" href="./assets/css/layout.css">
+    <link rel="stylesheet" href="./assets/css/highlight.css">
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="./assets/js/html5shiv.min.js"></script>
+      <script src="./assets/js/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+  <body style="background-color: #f1f2f6;">
+    <div class="docs-header">
+      <!--nav-->
+      <nav class="navbar navbar-default navbar-custom" role="navigation">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <a href="index.html"><img class="logo" src="./assets/img/logo.png"></a>
+              <ul class="share clearfix">
+                <li githubpress-website-weibo="" href="http://www.weibo.com/uedtianji"><a href="#"><span class="weibo icon-sina-weibo"></span></a></li>
+                <li githubpress-website-github="" href="https://github.com/uedtianji"><a href="#"><span class="github icon-github"></span></a></li>
+                
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="container">
+      <div class="row">
+<section class="bbox-wrp">
+<div class="info">
+    <div class="timeline">
+        <div class="category">
+                <i class="icon-github"></i>
+        </div>
+        <div class="time" githubpress-date="">12-08</div>
+        <div class="author" githubpress-author="">cyclegtx</div>
+    </div>
+</div>
+<div class="blog-box">
+<div class="blog-view">
+    <div class="title clearfix underline" githubpress-title="">dynamic_background</div>
+    <div class="content markdown typo" githubpress-content=""><h1 id="dynamic_background">dynamic_background</h1>
+<h4 id="-">动态背景</h4>
+<p>利用多层背景的交替淡入淡出，实现一种背景在不停变换的效果，先看图。
+效果图：<br><img src="https://raw.githubusercontent.com/uedtianji/dynamic_background/master/img/1.gif" alt="效果图"><br><a href="http://cssdeck.com/labs/collab/9fz8mhu9">DEMO地址</a>  </p>
+<h5 id="-">步骤</h5>
+<p>============
+1.利用css的<code>radial-gradient</code>创建一个镜像渐变的背景。其中的<code>80% 20%</code>为渐变中心的x,y位置。  </p>
+<blockquote>
+<p>具体的radial-gradient用法可以参见<a href="http://www.w3cplus.com/content/css3-gradient">这里</a>  </p>
+</blockquote>
+<pre class="hljs"><code class="lang-css"><span class="hljs-class">.dynbg__bg</span><span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value"> absolute</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">top</span>:<span class="hljs-value"> <span class="hljs-number">0px</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">left</span>:<span class="hljs-value"> <span class="hljs-number">0px</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"><span class="hljs-number">100%</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">height</span>:<span class="hljs-value"><span class="hljs-number">100%</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"><span class="hljs-function">-moz-radial-gradient</span>(<span class="hljs-number">80%</span> <span class="hljs-number">20%</span>,farthest-side, <span class="hljs-hexcolor">#edbf47</span>, <span class="hljs-hexcolor">#D58123</span>)</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"><span class="hljs-function">-webkit-radial-gradient</span>(<span class="hljs-number">80%</span> <span class="hljs-number">20%</span>,farthest-side, <span class="hljs-hexcolor">#edbf47</span>, <span class="hljs-hexcolor">#D58123</span>)</span></span>;
+<span class="hljs-rule">}</span></span>
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/uedtianji/dynamic_background/master/img/1-1.jpg" alt="效果图"><br><a href="http://cssdeck.com/labs/uxdoorq0">在线代码</a>  </p>
+<p>2.重复第一步创建4个拥有不同的渐变背景的DIV。渐变中心点的位置分别为<code>80% 20%</code> <code>80% 80%</code> <code>20% 80%</code> <code>20% 20%</code>   </p>
+<pre class="hljs"><code class="lang-css"><span class="hljs-class">.dynbg__bg</span><span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value"> absolute</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">top</span>:<span class="hljs-value"> <span class="hljs-number">0px</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">left</span>:<span class="hljs-value"> <span class="hljs-number">0px</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">100%</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">height</span>:<span class="hljs-value"> <span class="hljs-number">100%</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">background-size</span>:<span class="hljs-value"> <span class="hljs-number">100%</span> <span class="hljs-number">100%</span></span></span>;
+<span class="hljs-rule">}</span></span>
+<span class="hljs-class">.dynbg__bg1</span><span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"><span class="hljs-function">-moz-radial-gradient</span>(<span class="hljs-number">80%</span> <span class="hljs-number">20%</span>,farthest-side, <span class="hljs-hexcolor">#edbf47</span>, <span class="hljs-hexcolor">#D58123</span>)</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"><span class="hljs-function">-webkit-radial-gradient</span>(<span class="hljs-number">80%</span> <span class="hljs-number">20%</span>,farthest-side, <span class="hljs-hexcolor">#edbf47</span>, <span class="hljs-hexcolor">#D58123</span>)</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">z-index</span>:<span class="hljs-value"> <span class="hljs-number">4</span></span></span>;
+<span class="hljs-rule">}</span></span>
+<span class="hljs-class">.dynbg__bg2</span><span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"><span class="hljs-function">-moz-radial-gradient</span>(<span class="hljs-number">80%</span> <span class="hljs-number">80%</span>,farthest-side, <span class="hljs-hexcolor">#edbf47</span>, <span class="hljs-hexcolor">#D58123</span>)</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"><span class="hljs-function">-webkit-radial-gradient</span>(<span class="hljs-number">80%</span> <span class="hljs-number">80%</span>,farthest-side, <span class="hljs-hexcolor">#edbf47</span>, <span class="hljs-hexcolor">#D58123</span>)</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">z-index</span>:<span class="hljs-value"> <span class="hljs-number">3</span></span></span>;
+<span class="hljs-rule">}</span></span>
+<span class="hljs-class">.dynbg__bg3</span><span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"><span class="hljs-function">-moz-radial-gradient</span>(<span class="hljs-number">20%</span> <span class="hljs-number">80%</span>,farthest-side, <span class="hljs-hexcolor">#edbf47</span>, <span class="hljs-hexcolor">#D58123</span>)</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"><span class="hljs-function">-webkit-radial-gradient</span>(<span class="hljs-number">20%</span> <span class="hljs-number">80%</span>,farthest-side, <span class="hljs-hexcolor">#edbf47</span>, <span class="hljs-hexcolor">#D58123</span>)</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">z-index</span>:<span class="hljs-value"> <span class="hljs-number">2</span></span></span>;
+<span class="hljs-rule">}</span></span>
+<span class="hljs-class">.dynbg__bg4</span><span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"><span class="hljs-function">-moz-radial-gradient</span>(<span class="hljs-number">20%</span> <span class="hljs-number">20%</span>,farthest-side, <span class="hljs-hexcolor">#edbf47</span>, <span class="hljs-hexcolor">#D58123</span>)</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"><span class="hljs-function">-webkit-radial-gradient</span>(<span class="hljs-number">20%</span> <span class="hljs-number">20%</span>,farthest-side, <span class="hljs-hexcolor">#edbf47</span>, <span class="hljs-hexcolor">#D58123</span>)</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">z-index</span>:<span class="hljs-value"> <span class="hljs-number">1</span></span></span>;
+<span class="hljs-rule">}</span></span>
+</code></pre>
+<p>四个div的效果<br><img src="https://raw.githubusercontent.com/uedtianji/dynamic_background/master/img/2.jpg" alt="效果图">  </p>
+<p>3.将四个div按顺序叠加摆放，并依照顺序将div的透明度由1变为0再变为1。最后一个div的透明度不需要变，所以一个需要变化3个div，每个div的变化有两个状态，所以一共有6个状态。我们将100%除以6，分成0%,16.6667%,33.3333%,50%,66.6667%,83.3333%,100%。每个div在不同阶段的状态如下。  </p>
+<pre class="hljs"><code class="lang-css"><span class="hljs-at_rule">@<span class="hljs-keyword">-webkit-keyframes</span> dynbg__ani1</span>{
+  0%<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">opacity</span>:<span class="hljs-value"> <span class="hljs-number">1</span></span></span>;
+  <span class="hljs-rule">}</span></span>
+  16<span class="hljs-class">.6667</span>%<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">opacity</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule">}</span></span>
+  33<span class="hljs-class">.3333</span>%<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">opacity</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule">}</span></span>
+  50%<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">opacity</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule">}</span></span>
+  66<span class="hljs-class">.6667</span>%<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">opacity</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule">}</span></span>
+  83<span class="hljs-class">.3333</span>%<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">opacity</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule">}</span></span>
+  100%<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">opacity</span>:<span class="hljs-value"> <span class="hljs-number">1</span></span></span>;
+  <span class="hljs-rule">}</span></span>
+}
+<span class="hljs-at_rule">@<span class="hljs-keyword">-webkit-keyframes</span> dynbg__ani2</span>{
+  0%<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">opacity</span>:<span class="hljs-value"> <span class="hljs-number">1</span></span></span>;
+  <span class="hljs-rule">}</span></span>
+  16<span class="hljs-class">.6667</span>%<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">opacity</span>:<span class="hljs-value"> <span class="hljs-number">1</span></span></span>;
+  <span class="hljs-rule">}</span></span>
+  33<span class="hljs-class">.3333</span>%<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">opacity</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule">}</span></span>
+  50%<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">opacity</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule">}</span></span>
+  66<span class="hljs-class">.6667</span>%<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">opacity</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule">}</span></span>
+  83<span class="hljs-class">.3333</span>%<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">opacity</span>:<span class="hljs-value"> <span class="hljs-number">1</span></span></span>;
+  <span class="hljs-rule">}</span></span>
+  100%<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">opacity</span>:<span class="hljs-value"> <span class="hljs-number">1</span></span></span>;
+  <span class="hljs-rule">}</span></span>
+}
+<span class="hljs-at_rule">@<span class="hljs-keyword">-webkit-keyframes</span> dynbg__ani3</span>{
+  0%<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">opacity</span>:<span class="hljs-value"> <span class="hljs-number">1</span></span></span>;
+  <span class="hljs-rule">}</span></span>
+  16<span class="hljs-class">.6667</span>%<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">opacity</span>:<span class="hljs-value"> <span class="hljs-number">1</span></span></span>;
+  <span class="hljs-rule">}</span></span>
+  33<span class="hljs-class">.3333</span>%<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">opacity</span>:<span class="hljs-value"> <span class="hljs-number">1</span></span></span>;
+  <span class="hljs-rule">}</span></span>
+  50%<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">opacity</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule">}</span></span>
+  66<span class="hljs-class">.6667</span>%<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">opacity</span>:<span class="hljs-value"> <span class="hljs-number">1</span></span></span>;
+  <span class="hljs-rule">}</span></span>
+  83<span class="hljs-class">.3333</span>%<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">opacity</span>:<span class="hljs-value"> <span class="hljs-number">1</span></span></span>;
+  <span class="hljs-rule">}</span></span>
+  100%<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">opacity</span>:<span class="hljs-value"> <span class="hljs-number">1</span></span></span>;
+  <span class="hljs-rule">}</span></span>
+}
+</code></pre>
+<p>再给div的class加上动画属性  </p>
+<pre class="hljs"><code class="lang-css">.dynbg__bg{
+  <span class="hljs-keyword">...</span>
+  -webkit-transition:all 1s linear;
+  -moz-transition:all 1s linear;
+  <span class="hljs-keyword">...</span>
+}
+.dynbg__bg1{
+  <span class="hljs-keyword">...</span>
+  -webkit-animation:dynbg__ani1 infinite 8s;
+  -moz-animation:dynbg__ani1 infinite 8s;
+}
+.dynbg__bg2{
+  <span class="hljs-keyword">...</span>
+  -webkit-animation:dynbg__ani2 infinite 8s;
+  -moz-animation:dynbg__ani2 infinite 8s;
+}
+.dynbg__bg3{
+  <span class="hljs-keyword">...</span>
+  -webkit-animation:dynbg__ani3 infinite 8s;
+  -moz-animation:dynbg__ani3 infinite 8s;
+}
+.dynbg__bg4{
+  <span class="hljs-keyword">...</span>
+}
+</code></pre>
+<p>这样就将3张图片按顺序由显示渐变为透明再变回显示了。  </p>
+<blockquote>
+<p>transition的使用方法可以参考<a href="http://www.w3cplus.com/content/css3-transition/">这里</a><br>animation的使用方法可以参考<a href="http://www.w3cplus.com/content/css3-animation">这里</a>  </p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/uedtianji/dynamic_background/master/img/3.gif" alt="效果图">  </p>
+<p>4.最后在最上面加上一层平铺的半透明的点来增加质感。  </p>
+<pre class="hljs"><code class="lang-css"><span class="hljs-class">.dynbg__bg0</span><span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">background-repeat</span>:<span class="hljs-value"> repeat</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-function">-webkit-radial-gradient</span>(<span class="hljs-function">rgba</span>(<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">0.4</span>) <span class="hljs-number">5%</span>, transparent <span class="hljs-number">10%</span>)</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-function">-moz-radial-gradient</span>(<span class="hljs-function">rgba</span>(<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">0.4</span>) <span class="hljs-number">5%</span>, transparent <span class="hljs-number">10%</span>)</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">background-size</span>:<span class="hljs-value"> <span class="hljs-number">16px</span> <span class="hljs-number">16px</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">z-index</span>:<span class="hljs-value"> <span class="hljs-number">5</span></span></span>;
+<span class="hljs-rule">}</span></span>
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/uedtianji/dynamic_background/master/img/1.gif" alt="效果图"><br><a href="http://cssdeck.com/labs/collab/9fz8mhu9">在线代码</a>  </p>
+<h3 id="-a-href-http-weibo-com-uedtianji-target-_blank-ued-a-">如有问题或者建议请微博<a href="http://weibo.com/uedtianji" target="_blank">@UED天机</a>。我会及时回复</h3>
+<p>==========  </p>
+<h4 id="-">相关阅读</h4>
+<p>1.<a href="https://github.com/cyclegtx/wave_background">波浪状动态背景</a></p>
+</div>
+</div>
+  <div id="comments" class="comments-view">
+      <div class="publish-comment">
+          <!-- 多说评论框 start -->
+          <div class="ds-thread" data-short-name="uedsexy" data-thread-key="cyclegtx/dynamic_background" data-title="dynamic_background" data-url="http://ued.sexy/1418022538049.html"></div>
+          <!-- 多说评论框 end -->
+      </div>
+  </div>
+</div>
+</section>
+      </div>
+    </div>
+    <div class="site-footer">
+      <div class="container">
+        <div class="copyright clearfix">
+          <p>Copyright © 2014 <a href="http://ued.sexy" target="_blank">ued.sexy</a></p>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:document.querySelector(".ds-thread").getAttribute("data-short-name")};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0] 
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script>
+  </body>
+</html>

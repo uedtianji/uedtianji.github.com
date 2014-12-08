@@ -1,0 +1,85 @@
+{
+  "posts": [
+    {
+      "title": "bootstrap拆分",
+      "source": "/source/_posts/1418022536900.md",
+      "author": "uedtianji",
+      "date": 1418022536900,
+      "desc": "###bootstrap拆分\n===================  \nBootstrap是目前最受欢迎的前端框架。他功能强大囊括了页面编写的方方面面，但有时候我们只需要其中部分功能，例如栅格、按钮；却不得不引用整个bootstrap的css。文件庞大不说还容易造成class的污染，一些css属性被莫名其妙的重置，且class优先级混乱。  \n\n\n本项目的目的就是将bootstrap按功能拆分为几个单独文件，去掉一些影响全局的属性。需要某个功能时可以直接引用单个文件，且尽量不影响原有css。  \n本项目使用的版本为 [Bootstrap v3.3.0](https://github.com/twbs/bootstrap) \n\n>bootstrap拆分为：  \n>样式重置：css/reset.css  ",
+      "github": "https://raw.githubusercontent.com/uedtianji/bootSplit/master/README.md",
+      "github_fullname": "uedtianji/bootSplit"
+    },
+    {
+      "title": "腾讯Burberry线上营销页面特效",
+      "source": "/source/_posts/1418022536915.md",
+      "author": "cyclegtx",
+      "date": 1418022536915,
+      "desc": "腾讯Burberry线上营销页面特效\n============\n![最终效果](https://raw.githubusercontent.com/cyclegtx/burberryshow/master/images/xg.gif)  \n\n4月24日，Burberry亚太地区规模最大的旗舰店在上海开幕。Burberry突破性地运用了诸多创新的数字营销模式，借助与腾讯的合作，为更多未能到场的用户创造了一个“平行的体验”，也正式开启了Burberry的创新数字营销之旅。  \n\n[腾讯的营销页面:](http://burberryshow.act.qq.com/unlock/index.html)\n![最终效果](https://raw.githubusercontent.com/cyclegtx/burberryshow/master/images/txqr.png)\n\n其中多次用到了开头的图片中类似于云雾褪去的效果。      ",
+      "github": "https://raw.githubusercontent.com/cyclegtx/burberryshow/master/README.md",
+      "github_fullname": "cyclegtx/burberryshow"
+    },
+    {
+      "title": "移动单页设计指南",
+      "source": "/source/_posts/1418022536925.md",
+      "author": "uedtianji",
+      "date": 1418022536925,
+      "desc": "移动单页设计指南\n=======\n本指南只针对现在流行的交互单页设计，且以微信中浏览为准，分辨率上以iphone手机为基准。  \n![交互单页](https://raw.githubusercontent.com/uedtianji/mobile_design_guide/master/img/1.gif)  \n上图就是交互单页的例子，这种页面具有以下特点：  \n>1.内容分为多个单页。  \n>2.每个单页都充满整个屏幕。  \n>3.单页之间依靠上下滑进行页面间的转换。  \n\n",
+      "github": "https://raw.githubusercontent.com/uedtianji/mobile_design_guide/master/README.md",
+      "github_fullname": "uedtianji/mobile_design_guide"
+    },
+    {
+      "title": "zepto.slitslider.js",
+      "source": "/source/_posts/1418022537501.md",
+      "author": "cyclegtx",
+      "date": 1418022537501,
+      "desc": "zepto.slitslider.js\n===================\n\nA slitslider remake using Zepto.js same with [jquery.slitslider.js](https://github.com/codrops/SlitSlider).  \n[DEMO](http://www.iloushi.cn/ued/zepto-slitslider/)  \nRequired files:  \n1.zepto.js  \n2.zepto.fx.js  \n\n",
+      "github": "https://raw.githubusercontent.com/cyclegtx/zepto-slitslider/master/README.md",
+      "github_fullname": "cyclegtx/zepto-slitslider"
+    },
+    {
+      "title": "微信OAuth2.0网页授权接口",
+      "source": "/source/_posts/1418022537560.md",
+      "author": "uedtianji",
+      "date": 1418022537560,
+      "desc": "微信OAuth2.0网页授权接口\n===========\n\n微信OAuth2.0网页授权接口的thinkphp实现版本，主要实现了oauth网页受权，以及部分其他接口。  \n[使用方法](#usage)\n\n####为什么用OAuth2.0受权？  \n通过OAuth2.0受权的网页将会获取到打开者的微信信息，甚至包括微信昵称、头像等有用的数据，开发者们可以凭此设计出更多更丰富的页面应用，比如最近一直很火爆的红包类活动。除此之外还有个额外的好处，就是可以控制页面在非微信浏览器中无法打开，可以减少代码被人窥窃的风险。   \n\n####那么红包类活动是如何使用OAuth2.0受权接口的呢？    ",
+      "github": "https://raw.githubusercontent.com/uedtianji/weixin_auth/master/README.md",
+      "github_fullname": "uedtianji/weixin_auth"
+    },
+    {
+      "title": "修改Zepto One Page Scroll by Pete R.",
+      "source": "/source/_posts/1418022537857.md",
+      "author": "uedtianji",
+      "date": 1418022537857,
+      "desc": "#修改Zepto One Page Scroll by Pete R.\n修改自Pete R.的Zepto One Page Scroll插件，查看原版或者使用方法点[这里](https://github.com/peachananr/zepto-onepage-scroll)\n\n修改部分：  \n>1.将高度改为百分比  \n>2.如果body节点含有class```disabled-onepage-scroll```则插件停止响应滚动。  \n",
+      "github": "https://raw.githubusercontent.com/uedtianji/zepto-onepage-scroll/master/README.md",
+      "github_fullname": "uedtianji/zepto-onepage-scroll"
+    },
+    {
+      "title": "dynamic_background",
+      "source": "/source/_posts/1418022538049.md",
+      "author": "cyclegtx",
+      "date": 1418022538049,
+      "desc": "dynamic_background\n==================\n\n####动态背景  \n利用多层背景的交替淡入淡出，实现一种背景在不停变换的效果，先看图。\n效果图：  \n![效果图](https://raw.githubusercontent.com/uedtianji/dynamic_background/master/img/1.gif)  \n[DEMO地址](http://cssdeck.com/labs/collab/9fz8mhu9)  \n\n#####步骤",
+      "github": "https://raw.githubusercontent.com/cyclegtx/dynamic_background/master/README.md",
+      "github_fullname": "cyclegtx/dynamic_background"
+    },
+    {
+      "title": "用Canvas制作可以根据手势摆动的树",
+      "source": "/source/_posts/1418022539186.md",
+      "author": "cyclegtx",
+      "date": 1418022539186,
+      "desc": "用Canvas制作可以根据手势摆动的树\n===========  \n![最终效果](https://raw.githubusercontent.com/cyclegtx/rocked_tree/master/images/1.gif)  \n根据工作的需要，制作一个摆动的树做为页面的背景。为了增加页面的交互性，我又为背景中的树增加了鼠标（触控）事件，使他能够根据鼠标（触控）做出相应的动作，当手指做上下或者左右滑动的时候树会跟着摆动。  \n\n\n####Step1.完成HTML页面，新建一个Tree类  \n\n完成HTML页面后新建一个Tree类用来记录树的各个属性。其中```x,y```为树根部的坐标值，```branchLen,branchWidth```分别是树枝的长度与宽度，```depth```为树枝的层数，```canvas```用来接页面中的canvas元素（默认是ID为canvas的元素）。\n```javascript",
+      "github": "https://raw.githubusercontent.com/cyclegtx/rocked_tree/master/README.md",
+      "github_fullname": "cyclegtx/rocked_tree"
+    },
+    {
+      "title": "canvas制作波浪状动态背景",
+      "source": "/source/_posts/1418022539849.md",
+      "author": "cyclegtx",
+      "date": 1418022539849,
+      "desc": "canvas制作波浪状动态背景\n===============\n先看效果图  \n![效果图](https://raw.githubusercontent.com/cyclegtx/wave_background/gh-pages/images/1.gif)  \n\n此页面是微信公众帐号《玩转三里屯》中的“消费指南”功能所用的页面。考虑到页面只在手机中浏览，而且手机对canvas的支持又非常好，所以打算使用canvas做点不一样的动画。  \n\n<a href=\"http://cssdeck.com/labs/collab/u73pt0ew\" target=\"_blank\">代码在线预览</a>  \n\n",
+      "github": "https://raw.githubusercontent.com/cyclegtx/wave_background/master/README.md",
+      "github_fullname": "cyclegtx/wave_background"
+    }
+  ]
+}
