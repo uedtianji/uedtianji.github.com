@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>如何使用Github pages写博客  </title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+	   <meta name="keywords" content="如何使用Github pages写博客  ">
+	   <meta name="description" content="如何使用Github pages写博客  ">
+    <link rel="shortcut icon" href="favicon_16.ico">
+    <link rel="bookmark" href="favicon_16.ico">
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/grid.css">
+    <!-- site css -->
+    <link rel="stylesheet" href="./assets/css/fonts/iconfont.css">
+    <link rel="stylesheet" href="./assets/css/layout.css">
+    <link rel="stylesheet" href="./assets/css/highlight.css">
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="./assets/js/html5shiv.min.js"></script>
+      <script src="./assets/js/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+  <body style="background-color: #f1f2f6;">
+    <div class="docs-header">
+      <!--nav-->
+      <nav class="navbar navbar-default navbar-custom" role="navigation">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <a href="index.html"><img class="logo" src="./assets/img/logo.png"></a>
+              <ul class="share clearfix">
+                <li githubpress-website-weibo=""><a href="http://www.weibo.com/uedtianji"><span class="weibo iconfont">&#xe66e;</span></a></li>
+                <li githubpress-website-github=""><a href="https://github.com/uedtianji"><span class="github iconfont">&#xe611;</span></a></li>
+                
+                
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="container">
+      <div class="row">
+<section class="bbox-wrp">
+<div class="info">
+    <div class="timeline">
+        <div class="category">
+                <a githubpress-reposurl="" href="https://github.com/uedtianji/writing_blogs_on_github"><i class="iconfont">&#xe611;</i></a>
+        </div>
+        <div class="time" githubpress-date="">12-10</div>
+        <div class="author" githubpress-author="">uedtianji</div>
+    </div>
+</div>
+<div class="blog-box">
+<div class="blog-view">
+    <div class="title clearfix underline" githubpress-title="">如何使用Github pages写博客  </div>
+    <div class="content markdown typo" githubpress-content=""><h1 id="-github-pages-">如何使用Github pages写博客</h1>
+<p><strong>为什么要用Github搭建博客？</strong>  </p>
+<p><strong>免费</strong>，虽然csdn、cnblog也是免费的，但是那种只提供在线编辑，不能随意修改页面样式的网站当然没法满足我们这种折腾惯了的个人站长。用wordpress自己搭建网站，租用服务器也是一笔费用。而github可以随意定制、指定自己的域名，完全满足个人站长的需求，关键是完全免费。  </p>
+<p><strong>Markdown</strong>便捷的文章书写体验,虽然 zblog、wordpress安装插件也可以支持markdown语法，但是github的README.md一直使用markdown语法直接显示在项目的页面中，使用markdown的支持更方便。  </p>
+<p><strong>Github pages 无法实现什么功能？</strong>  </p>
+<p>文章评论，github pages只支持静态页面的展示，虽然浏览器端可以使用javascript控制逻辑，但是缺少服务器端语言的支持，所以无法处理提交的评论。好在我们可以使用第三方的评论插件，如<a href="http://duoshuo.com/">多说</a>、<a href="http://www.uyan.cc/">友言</a>等。这些第三方评论插件将评论上传到他们的服务器上，这样便于管理还可以使用他们的垃圾评论过滤器，更加的方便、安全。  </p>
+<h4 id="-">步骤</h4>
+<ol>
+<li><p>新建repository<br>这里要注意项目名称。如果项目名称是<code>username.github.com</code>或<code>username.github.io</code>,其中<code>username</code>为你的github名称或者组织名称，则生成的github pages是<code>个人主页</code>。如果项目名称为其他名称则是<code>项目主页</code>。<br>个人主页和项目主页的区别:    </p>
+<blockquote>
+<p>个人主页的页面文件存放在<code>master</code>分支下
+项目主页的页面文件存放在<code>gh-pages</code>分支下</p>
+</blockquote>
+</li>
+<li><p>如果是<strong>项目主页</strong>，在项目目录中进入<code>Settings</code><br><img src="https://raw.githubusercontent.com/uedtianji/writing_blogs_on_github/master/images/1.jpg" alt=""><br>在settings中的<code>Github pages</code>点击<code>Automatic page generator</code>进入页面编辑。<br><img src="https://raw.githubusercontent.com/uedtianji/writing_blogs_on_github/master/images/2.jpg" alt=""><br>在页面编辑中建议使用<code>Load README.md</code>来将README.md中的内容加载到页面中。<br><img src="https://raw.githubusercontent.com/uedtianji/writing_blogs_on_github/master/images/3.jpg" alt=""><br>选择模版样式后，github将建好<code>gh-pages</code>分支。<br><img src="https://raw.githubusercontent.com/uedtianji/writing_blogs_on_github/master/images/4.jpg" alt=""> </p>
+</li>
+</ol>
+<p>3.如果是<strong>个人主页</strong>，则不需要进入<code>Settings</code>，github将会在<code>master</code>分支中建好页面静态文件。  </p>
+<p>4.访问<code>http://username.github.io</code>(个人主页)或者<code>http://username.github.io/项目名称</code>(项目主页)就可以访问页面了。  </p>
+<p>5.修改页面。修改<code>master</code>(个人主页)或者<code>gh-pages</code>(项目主页)中的html文件就可以修改页面内容了，页面中的路径使用的相对路径，相对的目录是项目根目录。  </p>
+<p>6.github默认用来生成静态文件的工具是<code>jekyll</code>,jekyll是用Ruby编写，用不惯的可以尝试下使用我自己编写的<code>githubpress</code>使用nodejs编写。</p>
+<p>7.绑定域名。在<code>master</code>(个人主页)或者<code>gh-pages</code>(项目主页)版本库下新建名字为CNAME的文本文件，注意无扩展名,内容为域名，如：ued.sexy。然后在你的域名提供商那里添加A记录或者cname到github的ip<code>192.30.252.153</code>、<code>192.30.252.154</code>,然后等待生效就可以用你自己的域名访问了。</p>
+</div>
+</div>
+  <div id="comments" class="comments-view">
+      <div class="publish-comment">
+          <!-- 多说评论框 start -->
+          <div class="ds-thread" data-short-name="uedsexy" data-thread-key="uedtianji/writing_blogs_on_github" data-title="如何使用Github pages写博客  " data-url="http://ued.sexy/1418200713026.html"></div>
+          <!-- 多说评论框 end -->
+      </div>
+  </div>
+</div>
+</section>
+      </div>
+    </div>
+    <div class="site-footer">
+      <div class="container">
+        <div class="copyright clearfix">
+          <p>Copyright © 2014 <a href="http://ued.sexy" target="_blank">ued.sexy</a></p>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:document.querySelector(".ds-thread").getAttribute("data-short-name")};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0] 
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script>
+  </body>
+</html>

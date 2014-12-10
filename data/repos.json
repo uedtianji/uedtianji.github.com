@@ -8,7 +8,9 @@
     "cyclegtx/rocked_tree",
     "cyclegtx/wave_background",
     "uedtianji/weixin_auth",
-    "uedtianji/zepto-onepage-scroll"
+    "uedtianji/zepto-onepage-scroll",
+    "uedtianji/writing_blogs_on_github",
+    "uedtianji/writing_on_readme"
   ],
   "ignore": [
     "cyclegtx/githubapi_test",
