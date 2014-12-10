@@ -43,7 +43,7 @@ body{
     height: 50px;
     color: #fff;
     float: left;
-    line-height: 54px;
+    line-height: 50px;
     text-align: center;
     font-size: 20px;
     margin: 20px 8px;
@@ -124,7 +124,7 @@ body{
         height: 40px;
         color: #fff;
         float: left;
-        line-height: 44px;
+        line-height: 40px;
         text-align: center;
         font-size: 20px;
         margin: 25px 8px;
@@ -182,7 +182,7 @@ body{
 .bbox-wrp .info .category i {
     font-size: 30px;
     color: rgba(255, 255, 255, 0.9);
-    line-height: 72px;
+    line-height: 76px;
 }
 
 .bbox-wrp .info .author,
@@ -883,198 +883,4 @@ body{
     font-weight: bold;
     background: #f8f8f8;
     border-top: 0;
-}
-/** icon **/
-@font-face {
-    font-family: 'icomoon';
-    src:url('fonts/icomoon.eot?-9egc9v');
-    src:url('fonts/icomoon.eot?#iefix-9egc9v') format('embedded-opentype'),
-        url('fonts/icomoon.woff?-9egc9v') format('woff'),
-        url('fonts/icomoon.ttf?-9egc9v') format('truetype'),
-        url('fonts/icomoon.svg?-9egc9v#icomoon') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-[class^="icon-"], [class*=" icon-"] {
-    font-family: 'icomoon';
-    speak: none;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-
-    /* Better Font Rendering =========== */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-.icon-home:before {
-    content: "\e600";
-}
-.icon-pencil:before {
-    content: "\e601";
-}
-.icon-images:before {
-    content: "\e602";
-}
-.icon-book:before {
-    content: "\e603";
-}
-.icon-file:before {
-    content: "\e604";
-}
-.icon-folder-open:before {
-    content: "\e605";
-}
-.icon-tag:before {
-    content: "\e606";
-}
-.icon-tags:before {
-    content: "\e607";
-}
-.icon-qrcode:before {
-    content: "\e608";
-}
-.icon-coin:before {
-    content: "\e609";
-}
-.icon-credit:before {
-    content: "\e60a";
-}
-.icon-phone:before {
-    content: "\e60b";
-}
-.icon-location:before {
-    content: "\e60c";
-}
-.icon-map:before {
-    content: "\e60d";
-}
-.icon-history:before {
-    content: "\e60e";
-}
-.icon-alarm:before {
-    content: "\e60f";
-}
-.icon-calendar:before {
-    content: "\e610";
-}
-.icon-keyboard:before {
-    content: "\e611";
-}
-.icon-mobile:before {
-    content: "\e612";
-}
-.icon-drawer:before {
-    content: "\e613";
-}
-.icon-download:before {
-    content: "\e614";
-}
-.icon-undo:before {
-    content: "\e615";
-}
-.icon-redo:before {
-    content: "\e616";
-}
-.icon-forward:before {
-    content: "\e617";
-}
-.icon-reply:before {
-    content: "\e618";
-}
-.icon-bubbles:before {
-    content: "\e619";
-}
-.icon-user:before {
-    content: "\e61a";
-}
-.icon-users:before {
-    content: "\e61b";
-}
-.icon-quotes-left:before {
-    content: "\e61c";
-}
-.icon-spinner:before {
-    content: "\e61d";
-}
-.icon-arrow-up:before {
-    content: "\e61e";
-}
-.icon-arrow-right:before {
-    content: "\e61f";
-}
-.icon-arrow-down:before {
-    content: "\e620";
-}
-.icon-arrow-left:before {
-    content: "\e621";
-}
-.icon-arrow-up2:before {
-    content: "\e622";
-}
-.icon-arrow-right2:before {
-    content: "\e623";
-}
-.icon-arrow-down2:before {
-    content: "\e624";
-}
-.icon-arrow-left2:before {
-    content: "\e625";
-}
-.icon-text-height:before {
-    content: "\e626";
-}
-.icon-bold:before {
-    content: "\e627";
-}
-.icon-code:before {
-    content: "\e628";
-}
-.icon-mail:before {
-    content: "\e629";
-}
-.icon-dribbble:before {
-    content: "\e62a";
-}
-.icon-github:before {
-    content: "\e62b";
-}
-.icon-github2:before {
-    content: "\e62c";
-}
-.icon-github3:before {
-    content: "\e62d";
-}
-.icon-tux:before {
-    content: "\e62e";
-}
-.icon-apple:before {
-    content: "\e62f";
-}
-.icon-android:before {
-    content: "\e630";
-}
-.icon-windows8:before {
-    content: "\e631";
-}
-.icon-html5:before {
-    content: "\e632";
-}
-.icon-qq:before {
-    content: "\e633";
-}
-.icon-evernote:before {
-    content: "\e634";
-}
-.icon-renren:before {
-    content: "\e635";
-}
-.icon-sina-weibo:before {
-    content: "\e636";
-}
-.icon-picasa:before {
-    content: "\e637";
 }
