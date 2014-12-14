@@ -5,7 +5,7 @@ README.md是github中用来描述项目的文档，使用```markdown```语言，
 在github项目中每个目录下面的README.md文档将会被翻译成html显示在该目录的github页面中。  
 
 
-**为什么使用README.md?**  
+**为什么使用github?**  
 github提供了免费的存放图片的空间。  
 github的目录可以很好的作为文章章节管理。  
 markdown更适合文章编写，而且可以很好的处理代码块，是写技术类文章的必备。  
