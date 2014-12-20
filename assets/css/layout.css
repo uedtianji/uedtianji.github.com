@@ -466,7 +466,7 @@ body{
     .bbox-wrp .info {
         position: absolute;
         left: 0;
-        top: 0;
+        top: -6px;
         width: 100%;
         padding: 0px 0px;
         text-align: center;
