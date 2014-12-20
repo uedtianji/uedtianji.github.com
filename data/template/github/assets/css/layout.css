@@ -884,3 +884,10 @@ body{
     background: #f8f8f8;
     border-top: 0;
 }
+
+.top .category,
+.top .time,
+.top .author{
+  background: #485056 !important;
+  color: #fff !important;
+}
