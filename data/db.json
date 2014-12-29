@@ -98,6 +98,15 @@
       "desc": "**为什么要用Github搭建博客？**  \n\n**免费**，虽然csdn、cnblog也是免费的，但是那种只提供在线编辑，不能随意修改页面样式的网站当然没法满足我们这种折腾惯了的个人站长。用wordpress自己搭建网站，租用服务器也是一笔费用。而github可以随意定制、指定自己的域名，完全满足个人站长的需求，关键是完全免费。  \n\n**Markdown**便捷的文章书写体验,虽然 zblog、wordpress安装插件也可以支持markdown语法，但是github的README.md一直使用markdown语法直接显示在项目的页面中，使用markdown的支持更方便。  \n\n**Github pages 无法实现什么功能？**  \n",
       "github": "https://raw.githubusercontent.com/uedtianji/writing_blogs_on_github/master/README.md",
       "github_fullname": "uedtianji/writing_blogs_on_github"
+    },
+    {
+      "title": "svg动画实现沉浸式体验",
+      "source": "/source/_posts/1419847425335.md",
+      "author": "zhangzicong6",
+      "date": 1419847425335,
+      "desc": "##svg动画实现沉浸式体验\n现在html5火起来之后，像云来那种滑动式单页越来越多，今天给大家带来一种不同的场景体验方式。\n没有页面与页面之间的切换，只有元素与元素的替换，使用户只沉浸在内容元素之中，而不用被其他的东西影响。\n当然这种体验也可以使用html+css去做，我这儿用svg是因为有一些动画html+css实现不了。废话不多说了，开始进入主题\n##编码前准备\n既然是svg就得准备svg吧，写教程就不准备太复杂的svg了，既然是场景应用，那么就要能控制svg的元素，使得其中的元素按照规则显示与隐藏，\n这就要控制svg里的元素，你可以通过元素查找进行操作，我在这里用的是Snap.svg.js,专门用了处理svg的类库，学习使用起来挺方便的，当然\n我为了写起来方便就用svg写了，sanp可以往svg里添加删除元素，如果是细节控可以把svg用snap动态加载进去，然后不用的元素再删除\n<pre><code>\n&lt;svg id=\"svg\" version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"",
+      "github": "https://raw.githubusercontent.com/zhangzicong6/svg-animation/master/README.md",
+      "github_fullname": "zhangzicong6/svg-animation"
     }
   ]
 }
