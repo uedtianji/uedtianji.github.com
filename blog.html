@@ -70,6 +70,26 @@
     <div class="info">
       <div class="timeline">
         <div class="category">
+          <a githubpress-reposurl="" href="https://github.com/cyclegtx/drop.js"><i class="iconfont">&#xe611;</i></a>
+        </div>
+        <div class="time" githubpress-date="">12-29</div>
+        <div class="author" githubpress-author="">cyclegtx</div>
+      </div>
+    </div>
+    <div class="blog-box">
+        <div class="blog-detail">
+            <div class="title"><a href="1419868783226.html" githubpress-title="">下拉刷新--模仿水滴</a></div>
+            <div class="desc markdown mui-ellipsis-3" githubpress-content=""><h1 id="-">下拉刷新--模仿水滴</h1>
+<p><img src="https://raw.githubusercontent.com/cyclegtx/drop.js/master/images/1.gif" alt="最终效果"><br><a href="http://cyclegtx.github.io/drop.js/" target="_blank">测试地址</a><br>这种拟物的设计曾经多次用在IOS的设计中，上图的下拉刷新就是模仿自苹果的Podcast(播客)。随着系统扁平化设计的步步深入，这种可以让人心领神会的小动画渐渐的被更加标准的旋转的菊花所代替。拟物扁平孰优孰劣，已经不在重要，这里只是想用web技术再仿制一次这个神奇的小水滴。可能已经再也用不上，仅仅作为向优秀设计的致敬。  </p>
+<p>效果中的圆圈可以根据手势被拉长，而且在弹回的时候速度由快变慢，有一种橡皮的感觉。速度由快变慢可以使用tween.js中的缓动函数解决，但是变形的圆圈css3有点鞭长莫及，而且考虑到效率的问题还是使用canvas直接绘制。  </p>
+<p>仔细考虑后将变形的圆圈分成3个部分，上下两个圆圈，加上中间一个向内凹陷的矩形。<br><img src="https://raw.githubusercontent.com/cyclegtx/drop.js/master/images/1-1.jpg" alt=""><br>上下圆使用<code>arc()</code>绘制，中间蓝色的矩形只能使用<code>beginPath()</code>来绘制。在绘制的过程中直线部分使用<code>lineTo()</code>可以直接绘制，那曲线部分呢？自然是是用贝塞尔曲线,这里使用二次贝塞尔曲线<code>quadraticCurveTo()</code>就可以了,三次方贝塞尔曲线也可以但是要增加个控制点，增加了复杂度。可以在photoshop中使用钢笔工具画出这个不规则矩形,来形象的观察贝塞尔曲线的控制点要放置什么位置，因为钢笔工具也是使用贝塞尔曲线实现的。我在代码编写的过程中就是通过ps中钢笔工具来反复尝试控制点的位置。  </p>
+</div>
+        </div>
+    </div>
+</section><section class="bbox-wrp">
+    <div class="info">
+      <div class="timeline">
+        <div class="category">
           <a githubpress-reposurl="" href="https://github.com/zhangzicong6/svg-animation"><i class="iconfont">&#xe611;</i></a>
         </div>
         <div class="time" githubpress-date="">12-29</div>
