@@ -56,105 +56,101 @@
 <div class="blog-view">
     <div class="title clearfix underline" githubpress-title="">svg动画实现沉浸式体验</div>
     <div class="content markdown typo" githubpress-content=""><h2 id="svg-">svg动画实现沉浸式体验</h2>
-<p>现在html5火起来之后，像云来那种滑动式单页越来越多，今天给大家带来一种不同的场景体验方式。
-没有页面与页面之间的切换，只有元素与元素的替换，使用户只沉浸在内容元素之中，而不用被其他的东西影响。
-当然这种体验也可以使用html+css去做，我这儿用svg是因为有一些动画html+css实现不了。废话不多说了，开始进入主题</p>
+<p>现在html5火起来之后，像云来那种滑动式单页越来越多，今天给大家带来一种不同的场景体验方式。没有页面与页面之间的切换，只有元素与元素的替换，使用户只沉浸在内容元素之中，而不用被其他的东西影响。当然这种体验也可以使用html+css去做，我这儿用svg是因为有一些动画html+css实现不了。废话不多说了，开始进入主题    </p>
 <h2 id="-">编码前准备</h2>
-<p>既然是svg就得准备svg吧，写教程就不准备太复杂的svg了，既然是场景应用，那么就要能控制svg的元素，使得其中的元素按照规则显示与隐藏，
-这就要控制svg里的元素，你可以通过元素查找进行操作，我在这里用的是Snap.svg.js,专门用了处理svg的类库，学习使用起来挺方便的，当然
-我为了写起来方便就用svg写了，sanp可以往svg里添加删除元素，如果是细节控可以把svg用snap动态加载进去，然后不用的元素再删除。</p>
+<p>既然是svg就得准备svg吧，写教程就不准备太复杂的svg了，既然是场景应用，那么就要能控制svg的元素，使得其中的元素按照规则显示与隐藏,这就要控制svg里的元素，你可以通过元素查找进行操作，我在这里用的是Snap.svg.js,专门用了处理svg的类库，学习使用起来挺方便的，当然我为了写起来方便就用svg写了，sanp可以往svg里添加删除元素，如果是细节控可以把svg用snap动态加载进去，然后不用的元素再删除。  </p>
 <h2 id="-">代码编写</h2>
-<p>svg如果是简单线和简单图形程序员可以尝试自己写svg，不过一般项目里图形还是挺复杂的，可以让设计师在AI里设计导出svg，导出的svg：</p>
-<p><pre><code>
-&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  --&gt;
-&lt;!DOCTYPE svg PUBLIC &quot;-//W3C//DTD SVG 1.1//EN&quot; &quot;<a href="http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd&quot;&amp;gt">http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd&quot;&amp;gt</a>;
-&lt;svg version=&quot;1.1&quot; id=&quot;Layer<em>1&quot; xmlns=&quot;<a href="http://www.w3.org/2000/svg">http://www.w3.org/2000/svg</a>&quot; xmlns:xlink=&quot;<a href="http://www.w3.org/1999/xlink">http://www.w3.org/1999/xlink</a>&quot; x=&quot;0px&quot; y=&quot;0px&quot;
-     width=&quot;640px&quot; height=&quot;1008px&quot; viewBox=&quot;0 0 640 1008&quot; enable-background=&quot;new 0 0 640 1008&quot; xml:space=&quot;preserve&quot;&gt;
-&lt;text transform=&quot;matrix(1 0 0 1 128.8887 595.5957)&quot; fill=&quot;#E60012&quot; font-family=&quot;&#39;FZLTXHK--GBK1-0&#39;&quot; font-size=&quot;48.0418&quot;&gt;创意和技术的结合&lt;/text&gt;
+<p>svg如果是简单线和简单图形程序员可以尝试自己写svg，不过一般项目里图形还是挺复杂的，可以让设计师在AI里设计导出svg，导出的svg：  </p>
+<pre class="hljs"><code class="lang-svg"><span class="hljs-pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="hljs-comment">&lt;!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  --&gt;</span>
+<span class="hljs-doctype">&lt;!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">svg</span> <span class="hljs-attribute">version</span>=<span class="hljs-value">"1.1"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"Layer_1"</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"http://www.w3.org/2000/svg"</span> <span class="hljs-attribute">xmlns:xlink</span>=<span class="hljs-value">"http://www.w3.org/1999/xlink"</span> <span class="hljs-attribute">x</span>=<span class="hljs-value">"0px"</span> <span class="hljs-attribute">y</span>=<span class="hljs-value">"0px"</span>
+     <span class="hljs-attribute">width</span>=<span class="hljs-value">"640px"</span> <span class="hljs-attribute">height</span>=<span class="hljs-value">"1008px"</span> <span class="hljs-attribute">viewBox</span>=<span class="hljs-value">"0 0 640 1008"</span> <span class="hljs-attribute">enable-background</span>=<span class="hljs-value">"new 0 0 640 1008"</span> <span class="hljs-attribute">xml:space</span>=<span class="hljs-value">"preserve"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">text</span> <span class="hljs-attribute">transform</span>=<span class="hljs-value">"matrix(1 0 0 1 128.8887 595.5957)"</span> <span class="hljs-attribute">fill</span>=<span class="hljs-value">"#E60012"</span> <span class="hljs-attribute">font-family</span>=<span class="hljs-value">"'FZLTXHK--GBK1-0'"</span> <span class="hljs-attribute">font-size</span>=<span class="hljs-value">"48.0418"</span>&gt;</span>创意和技术的结合<span class="hljs-tag">&lt;/<span class="hljs-title">text</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">g</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">circle</span> <span class="hljs-attribute">fill</span>=<span class="hljs-value">"#E60012"</span> <span class="hljs-attribute">cx</span>=<span class="hljs-value">"343.054"</span> <span class="hljs-attribute">cy</span>=<span class="hljs-value">"417.491"</span> <span class="hljs-attribute">r</span>=<span class="hljs-value">"75.529"</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">circle</span> <span class="hljs-attribute">fill</span>=<span class="hljs-value">"#E60012"</span> <span class="hljs-attribute">cx</span>=<span class="hljs-value">"299.059"</span> <span class="hljs-attribute">cy</span>=<span class="hljs-value">"417.491"</span> <span class="hljs-attribute">r</span>=<span class="hljs-value">"75.529"</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">g</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">defs</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">circle</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"SVGID_1_"</span> <span class="hljs-attribute">cx</span>=<span class="hljs-value">"299.059"</span> <span class="hljs-attribute">cy</span>=<span class="hljs-value">"417.491"</span> <span class="hljs-attribute">r</span>=<span class="hljs-value">"75.529"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">defs</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">clipPath</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"SVGID_2_"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">use</span> <span class="hljs-attribute">xlink:href</span>=<span class="hljs-value">"#SVGID_1_"</span>  <span class="hljs-attribute">overflow</span>=<span class="hljs-value">"visible"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">clipPath</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">circle</span> <span class="hljs-attribute">clip-path</span>=<span class="hljs-value">"url(#SVGID_2_)"</span> <span class="hljs-attribute">fill</span>=<span class="hljs-value">"#FCFAFA"</span> <span class="hljs-attribute">cx</span>=<span class="hljs-value">"342.556"</span> <span class="hljs-attribute">cy</span>=<span class="hljs-value">"417.491"</span> <span class="hljs-attribute">r</span>=<span class="hljs-value">"75.529"</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">g</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">g</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">svg</span>&gt;</span>
+</code></pre>
+<p>我们要使用导出的svg需要将元素进行定位，比如那个元素要进行动画，那个元素后出来，你可以将svg贴入html中，在浏览器中审查元素找到哪个元素对应的位置等信息，将单独要做动画的元素设置id，方便查找。另外有个细节需要注意，就是svg的自适应，<code>viewBox=&quot;0 0 640 1008&quot;</code>是指svg原本大小，然后在svg设置宽高，svg就会按照比例进行缩放，在这里我将width和height都设成100%  </p>
+<pre class="hljs"><code class="lang-svg">&lt;svg <span class="hljs-variable">id=</span><span class="hljs-string">"svg"</span> <span class="hljs-variable">version=</span><span class="hljs-string">"1.1"</span> <span class="hljs-variable">id=</span><span class="hljs-string">"Layer_1"</span> <span class="hljs-variable">xmlns=</span><span class="hljs-string">"http://www.w3.org/2000/svg"</span> xmlns:<span class="hljs-variable">xlink=</span><span class="hljs-string">"http://www.w3.org/1999/xlink"</span> <span class="hljs-variable">x=</span><span class="hljs-string">"0px"</span> <span class="hljs-variable">y=</span><span class="hljs-string">"0px"</span>
+     <span class="hljs-variable">width=</span><span class="hljs-string">"100%"</span> <span class="hljs-variable">height=</span><span class="hljs-string">"100%"</span> <span class="hljs-variable">viewBox=</span><span class="hljs-string">"0 0 640 1008"</span> <span class="hljs-variable">enable-background=</span><span class="hljs-string">"new 0 0 640 1008"</span> xml:<span class="hljs-variable">space=</span><span class="hljs-string">"preserve"</span>&gt;
+&lt;text <span class="hljs-variable">transform=</span><span class="hljs-string">"matrix(1 0 0 1 128.8887 595.5957)"</span> <span class="hljs-variable">fill=</span><span class="hljs-string">"#E60012"</span> <span class="hljs-variable">font-family=</span><span class="hljs-string">"'FZLTXHK--GBK1-0'"</span> <span class="hljs-variable">font-size=</span><span class="hljs-string">"48.0418"</span>&gt;创意和技术的结合&lt;/text&gt;
 &lt;g&gt;
-    &lt;circle fill=&quot;#E60012&quot; cx=&quot;343.054&quot; cy=&quot;417.491&quot; r=&quot;75.529&quot;/&gt;
-    &lt;circle fill=&quot;#E60012&quot; cx=&quot;299.059&quot; cy=&quot;417.491&quot; r=&quot;75.529&quot;/&gt;
+    &lt;circle <span class="hljs-variable">id=</span><span class="hljs-string">"cicle1"</span> <span class="hljs-variable">fill=</span><span class="hljs-string">"#E60012"</span> <span class="hljs-variable">cx=</span><span class="hljs-string">"343.054"</span> <span class="hljs-variable">cy=</span><span class="hljs-string">"417.491"</span> <span class="hljs-variable">r=</span><span class="hljs-string">"75.529"</span>/&gt;
+    &lt;circle <span class="hljs-variable">id=</span><span class="hljs-string">"cicle2"</span> <span class="hljs-variable">fill=</span><span class="hljs-string">"#E60012"</span> <span class="hljs-variable">cx=</span><span class="hljs-string">"299.059"</span> <span class="hljs-variable">cy=</span><span class="hljs-string">"417.491"</span> <span class="hljs-variable">r=</span><span class="hljs-string">"75.529"</span>/&gt;
     &lt;g&gt;
         &lt;defs&gt;
-            &lt;circle id=&quot;SVGID_1</em>&quot; cx=&quot;299.059&quot; cy=&quot;417.491&quot; r=&quot;75.529&quot;/&gt;
+            &lt;circle <span class="hljs-variable">id=</span><span class="hljs-string">"SVGID_1_"</span> <span class="hljs-variable">cx=</span><span class="hljs-string">"299.059"</span> <span class="hljs-variable">cy=</span><span class="hljs-string">"417.491"</span> <span class="hljs-variable">r=</span><span class="hljs-string">"75.529"</span>/&gt;
         &lt;/defs&gt;
-        &lt;clipPath id=&quot;SVGID<em>2</em>&quot;&gt;
-            &lt;use xlink:href=&quot;#SVGID<em>1</em>&quot;  overflow=&quot;visible&quot;/&gt;
+        &lt;clipPath <span class="hljs-variable">id=</span><span class="hljs-string">"SVGID_2_"</span>&gt;
+            &lt;use xlink:<span class="hljs-variable">href=</span><span class="hljs-string">"#SVGID_1_"</span>  <span class="hljs-variable">overflow=</span><span class="hljs-string">"visible"</span>/&gt;
         &lt;/clipPath&gt;
-        &lt;circle clip-path=&quot;url(#SVGID<em>2</em>)&quot; fill=&quot;#FCFAFA&quot; cx=&quot;342.556&quot; cy=&quot;417.491&quot; r=&quot;75.529&quot;/&gt;
+        &lt;circle <span class="hljs-variable">id=</span><span class="hljs-string">"SVGID_3_"</span> <span class="hljs-variable">clip-path=</span><span class="hljs-string">"url(#SVGID_2_)"</span> <span class="hljs-variable">fill=</span><span class="hljs-string">"#FCFAFA"</span> <span class="hljs-variable">cx=</span><span class="hljs-string">"342.556"</span> <span class="hljs-variable">cy=</span><span class="hljs-string">"417.491"</span> <span class="hljs-variable">r=</span><span class="hljs-string">"75.529"</span>/&gt;
     &lt;/g&gt;
 &lt;/g&gt;
 &lt;/svg&gt;
 </code></pre>
-我们要使用导出的svg需要将元素进行定位，比如那个元素要进行动画，那个元素后出来，你可以将svg贴入html中，在浏览器中审查元素找到哪个元素对应的位置等信息，将单独要做动画的元素设置id，方便查找。另外有个细节需要注意，就是svg的自适应，<code>viewBox=&quot;0 0 640 1008&quot;</code>是指svg原本大小，然后在svg设置宽高，svg就会按照比例进行缩放，在这里我将width和height都设成100%</p>
-<p><pre><code>
-&lt;svg id=&quot;svg&quot; version=&quot;1.1&quot; id=&quot;Layer<em>1&quot; xmlns=&quot;<a href="http://www.w3.org/2000/svg">http://www.w3.org/2000/svg</a>&quot; xmlns:xlink=&quot;<a href="http://www.w3.org/1999/xlink">http://www.w3.org/1999/xlink</a>&quot; x=&quot;0px&quot; y=&quot;0px&quot;
-     width=&quot;100%&quot; height=&quot;100%&quot; viewBox=&quot;0 0 640 1008&quot; enable-background=&quot;new 0 0 640 1008&quot; xml:space=&quot;preserve&quot;&gt;
-&lt;text transform=&quot;matrix(1 0 0 1 128.8887 595.5957)&quot; fill=&quot;#E60012&quot; font-family=&quot;&#39;FZLTXHK--GBK1-0&#39;&quot; font-size=&quot;48.0418&quot;&gt;创意和技术的结合
-&lt;g&gt;
-    &lt;circle id=&quot;cicle1&quot; fill=&quot;#E60012&quot; cx=&quot;343.054&quot; cy=&quot;417.491&quot; r=&quot;75.529&quot;/&gt;
-    &lt;circle id=&quot;cicle2&quot; fill=&quot;#E60012&quot; cx=&quot;299.059&quot; cy=&quot;417.491&quot; r=&quot;75.529&quot;/&gt;
-    &lt;g&gt;&gt;
-        &lt;defs&gt;
-            &lt;circle id=&quot;SVGID_1</em>&quot; cx=&quot;299.059&quot; cy=&quot;417.491&quot; r=&quot;75.529&quot;/&gt;
-        &lt;/defs&gt;
-        &lt;clipPath id=&quot;SVGID<em>2</em>&quot;&gt;
-            &lt;use xlink:href=&quot;#SVGID<em>1</em>&quot;  overflow=&quot;visible&quot;/&gt;
-        &lt;/clipPath&gt;
-        &lt;circle id=&quot;SVGID<em>3</em>&quot; clip-path=&quot;url(#SVGID<em>2</em>)&quot; fill=&quot;#FCFAFA&quot; cx=&quot;342.556&quot; cy=&quot;417.491&quot; r=&quot;75.529&quot;/&gt;
-    &lt;/g&gt;
-&lt;/g&gt;
-&lt;/svg&gt;
+<p><img src="https://raw.githubusercontent.com/zhangzicong6/svg-animation/master/img/svg.png" alt="svg图片"><br>先把svg设置到snap，<code>var snap=Snap(&quot;#svg&quot;);</code> snap查找元素跟jquery语法是一样的<code>snap.select(&quot;text&quot;);snap.selectAll(&quot;circle&quot;);</code>
+设置属性和操作动画也跟jquery语法是一样的  </p>
+<pre class="hljs"><code class="lang-javascript"><span class="hljs-tag">cicle1</span><span class="hljs-class">.attr</span>({
+    <span class="hljs-attribute">cx</span>: -<span class="hljs-number">100</span>,
+    <span class="hljs-attribute">xy</span>: <span class="hljs-number">417.491</span>
+});
 </code></pre>
-![svg图片] (<a href="https://github.com/zhangzicong6/svg-animation/blob/master/img/svg.png">https://github.com/zhangzicong6/svg-animation/blob/master/img/svg.png</a>)
-先把svg设置到snap，<code>var snap=Snap(&quot;#svg&quot;);</code> snap查找元素跟jquery语法是一样的<code>snap.select(&quot;text&quot;);&gt;snap.selectAll(&quot;circle&quot;);</code>
-设置属性和操作动画也跟jquery语法是一样的<code>cicle1.attr({
-                    cx: -100,
-                    xy: 417.491
-                });</code>动画<code>cicle1.animate({
-                    cx: 343.054,
-                    xy: 417.491
-                },1000);</code>元素的显示移除基本这些就能完成了，别的就不多说了代码贴上</p>
-<p><pre><code>
-               text.attr({opacity: 0});
-                cicle1.attr({
-                    cx: -100,
-                    xy: 417.491
-                });
-                SVGID<em>1</em>.attr({
-                    cx: -100,
-                    xy: 417.491
-                });
-                cicle2.attr({
-                    cx: 740,
-                    xy: 417.491
-                });
-                SVGID<em>3</em>.attr({
-                    cx: 740,
-                    xy: 417.491
-                });
-                cicle1.animate({
-                    cx: 343.054,
-                    xy: 417.491
-                },1000);
-                SVGID<em>1</em>.animate({
-                    cx: 289.059,
-                    xy: 417.491
-                },1000);
-                cicle2.animate({
-                    cx: 299.059,
-                    xy: 417.491
-                },1000);
-                SVGID<em>3</em>.animate({
-                    cx: 342.556,
-                    xy: 417.491
-                },1000);
-                text.animate({opacity: 1},1000);
+<p>动画  </p>
+<pre class="hljs"><code class="lang-javascript"><span class="hljs-tag">cicle1</span><span class="hljs-class">.animate</span>({
+    <span class="hljs-attribute">cx</span>: <span class="hljs-number">343.054</span>,
+    <span class="hljs-attribute">xy</span>: <span class="hljs-number">417.491</span>
+},<span class="hljs-number">1000</span>);
 </code></pre>
-![svg动画] (<a href="https://github.com/zhangzicong6/svg-animation/blob/master/img/ani.gif">https://github.com/zhangzicong6/svg-animation/blob/master/img/ani.gif</a>)
-不太会截屏，把做的前面的动画也录了进来，可以看看
-那么这是一个页面的动画，想进入下一页，把这些元素按照自己想要的形势移除屏幕外，而后让下一页的元素显示出来即可，剩下的就是逻辑处理，跟动画操作在这儿就不一一书写了</p>
+<p>元素的显示移除基本这些就能完成了，别的就不多说了代码贴上</p>
+<pre class="hljs"><code class="lang-javascript"><span class="hljs-tag">text</span><span class="hljs-class">.attr</span>({<span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>});
+<span class="hljs-tag">cicle1</span><span class="hljs-class">.attr</span>({
+    <span class="hljs-attribute">cx</span>: -<span class="hljs-number">100</span>,
+    <span class="hljs-attribute">xy</span>: <span class="hljs-number">417.491</span>
+});
+<span class="hljs-tag">SVGID_1_</span><span class="hljs-class">.attr</span>({
+    <span class="hljs-attribute">cx</span>: -<span class="hljs-number">100</span>,
+    <span class="hljs-attribute">xy</span>: <span class="hljs-number">417.491</span>
+});
+<span class="hljs-tag">cicle2</span><span class="hljs-class">.attr</span>({
+    <span class="hljs-attribute">cx</span>: <span class="hljs-number">740</span>,
+    <span class="hljs-attribute">xy</span>: <span class="hljs-number">417.491</span>
+});
+<span class="hljs-tag">SVGID_3_</span><span class="hljs-class">.attr</span>({
+    <span class="hljs-attribute">cx</span>: <span class="hljs-number">740</span>,
+    <span class="hljs-attribute">xy</span>: <span class="hljs-number">417.491</span>
+});
+<span class="hljs-tag">cicle1</span><span class="hljs-class">.animate</span>({
+    <span class="hljs-attribute">cx</span>: <span class="hljs-number">343.054</span>,
+    <span class="hljs-attribute">xy</span>: <span class="hljs-number">417.491</span>
+},<span class="hljs-number">1000</span>);
+<span class="hljs-tag">SVGID_1_</span><span class="hljs-class">.animate</span>({
+    <span class="hljs-attribute">cx</span>: <span class="hljs-number">289.059</span>,
+    <span class="hljs-attribute">xy</span>: <span class="hljs-number">417.491</span>
+},<span class="hljs-number">1000</span>);
+<span class="hljs-tag">cicle2</span><span class="hljs-class">.animate</span>({
+    <span class="hljs-attribute">cx</span>: <span class="hljs-number">299.059</span>,
+    <span class="hljs-attribute">xy</span>: <span class="hljs-number">417.491</span>
+},<span class="hljs-number">1000</span>);
+<span class="hljs-tag">SVGID_3_</span><span class="hljs-class">.animate</span>({
+    <span class="hljs-attribute">cx</span>: <span class="hljs-number">342.556</span>,
+    <span class="hljs-attribute">xy</span>: <span class="hljs-number">417.491</span>
+},<span class="hljs-number">1000</span>);
+<span class="hljs-tag">text</span><span class="hljs-class">.animate</span>({<span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>},<span class="hljs-number">1000</span>);
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/zhangzicong6/svg-animation/master/img/ani.gif" alt="svg动画"><br>不太会截屏，把做的前面的动画也录了进来，可以看看那么这是一个页面的动画，想进入下一页，把这些元素按照自己想要的形势移除屏幕外，而后让下一页的元素显示出来即可，剩下的就是逻辑处理，跟动画操作在这儿就不一一书写了</p>
 </div>
 </div>
   <div id="comments" class="comments-view">
