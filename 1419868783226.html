@@ -57,7 +57,7 @@
     <div class="title clearfix underline" githubpress-title="">下拉刷新--模仿水滴</div>
     <div class="content markdown typo" githubpress-content=""><h1 id="-">下拉刷新--模仿水滴</h1>
 <p><img src="https://raw.githubusercontent.com/cyclegtx/drop.js/master/images/1.gif" alt="最终效果"><br><a href="http://cyclegtx.github.io/drop.js/" target="_blank">测试地址</a><br>这种拟物的设计曾经多次用在IOS的设计中，上图的下拉刷新就是模仿自苹果的Podcast(播客)。随着系统扁平化设计的步步深入，这种可以让人心领神会的小动画渐渐的被更加标准的旋转的菊花所代替。拟物扁平孰优孰劣，已经不在重要，这里只是想用web技术再仿制一次这个神奇的小水滴。可能已经再也用不上，仅仅作为向优秀设计的致敬。  </p>
-<p>效果中的圆圈可以根据手势被拉长，而且在弹回的时候速度由快变慢，有一种橡皮的感觉。速度由快变慢可以使用tween.js中的缓动函数解决，但是变形的圆圈css3有点鞭长莫及，而且考虑到效率的问题还是使用canvas直接绘制。  </p>
+<p>效果中的圆圈可以根据手势被拉长，而且在弹回的时候速度由快变慢，有一种橡皮的感觉。速度由快变慢可以使用tween.js中的缓动函数解决，但是变形的圆圈css3有点鞭长莫及，所以我们使用canvas直接绘制。除了canvas我们还可以使用svg，svg与canvas只是圆圈渲染的方式不同，圆圈的坐标、半径等参数都一样，所以我们先研究算法，在绘制部分我会顺便提一下svg的渲染版本。  </p>
 <p>仔细考虑后将变形的圆圈分成3个部分，上下两个圆圈，加上中间一个向内凹陷的矩形。<br><img src="https://raw.githubusercontent.com/cyclegtx/drop.js/master/images/1-1.jpg" alt=""><br>上下圆使用<code>arc()</code>绘制，中间蓝色的矩形只能使用<code>beginPath()</code>来绘制。在绘制的过程中直线部分使用<code>lineTo()</code>可以直接绘制，那曲线部分呢？自然是是用贝塞尔曲线,这里使用二次贝塞尔曲线<code>quadraticCurveTo()</code>就可以了,三次方贝塞尔曲线也可以但是要增加个控制点，增加了复杂度。可以在photoshop中使用钢笔工具画出这个不规则矩形,来形象的观察贝塞尔曲线的控制点要放置什么位置，因为钢笔工具也是使用贝塞尔曲线实现的。我在代码编写的过程中就是通过ps中钢笔工具来反复尝试控制点的位置。  </p>
 <p>首先来确定比较简单的部分，即上下两个圆c1(上圆),c2(下圆)的参数。<br><img src="https://raw.githubusercontent.com/cyclegtx/drop.js/master/images/1-2.jpg" alt=""><br>c1的圆心坐标先用<code>(100,100)</code>，拉开的距离即两圆圆心的距离<code>d=80</code>,根据上面的参数可以确定c2的圆心坐标,其中<code>c2.x=c1.x</code>,<code>c2.y = c1.y+d</code>。在拉开的过程中，两圆的半径会根据拉开的距离d相应减小，c2减小的幅度比c1大，所以两圆的半径应该根据距离d确定。<code>c1.r=50-this.d/3</code>,<code>c2.r=50-this.d/2</code>。其中50为未拉开时的最大距离，随着距离增大，r相应减小，c2减小的更剧烈</p>
 <pre class="hljs"><code class="lang-javascript">function Drop(canvas){
@@ -136,6 +136,67 @@ Drop.prototype.<span class="hljs-title">draw</span> = function(time){
 </code></pre>
 <p>运行代码：<br><img src="https://raw.githubusercontent.com/cyclegtx/drop.js/master/images/1-5.jpg" alt="">  </p>
 <p>根据上面坐标的算法，我们可以看到确定了c1的圆心坐标（通常c1的位置是人为指定的），只要修改拉开的距离d就可以使两圆和中间的矩形相应的动起来，而且符合我们想要的效果。下面我们只需要根据鼠标（手指）在屏幕上拖动的距离来增加或者减少d的距离就可以了。<br><img src="https://raw.githubusercontent.com/cyclegtx/drop.js/master/images/1-6.gif" alt="">  </p>
+<h5 id="svg-">svg渲染版本</h5>
+<p>github库中的svg.html就是使用svg渲染的版本。首先要做的就是把html中的canvas换成svg节点。  </p>
+<pre class="hljs"><code class="lang-html">&lt;<span class="hljs-keyword">div</span> <span class="hljs-property">id</span>=<span class="hljs-string">"svgBox"</span> <span class="hljs-type">class</span>=<span class="hljs-string">"svgBox"</span>&gt;
+    &lt;svg <span class="hljs-property">id</span>=<span class="hljs-string">"svg"</span>&gt;&lt;/svg&gt;
+&lt;/<span class="hljs-keyword">div</span>&gt;
+</code></pre>
+<p>在drop.svg.js中接受svg节点并绘制。  </p>
+<pre class="hljs"><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Drop</span><span class="hljs-params">(svg)</span></span>{
+    <span class="hljs-keyword">this</span>.svg = svg;
+    <span class="hljs-keyword">this</span>.svgWidth = <span class="hljs-keyword">this</span>.svg.width.animVal.value;
+    <span class="hljs-keyword">this</span>.svgHeight = <span class="hljs-keyword">this</span>.svg.height.animVal.value;
+    ......
+}
+Drop.prototype.draw = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(time)</span></span>{
+    ......
+    <span class="hljs-comment">//绘制上圆c1</span>
+    <span class="hljs-keyword">var</span> c1 = <span class="hljs-keyword">this</span>.svg.querySelector(<span class="hljs-string">".drop_c1"</span>);
+    <span class="hljs-keyword">if</span>(c1){
+        c1.setAttribute(<span class="hljs-string">"cx"</span>,<span class="hljs-keyword">this</span>.c1.x);
+        c1.setAttribute(<span class="hljs-string">"cy"</span>,<span class="hljs-keyword">this</span>.c1.y);
+        c1.setAttribute(<span class="hljs-string">"r"</span>,<span class="hljs-keyword">this</span>.c1.r);
+    }<span class="hljs-keyword">else</span>{
+        <span class="hljs-keyword">var</span> c1 = <span class="hljs-built_in">document</span>.createElementNS(<span class="hljs-string">'http://www.w3.org/2000/svg'</span>, <span class="hljs-string">'circle'</span>);
+        c1.setAttribute(<span class="hljs-string">"class"</span>,<span class="hljs-string">"drop_c1"</span>);
+        c1.setAttribute(<span class="hljs-string">"cx"</span>,<span class="hljs-keyword">this</span>.c1.x);
+        c1.setAttribute(<span class="hljs-string">"cy"</span>,<span class="hljs-keyword">this</span>.c1.y);
+        c1.setAttribute(<span class="hljs-string">"fill"</span>,<span class="hljs-keyword">this</span>.color);
+        c1.setAttribute(<span class="hljs-string">"r"</span>,<span class="hljs-keyword">this</span>.c1.r);
+        <span class="hljs-keyword">this</span>.svg.appendChild(c1);
+    }
+    <span class="hljs-comment">//绘制下圆c2</span>
+    <span class="hljs-keyword">var</span> c2 = <span class="hljs-keyword">this</span>.svg.querySelector(<span class="hljs-string">".drop_c2"</span>);
+    <span class="hljs-keyword">if</span>(c2){
+        c2.setAttribute(<span class="hljs-string">"cx"</span>,<span class="hljs-keyword">this</span>.c2.x);
+        c2.setAttribute(<span class="hljs-string">"cy"</span>,<span class="hljs-keyword">this</span>.c2.y);
+        c2.setAttribute(<span class="hljs-string">"r"</span>,<span class="hljs-keyword">this</span>.c2.r);
+    }<span class="hljs-keyword">else</span>{
+        <span class="hljs-keyword">var</span> c2 = <span class="hljs-built_in">document</span>.createElementNS(<span class="hljs-string">'http://www.w3.org/2000/svg'</span>, <span class="hljs-string">'circle'</span>);
+        c2.setAttribute(<span class="hljs-string">"class"</span>,<span class="hljs-string">"drop_c2"</span>);
+        c2.setAttribute(<span class="hljs-string">"cx"</span>,<span class="hljs-keyword">this</span>.c2.x);
+        c2.setAttribute(<span class="hljs-string">"cy"</span>,<span class="hljs-keyword">this</span>.c2.y);
+        c2.setAttribute(<span class="hljs-string">"fill"</span>,<span class="hljs-keyword">this</span>.color);
+        c2.setAttribute(<span class="hljs-string">"r"</span>,<span class="hljs-keyword">this</span>.c2.r);
+        <span class="hljs-keyword">this</span>.svg.appendChild(c2);
+    }
+    <span class="hljs-comment">//绘制曲线path</span>
+    <span class="hljs-keyword">var</span> pathStr = <span class="hljs-string">"M"</span>+<span class="hljs-keyword">this</span>.p4.x+<span class="hljs-string">" "</span>+<span class="hljs-keyword">this</span>.p4.y+<span class="hljs-string">"L"</span>+<span class="hljs-keyword">this</span>.p1.x+<span class="hljs-string">" "</span>+<span class="hljs-keyword">this</span>.p1.y+<span class="hljs-string">"Q"</span>+<span class="hljs-keyword">this</span>.cp1.x+<span class="hljs-string">" "</span>+<span class="hljs-keyword">this</span>.cp1.y+<span class="hljs-string">" "</span>+<span class="hljs-keyword">this</span>.p2.x+<span class="hljs-string">" "</span>+<span class="hljs-keyword">this</span>.p2.y+<span class="hljs-string">"L"</span>+<span class="hljs-keyword">this</span>.p3.x+<span class="hljs-string">" "</span>+<span class="hljs-keyword">this</span>.p3.y+<span class="hljs-string">"Q"</span>+<span class="hljs-keyword">this</span>.cp2.x+<span class="hljs-string">" "</span>+<span class="hljs-keyword">this</span>.cp2.y+<span class="hljs-string">" "</span>+<span class="hljs-keyword">this</span>.p4.x+<span class="hljs-string">" "</span>+<span class="hljs-keyword">this</span>.p4.y+<span class="hljs-string">"Z"</span>;
+    <span class="hljs-keyword">var</span> drop_body = <span class="hljs-keyword">this</span>.svg.querySelector(<span class="hljs-string">".drop_body"</span>);
+    <span class="hljs-keyword">if</span>(drop_body){
+        drop_body.setAttribute(<span class="hljs-string">"d"</span>,pathStr);
+    }<span class="hljs-keyword">else</span>{
+        <span class="hljs-keyword">var</span> drop_body = <span class="hljs-built_in">document</span>.createElementNS(<span class="hljs-string">'http://www.w3.org/2000/svg'</span>, <span class="hljs-string">'path'</span>);
+        drop_body.setAttribute(<span class="hljs-string">"class"</span>,<span class="hljs-string">"drop_body"</span>);
+        drop_body.setAttribute(<span class="hljs-string">"d"</span>,pathStr);
+        drop_body.setAttribute(<span class="hljs-string">"fill"</span>,<span class="hljs-keyword">this</span>.color);
+        <span class="hljs-keyword">this</span>.svg.appendChild(drop_body);
+    }
+
+}
+</code></pre>
+<p>可以看到只有draw函数中的绘制方法变了，其他的代码基本没有区别，关键的计算参数用的函数calc也没有修改。所以svg与canvas仅仅是渲染方式的区别，算法还是那个算法。  </p>
 <p>到目前为止效果的核心绘制方法已经介绍完毕，剩下的就是些控制代码和缓动、阴影等效果，重点的代码段摘出来说一下，其他地方就不一一介绍了，大家可以参考源代码。  </p>
 <p>1.按钮大小<br>为了可以方便控制按钮的大小，我将c1的半径设置为canvas的宽度的四分之一，并将按钮绘制在canvas的顶部中心，这样只需要用css控制canvas元素的大小就可以控制按钮的大小了，省去了填写参数的麻烦。将移动的距离d设定为拉动的百分比0-1：0的时候未拉动；1的时候拉动到最大位置，继续增大时不再做动画直到d大于1.1表示触发了刷新，按钮回弹。改为百分比后在使用时更容易处理，不管按钮大小如何，只需要传入已拉动的百分比即可。但是问题来了，如何根据百分比得到具体拉动的像素呢，这里采用<code>this.d*this.canvasWidth/2</code>,即c1的半径为拉动的最大距离。这样就彻底不用管按钮的实际大小了，在使用的时候用css轻松搞定，这里注意为了保证canvas的高度足够容得下拉长的按钮，canvas的高度至少为宽度的2倍。 </p>
 <pre class="hljs"><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Drop</span><span class="hljs-params">(canvas)</span></span>{
