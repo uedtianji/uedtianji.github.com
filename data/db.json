@@ -116,6 +116,15 @@
       "desc": "#下拉刷新--模仿水滴\n![最终效果](https://raw.githubusercontent.com/cyclegtx/drop.js/master/images/1.gif)  \n<a href=\"http://cyclegtx.github.io/drop.js/\" target=\"_blank\">测试地址</a>  \n这种拟物的设计曾经多次用在IOS的设计中，上图的下拉刷新就是模仿自苹果的Podcast(播客)。随着系统扁平化设计的步步深入，这种可以让人心领神会的小动画渐渐的被更加标准的旋转的菊花所代替。拟物扁平孰优孰劣，已经不在重要，这里只是想用web技术再仿制一次这个神奇的小水滴。可能已经再也用不上，仅仅作为向优秀设计的致敬。  \n\n效果中的圆圈可以根据手势被拉长，而且在弹回的时候速度由快变慢，有一种橡皮的感觉。速度由快变慢可以使用tween.js中的缓动函数解决，但是变形的圆圈css3有点鞭长莫及，而且考虑到效率的问题还是使用canvas直接绘制。  \n\n仔细考虑后将变形的圆圈分成3个部分，上下两个圆圈，加上中间一个向内凹陷的矩形。  \n![](https://raw.githubusercontent.com/cyclegtx/drop.js/master/images/1-1.jpg)   \n上下圆使用```arc()```绘制，中间蓝色的矩形只能使用```beginPath()```来绘制。在绘制的过程中直线部分使用```lineTo()```可以直接绘制，那曲线部分呢？自然是是用贝塞尔曲线,这里使用二次贝塞尔曲线```quadraticCurveTo()```就可以了,三次方贝塞尔曲线也可以但是要增加个控制点，增加了复杂度。可以在photoshop中使用钢笔工具画出这个不规则矩形,来形象的观察贝塞尔曲线的控制点要放置什么位置，因为钢笔工具也是使用贝塞尔曲线实现的。我在代码编写的过程中就是通过ps中钢笔工具来反复尝试控制点的位置。  ",
       "github": "https://raw.githubusercontent.com/cyclegtx/drop.js/master/README.md",
       "github_fullname": "cyclegtx/drop.js"
+    },
+    {
+      "title": "作用力和小球",
+      "source": "/source/_posts/1420009456014.md",
+      "author": "cyclegtx",
+      "date": 1420009456014,
+      "desc": "#作用力和小球\n![最终效果](https://raw.githubusercontent.com/cyclegtx/force_ball/master/images/1.gif)  \n<a href=\"http://cyclegtx.github.io/force_ball/\" target=\"_blank\">测试地址</a>  \n上面的这种神奇的效果是使用D3.js实现的，d3的是代码库和教程请参见[这里](https://github.com/mbostock/d3)。d3是一个极其强大的数据图表库，尤其擅长操作svg，虽然被设计用来展示数据，但是其丰富的svg操作方法还有物理引擎可以被我们用来制作页面的展示。例子中的展示页面就是目前我们公司主要的产品，采用此种展示方式其效果自然是不言而喻。  \n\n分析下效果，主要是一些节点与连线，再加上节点间相互的引力与斥力还有重力效果。节点与连接线好说，使用d3绘制出svg即可；相互作用力可以使用d3提供的force中相应的方法实现。关于d3详细教程请参见其官网，这里只介绍使用到的部分。  \n首先将节点数据储存到数据文件中data.json  \n```json\n{\n  \"nodes\":[",
+      "github": "https://raw.githubusercontent.com/cyclegtx/force_ball/master/README.md",
+      "github_fullname": "cyclegtx/force_ball"
     }
   ]
 }
