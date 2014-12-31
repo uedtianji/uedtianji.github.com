@@ -42,6 +42,10 @@
 ```javascript
 var snap=Snap("#svg");
 var circle1 = snap.select("#circle1");
+cicle1.attr({
+	cx: -100,
+	xy: 417.491
+});
 circle1.animate({
 	cx: 343.054,
 	xy: 417.491
@@ -49,8 +53,49 @@ circle1.animate({
 ```  
 运行代码：  
 ![svg图片](https://raw.githubusercontent.com/zhangzicong6/svg-animation/master/img/2.gif)  
-可以看到snap语法基本跟jquery一致，使用animate就可以做动画，只不过修改的属性与css属性有些不同，可以参考svg的属性教程。
-
+可以看到snap语法基本跟jquery一致，使用animate就可以做动画，只不过修改的属性与css属性有些不同，可以参考svg的属性教程。  
+接下来就让两个圆从两个侧边出来，交叉在一起，但是交叉的时候中间部分变白怎么实现的呢？其实也是通过位移，只不过位移的元素有点儿特殊，也就是svg里出现的clipPath相关的元素。生成的svg看起来有点儿复杂 我把他简化一下
+```svg
+<g>
+		<defs>
+			<circle id="SVGID_1_" cx="299.059" cy="417.491" r="75.529"/>
+		</defs>
+		<clipPath id="SVGID_2_">
+			<use xlink:href="#SVGID_1_"  overflow="visible"/>
+		</clipPath>
+		<circle clip-path="url(#SVGID_2_)" fill="#FCFAFA" cx="342.556" cy="417.491" r="75.529"/>
+	</g>
+```  
+变成
+```svg
+<g>
+		<clipPath id="SVGID_2_">
+			<circle id="SVGID_1_" cx="299.059" cy="417.491" r="75.529"/>
+		</clipPath>
+		<circle id="SVGID_3_" clip-path="url(#SVGID_2_)" fill="#FCFAFA" cx="342.556" cy="417.491" r="75.529"/>
+	</g>
+```  
+意思就是SVGID_3_的图形在SVGID_1_图形上进行截取,即SVGID_3_的图形与SVGID_1_图形相交的部分留下，那么怎么让两个红色的圆相交的时候中间白色部分随着相交越变越大，很简单，就让SVGID_1_随着一个圆移动，SVGID_3_随着另外一个移动就有了
+```javascript
+cicle1.animate({
+	cx: 343.054,
+	xy: 417.491
+},1000);
+SVGID_1_.animate({
+	cx: 289.059,
+	xy: 417.491
+},1000);
+cicle3.animate({
+	cx: 299.059,
+	xy: 417.491
+},1000);
+SVGID_3_.animate({
+	cx: 342.556,
+	xy: 417.491
+},1000);
+```  
+即  
+![svg图片](https://raw.githubusercontent.com/zhangzicong6/svg-animation/master/img/ani.gif)  
 
 项目地址[github](https://github.com/zhangzicong6/svg-animation)  
 如有问题或者建议请微博<a href="http://weibo.com/uedtianji" target="_blank">@UED天机</a>。我会及时回复  

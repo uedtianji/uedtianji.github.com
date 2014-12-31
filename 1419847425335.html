@@ -90,12 +90,53 @@
 <p>然后使用snap向右移动这个圆circle1  </p>
 <pre class="hljs"><code class="lang-javascript"><span class="hljs-keyword">var</span> snap=Snap(<span class="hljs-string">"<span class="hljs-subst">#svg</span>"</span>);
 <span class="hljs-keyword">var</span> circle1 = snap.select(<span class="hljs-string">"<span class="hljs-subst">#circle1</span>"</span>);
+cicle1.attr({
+    <span class="hljs-attribute">cx</span>: -<span class="hljs-number">100</span>,
+    <span class="hljs-attribute">xy</span>: <span class="hljs-number">417.491</span>
+});
 circle1.animate({
     <span class="hljs-attribute">cx</span>: <span class="hljs-number">343.054</span>,
     <span class="hljs-attribute">xy</span>: <span class="hljs-number">417.491</span>
 },<span class="hljs-number">1000</span>);
 </code></pre>
-<p>运行代码：<br><img src="https://raw.githubusercontent.com/zhangzicong6/svg-animation/master/img/2.gif" alt="svg图片"><br>可以看到snap语法基本跟jquery一致，使用animate就可以做动画，只不过修改的属性与css属性有些不同，可以参考svg的属性教程。</p>
+<p>运行代码：<br><img src="https://raw.githubusercontent.com/zhangzicong6/svg-animation/master/img/2.gif" alt="svg图片"><br>可以看到snap语法基本跟jquery一致，使用animate就可以做动画，只不过修改的属性与css属性有些不同，可以参考svg的属性教程。<br>接下来就让两个圆从两个侧边出来，交叉在一起，但是交叉的时候中间部分变白怎么实现的呢？其实也是通过位移，只不过位移的元素有点儿特殊，也就是svg里出现的clipPath相关的元素。生成的svg看起来有点儿复杂 我把他简化一下</p>
+<pre class="hljs"><code class="lang-svg">&lt;g&gt;
+        &lt;defs&gt;
+            &lt;circle <span class="hljs-variable">id=</span><span class="hljs-string">"SVGID_1_"</span> <span class="hljs-variable">cx=</span><span class="hljs-string">"299.059"</span> <span class="hljs-variable">cy=</span><span class="hljs-string">"417.491"</span> <span class="hljs-variable">r=</span><span class="hljs-string">"75.529"</span>/&gt;
+        &lt;/defs&gt;
+        &lt;clipPath <span class="hljs-variable">id=</span><span class="hljs-string">"SVGID_2_"</span>&gt;
+            &lt;use xlink:<span class="hljs-variable">href=</span><span class="hljs-string">"#SVGID_1_"</span>  <span class="hljs-variable">overflow=</span><span class="hljs-string">"visible"</span>/&gt;
+        &lt;/clipPath&gt;
+        &lt;circle <span class="hljs-variable">clip-path=</span><span class="hljs-string">"url(#SVGID_2_)"</span> <span class="hljs-variable">fill=</span><span class="hljs-string">"#FCFAFA"</span> <span class="hljs-variable">cx=</span><span class="hljs-string">"342.556"</span> <span class="hljs-variable">cy=</span><span class="hljs-string">"417.491"</span> <span class="hljs-variable">r=</span><span class="hljs-string">"75.529"</span>/&gt;
+    &lt;/g&gt;
+</code></pre>
+<p>变成</p>
+<pre class="hljs"><code class="lang-svg">&lt;g&gt;
+        &lt;clipPath <span class="hljs-variable">id=</span><span class="hljs-string">"SVGID_2_"</span>&gt;
+            &lt;circle <span class="hljs-variable">id=</span><span class="hljs-string">"SVGID_1_"</span> <span class="hljs-variable">cx=</span><span class="hljs-string">"299.059"</span> <span class="hljs-variable">cy=</span><span class="hljs-string">"417.491"</span> <span class="hljs-variable">r=</span><span class="hljs-string">"75.529"</span>/&gt;
+        &lt;/clipPath&gt;
+        &lt;circle <span class="hljs-variable">id=</span><span class="hljs-string">"SVGID_3_"</span> <span class="hljs-variable">clip-path=</span><span class="hljs-string">"url(#SVGID_2_)"</span> <span class="hljs-variable">fill=</span><span class="hljs-string">"#FCFAFA"</span> <span class="hljs-variable">cx=</span><span class="hljs-string">"342.556"</span> <span class="hljs-variable">cy=</span><span class="hljs-string">"417.491"</span> <span class="hljs-variable">r=</span><span class="hljs-string">"75.529"</span>/&gt;
+    &lt;/g&gt;
+</code></pre>
+<p>意思就是SVGID<em>3</em>的图形在SVGID<em>1</em>图形上进行截取,即SVGID<em>3</em>的图形与SVGID<em>1</em>图形相交的部分留下，那么怎么让两个红色的圆相交的时候中间白色部分随着相交越变越大，很简单，就让SVGID<em>1</em>随着一个圆移动，SVGID<em>3</em>随着另外一个移动就有了</p>
+<pre class="hljs"><code class="lang-javascript"><span class="hljs-tag">cicle1</span><span class="hljs-class">.animate</span>({
+    <span class="hljs-attribute">cx</span>: <span class="hljs-number">343.054</span>,
+    <span class="hljs-attribute">xy</span>: <span class="hljs-number">417.491</span>
+},<span class="hljs-number">1000</span>);
+<span class="hljs-tag">SVGID_1_</span><span class="hljs-class">.animate</span>({
+    <span class="hljs-attribute">cx</span>: <span class="hljs-number">289.059</span>,
+    <span class="hljs-attribute">xy</span>: <span class="hljs-number">417.491</span>
+},<span class="hljs-number">1000</span>);
+<span class="hljs-tag">cicle3</span><span class="hljs-class">.animate</span>({
+    <span class="hljs-attribute">cx</span>: <span class="hljs-number">299.059</span>,
+    <span class="hljs-attribute">xy</span>: <span class="hljs-number">417.491</span>
+},<span class="hljs-number">1000</span>);
+<span class="hljs-tag">SVGID_3_</span><span class="hljs-class">.animate</span>({
+    <span class="hljs-attribute">cx</span>: <span class="hljs-number">342.556</span>,
+    <span class="hljs-attribute">xy</span>: <span class="hljs-number">417.491</span>
+},<span class="hljs-number">1000</span>);
+</code></pre>
+<p>即<br><img src="https://raw.githubusercontent.com/zhangzicong6/svg-animation/master/img/ani.gif" alt="svg图片">  </p>
 <p>项目地址<a href="https://github.com/zhangzicong6/svg-animation">github</a><br>如有问题或者建议请微博<a href="http://weibo.com/uedtianji" target="_blank">@UED天机</a>。我会及时回复<br>更多教程请关注<a href="http://ued.sexy" target="_blank">ued.sexy</a></p>
 </div>
 </div>
