@@ -1,9 +1,9 @@
-##svg动画实现沉浸式体验  
-现在html5火起来之后，像云来那种滑动式单页越来越多，今天给大家带来一种不同的场景体验方式。没有页面与页面之间的切换，只有元素与元素的替换，使用户只沉浸在内容元素之中，而不用被其他的东西影响。当然这种体验也可以使用html+css去做，我这儿用svg是因为有一些动画html+css实现不了。废话不多说了，开始进入主题    
-##编码前准备  
-既然是svg就得准备svg吧，写教程就不准备太复杂的svg了，既然是场景应用，那么就要能控制svg的元素，使得其中的元素按照规则显示与隐藏,这就要控制svg里的元素，你可以通过元素查找进行操作，我在这里用的是Snap.svg.js,专门用了处理svg的类库，学习使用起来挺方便的，当然我为了写起来方便就用svg写了，sanp可以往svg里添加删除元素，如果是细节控可以把svg用snap动态加载进去，然后不用的元素再删除。  
-##代码编写  
-svg如果是简单线和简单图形程序员可以尝试自己写svg，不过一般项目里图形还是挺复杂的，可以让设计师在AI里设计导出svg，导出的svg：  
+##使用Snap.svg制作svg动画  
+![svg图片](https://raw.githubusercontent.com/zhangzicong6/svg-animation/master/img/ani.gif)  
+<a href="http://zhangzicong6.github.io/svg-animation/" target="_blank">测试地址</a>  
+上图的效果是使用svg制作，在html5风靡之后设计师对动画细节的要求也越来越高，像上图那种圆点炸开的动画如果使用html+css去做的话需要把每个元素切成很小的png然后分别做动画。这样不仅性能上会捉襟见肘，页面大小上也无法接受。使用svg后不仅可以很好的解决大小与性能问题，还可以做出很多html无法实现的效果。那么问题来了，html有jquery、zepto那样的js库可以方便的操作节点，svg有没有呢？有！而且是jquery风格的库，那就是Snap.svg.js。有了他就可以轻松的操作svg做动画了。  
+##准备效果图  
+在编写html页面的时候一般是把效果图切成需要的部分，而svg更加方便了根本不需要切图，只需要将svg文件中的svg部分粘贴到html就可以把效果图直接展示在页面上。一般效果图是由设计师用Adobe Illustrator(AI)制作，用ai另存为svg格式文件就可以用编辑器直接打开了。  
 ```svg
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
@@ -26,79 +26,33 @@ svg如果是简单线和简单图形程序员可以尝试自己写svg，不过�
 </g>
 </svg>
 ```  
-我们要使用导出的svg需要将元素进行定位，比如那个元素要进行动画，那个元素后出来，你可以将svg贴入html中，在浏览器中审查元素找到哪个元素对应的位置等信息，将单独要做动画的元素设置id，方便查找。另外有个细节需要注意，就是svg的自适应，```viewBox="0 0 640 1008"```是指svg原本大小，然后在svg设置宽高，svg就会按照比例进行缩放，在这里我将width和height都设成100%  
-```svg
-<svg id="svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-     width="100%" height="100%" viewBox="0 0 640 1008" enable-background="new 0 0 640 1008" xml:space="preserve">
-<text transform="matrix(1 0 0 1 128.8887 595.5957)" fill="#E60012" font-family="'FZLTXHK--GBK1-0'" font-size="48.0418">创意和技术的结合</text>
+运行代码  
+![](https://raw.githubusercontent.com/zhangzicong6/svg-animation/master/img/svg.png)  
+可以看到svg很html一样是不同的元素嵌套组成，但是不像html那样规整可以很容易的分清在页面与代码中对应的部分。怎样快速的将页面中元素对应到代码之中呢。方法与html一样，那就是使用chrome打开svg文件在审查元素（或者firebug）中找到元素对应的代码部分。  
+![svg图片](https://raw.githubusercontent.com/zhangzicong6/svg-animation/master/img/shot.jpg)   
+例如我们在浏览器定位到右边的圆，并在找到了代码中的位置，为了方便操作这个圆，我们为圆加上id```circle1```，并为svg加上id```svg```。另外有个细节需要注意，```viewBox="0 0 640 1008"```是指的是svg原本大小，svg属性中的width,height设置成100%会令svg水平充满父元素，使其实现自适应。    
+```svg  
+<svg id="svg" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 640 1008" enable-background="new 0 0 640 1008" xml:space="preserve">
+......
 <g>
-	<circle id="cicle1" fill="#E60012" cx="343.054" cy="417.491" r="75.529"/>
-	<circle id="cicle2" fill="#E60012" cx="299.059" cy="417.491" r="75.529"/>
-	<g>
-		<defs>
-			<circle id="SVGID_1_" cx="299.059" cy="417.491" r="75.529"/>
-		</defs>
-		<clipPath id="SVGID_2_">
-			<use xlink:href="#SVGID_1_"  overflow="visible"/>
-		</clipPath>
-		<circle id="SVGID_3_" clip-path="url(#SVGID_2_)" fill="#FCFAFA" cx="342.556" cy="417.491" r="75.529"/>
-	</g>
-</g>
-</svg>
+	<circle id="circle1" fill="#E60012" cx="343.054" cy="417.491" r="75.529"/>
+......
 ```  
-![svg图片](https://raw.githubusercontent.com/zhangzicong6/svg-animation/master/img/svg.png)  
-先把svg设置到snap，```var snap=Snap("#svg");``` snap查找元素跟jquery语法是一样的```snap.select("text");snap.selectAll("circle");```
-设置属性和操作动画也跟jquery语法是一样的  
+然后使用snap向右移动这个圆circle1  
 ```javascript
-cicle1.attr({
-	cx: -100,
-	xy: 417.491
-});
-```
-动画  
-```javascript
-cicle1.animate({
+var snap=Snap("#svg");
+var circle1 = snap.select("#circle1");
+circle1.animate({
 	cx: 343.054,
 	xy: 417.491
 },1000);
 ```  
-元素的显示移除基本这些就能完成了，别的就不多说了代码贴上
+运行代码：  
+![svg图片](https://raw.githubusercontent.com/zhangzicong6/svg-animation/master/img/2.gif)  
+可以看到snap语法基本跟jquery一致，使用animate就可以做动画，只不过修改的属性与css属性有些不同，可以参考svg的属性教程。
 
-```javascript
-text.attr({opacity: 0});
-cicle1.attr({
-	cx: -100,
-	xy: 417.491
-});
-SVGID_1_.attr({
-	cx: -100,
-	xy: 417.491
-});
-cicle2.attr({
-	cx: 740,
-	xy: 417.491
-});
-SVGID_3_.attr({
-	cx: 740,
-	xy: 417.491
-});
-cicle1.animate({
-	cx: 343.054,
-	xy: 417.491
-},1000);
-SVGID_1_.animate({
-	cx: 289.059,
-	xy: 417.491
-},1000);
-cicle2.animate({
-	cx: 299.059,
-	xy: 417.491
-},1000);
-SVGID_3_.animate({
-	cx: 342.556,
-	xy: 417.491
-},1000);
-text.animate({opacity: 1},1000);
-```  
-![svg动画](https://raw.githubusercontent.com/zhangzicong6/svg-animation/master/img/ani.gif)  
-不太会截屏，把做的前面的动画也录了进来，可以看看那么这是一个页面的动画，想进入下一页，把这些元素按照自己想要的形势移除屏幕外，而后让下一页的元素显示出来即可，剩下的就是逻辑处理，跟动画操作在这儿就不一一书写了
+
+项目地址[github](https://github.com/zhangzicong6/svg-animation)  
+如有问题或者建议请微博<a href="http://weibo.com/uedtianji" target="_blank">@UED天机</a>。我会及时回复  
+更多教程请关注<a href="http://ued.sexy" target="_blank">ued.sexy</a>
+
