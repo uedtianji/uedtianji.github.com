@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title> 2014年我们玩过的那些产品</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+	   <meta name="keywords" content=" 2014年我们玩过的那些产品">
+	   <meta name="description" content=" 2014年我们玩过的那些产品">
+    <link rel="shortcut icon" href="favicon_16.ico">
+    <link rel="bookmark" href="favicon_16.ico">
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/grid.css">
+    <!-- site css -->
+    <link rel="stylesheet" href="./assets/css/fonts/iconfont.css">
+    <link rel="stylesheet" href="./assets/css/layout.css">
+    <link rel="stylesheet" href="./assets/css/highlight.css">
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="./assets/js/html5shiv.min.js"></script>
+      <script src="./assets/js/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+  <body style="background-color: #f1f2f6;">
+    <div class="docs-header">
+      <!--nav-->
+      <nav class="navbar navbar-default navbar-custom" role="navigation">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <a href="blog.html"><img class="logo" src="./assets/img/logo.png"></a>
+              <ul class="share clearfix">
+                <li githubpress-website-weibo=""><a href="http://www.weibo.com/uedtianji" target="_blank"><span class="weibo iconfont">&#xe66e;</span></a></li>
+                <li githubpress-website-github=""><a href="https://github.com/uedtianji" target="_blank"><span class="github iconfont">&#xe611;</span></a></li>
+                
+                <li githubpress-website-tieba=""><a href="http://tieba.baidu.com/f?kw=ued%E5%A4%A9%E6%9C%BA&ie=utf-8" target="_blank"><span class="tieba iconfont">&#xe60e;</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="container">
+      <div class="row">
+<section class="bbox-wrp">
+<div class="info">
+    <div class="timeline">
+        <div class="category">
+                <a githubpress-reposurl="" href="https://github.com/jorellee/pm"><i class="iconfont">&#xe611;</i></a>
+        </div>
+        <div class="time" githubpress-date="">03-23</div>
+        <div class="author" githubpress-author="">jorellee</div>
+    </div>
+</div>
+<div class="blog-box">
+<div class="blog-view">
+    <div class="title clearfix underline" githubpress-title=""> 2014年我们玩过的那些产品</div>
+    <div class="content markdown typo" githubpress-content=""><h1 id="2014-">2014年我们玩过的那些产品</h1>
+<div class="WBA_content">
+            <p style="text-align:center"><img src="http://ww3.sinaimg.cn/large/64d0692bjw1eqfqi8q5huj20dz0an3zr.jpg"></p><p>题图为盗图（侵告删）~~</p><p>2014年早已经过去，笔者（拖延症患者）一直比较忙，也经常被一些琐碎的烦心事拖着，所以很早就说要写的这篇总结来得比较晚，其实这些都是笔者懒的借口，经常被一眼看穿，人艰不拆，让患者安静地养病吧，哈哈。</p><p>好了，废话不表，按照时间先后列一列，被我们玩残的那些项目：</p><p><strong>1、 i<span style="display:none;"> </span>楼市</strong></p><p style="text-align:center;"><img src="http://ww2.sinaimg.cn/large/64d0692bjw1eqfqrjr5utj20gj0akabd.jpg"></p><p>产品就不过多介绍了，因为是接手的项目，主要是迭代优化升级。值得一提的是i楼市iPad版里地多媒体楼书制作比较精美体验较好，推荐大家下载欣赏，有需求的房企可以找楼市传媒进行定制。</p><p><strong><span style="color:#548dd4;">a. 数据平台/抓取</span></strong></p><p>之前的抓取一直用的火车头和java脚本来处理的，后来由于人员变动，改为nodejs抓取，由<a render="ext" extra-data="type=atname" href="/n/cyclegtx" usercard="name=cyclegtx">@cyclegtx</a> 和<a render="ext" extra-data="type=atname" href="/n/zhangzicong6" usercard="name=zhangzicong6">@zhangzicong6</a> 编程实现。</p><p>node做爬虫有几点优势：</p><ul style="list-style-type:disc;"><li><p>爬+保存是挺快的， 异步，适合实时抓取</p></li><li><p>部署方便、跨平台几乎无障碍</p></li><li><p>代码精简，效率高</p></li></ul><p>患者对技术木有太深入的了解，具体nodejs做爬虫的介绍参见患者团队天机UED技术博客：<a href="http://ued.sexy/blog.html">http://ued.sexy/blog.html</a></p><p>但在此过程中我们遇到了一些问题，之前数据库字段设计过于严谨，后续工程师在抓取入库或根据新产品模块增加数据表和字段时采取了一些偷懒简便的方法，导致主表字段非常多，过于臃肿，而各字段之间的依存关系又比较复杂，最后导致我们新抓得数据很难直接入库。</p><p>所以在数据库设计上，我们一定要考虑好可扩展性，将每张表进行最小化设计（损失其他部分也能独立使用），保证数据库的健壮性。另外对数据库的修改（新增表、字段、关系等）一定要做好记录。</p><p><span style="color:#548dd4;"><strong>b. &nbsp;客户端改版/交互实现</strong></span></p><p>客户端的改版，主要更换成扁平化的风格，在内容呈现和人机交互上并没有太多亮点，这里不作细表。</p><p>本来计划3.0版实现数据可视化，接入一些大数据分析的内容，为用户提供买房、租房、卖房建议，但由于精力和资源都有限，所以搁浅了。</p><p><strong>2、在线杂志Web App</strong></p><p>PC版/手机版 交互实现</p><p><strong><span style="color:#548dd4;">a.手机版</span></strong>：<a href="http://mnews.iloushi.cn/">http://mnews.iloushi.cn/</a></p><p style="text-align:center;"><img src="http://ww3.sinaimg.cn/large/64d0692bjw1eqfqwqdtntj207s07sq3g.jpg"></p><p style="text-align:center;"><span>扫码访问</span></p><p style="text-align:center;"><img src="http://ww2.sinaimg.cn/large/64d0692bjw1eqfqx4pn22j206v0c73yt.jpg"><img src="http://ww3.sinaimg.cn/large/64d0692bjw1eqfqvo29dlj206s0c274n.jpg"></p><p>《楼市》杂志手机版做得比较早，也比较简单，当时不是正式项目，所以质量上并没有下多大功夫，但效果还算不错。</p><p><span style="color:#000000;text-align:justify;">前端交互框架是由@<span>cyclegtx</span> 编写，</span>为了实现页面跳转间的动画，模仿NativeApp的效果，所有内容都在同一页面加载，通过JS控制数据的获取，所以不利于搜索引擎爬虫抓取。</p><p><strong><span style="color:#548dd4;">b.PC版</span></strong>：<a href="http://www.iloushi.cn/magazine/">http://www.iloushi.cn/magazine/</a></p><p style="text-align:center;"><img src="http://ww4.sinaimg.cn/large/64d0692bjw1eqfqyvic5aj213q0kuan2.jpg"></p><p style="text-align:center;"><img src="http://ww3.sinaimg.cn/large/64d0692bjw1eqfqzdzc95j213u0kytfh.jpg"></p><p style="text-align:center;"><img src="http://ww3.sinaimg.cn/large/64d0692bjw1eqfr0pg51xj213m0kbgzy.jpg"></p><p>PC版仿的是flipboard翻页效果，为了保证SEO的效果，从列表页到详情页的跳转未作处理，每篇文章会生成静态链接。</p><p>内页为了保证与列表页阅读喜欢的一致性，采用的是从左到右的分栏阅读模式，在平板上体验较好。</p><p>杂志内容在后端处理上比较简单，简易的内容管理后台即可满足，由<a render="ext" extra-data="type=atname" href="/n/Davi201104" usercard="name=Davi201104">@Davi201104</a> 弹指实现，这里忽略不表。</p><p><span style="color:#ff0000;">Q：</span>为什么在线杂志没有做成响应式的呢？</p><p><span style="color:#548dd4;">A：</span>的确期刊杂志的内容比较简单，适合做响应式，一套代码搞定。<span>不过屏幕适配调试比较麻烦，代码也会由冗余，时间周期可能相较直接完成2套效果还要长，再者我们手机版是先开发的，又不愿舍弃，所以就没有做成响应式的。其实只是我们比较懒，哈哈。</span></p><p>关于响应式的案例及优劣，我们博客后续会更新，请关注哦。</p><p><strong>3、 找坑儿</strong></p><p>这个项目是我们利用空余时间搞的微信公号（前期由另外几个朋友维护），主要面向钓鱼爱好者，公号没有认证，而且还是个人订阅号，所以基本没有接口。但我们还是把它做成了一个产品，由于后面服务器出了问题，目前已经停止维护了。</p><p><span style="color:#548dd4;"><strong>a. 根据地名/坐标查询钓场</strong></span></p><p style="text-align:center;"><img src="http://ww4.sinaimg.cn/large/64d0692bjw1eqfr2s96bmj207q0dpdh5.jpg"><img src="http://ww3.sinaimg.cn/large/64d0692bjw1eqfr391m0dj207s0dtacf.jpg"></p><p>由于没有接口，我们无法直接获取用户的经纬度，所以只有通过用户输入城市名或发送位置给公号来返回钓场数据，大致用例：</p><ol style="list-style-type:lower-roman;"><li><p>用户输入城市名/发送位置给找坑儿公号</p></li><li><p>用户收取返回钓场多图文信息，第一条为钓场的地图聚合，数字标示出下面对应编号的钓场位置，点进去即地图页（上面的右图），其余9条为具体钓场信息（包括距离），点进去为钓场详情页</p></li><li><p>用户查看钓场详情页，拨打电话联系钓场或查看路线导航</p></li></ol><p>使用到的接口与技术：</p><ul style="list-style-type:disc;"><li><p>微信接收消息接口、微信发送消息接口</p></li><li><p>百度地图获取经纬度、自定义马点、导航等接口</p></li><li><p>PHP数据抓取入库等</p></li></ul><p><strong><span style="color:#548dd4;">b．钓鱼相关知识搜索功能</span></strong></p><p style="text-align:center;"><img src="http://ww3.sinaimg.cn/large/64d0692bjw1eqfr4w7ng7j20a10htgnb.jpg"></p><p>&nbsp;&nbsp; &nbsp; &nbsp; 用户发送关键字给公号，公号返回相应的问答内容。具体实现流程图：</p><p style="text-align:center;"><img src="http://ww1.sinaimg.cn/large/64d0692bjw1eqfr5fdc22j20kz051q3d.jpg"></p><p>&nbsp;&nbsp; &nbsp; &nbsp; 使用到的接口和技术：</p><ul style="list-style-type:disc;"><li><p>微信消息接收、发送接口</p></li><li><p>node爬虫即时抓取程序</p></li><li><p>页面实时生成</p></li></ul><p><strong><span style="color:#548dd4;">c．渔获墙功能实现</span></strong></p><p>钓鱼人非常喜欢分享（晒）自己的渔获，所以就设计了渔获图片墙这个功能。</p><p style="text-align:center;"><img src="http://ww2.sinaimg.cn/large/64d0692bjw1eqfr6t27zmj20890en764.jpg"></p><p>截图这是第一版，比较简单，用户在公号里上传图片即会出现在图片墙上。但是图片归属并没有展示出来，而我们又没有获取用户信息的接口，为了解决这个问题，我们进行了曲线救国：</p><ol style="list-style-type:lower-roman;"><li><p>用户发送图片后，系统返回一串验证码，提示用户绑定账户</p></li><li><p>用户输入验证码，系统模拟管理员登录微信公众平台后台，寻找匹配验证码，获取相关用户信息后，图片及用户信息绑定入库</p></li><li><p>返回用户图片墙链接，图片墙展示图片及用户信息。</p></li></ol><p>以上说明，即时在条件有限的情况，只要愿意挖掘，没有解决不了的问题。</p><p><strong>4、买房邦</strong></p><p>“买房邦”是基于微信公众平台开发的的微信公众号，主要为用户提供房产查询购买及咨询解答服务。</p><p>公号最终菜单功能结构为：</p><p><span style="color:#76923c;">楼盘导航 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;我的 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;互动</span></p><p>&nbsp;<span style="color:#3f3f3f;"><span style="color:#7f7f7f;">|—附近楼盘 &nbsp; &nbsp; &nbsp;|—优惠券 &nbsp; &nbsp; &nbsp; |—有问必答</span></span></p><p><span style="color:#7f7f7f;">|—优惠楼盘 &nbsp; &nbsp; &nbsp; |—砍房价 &nbsp; &nbsp; &nbsp;|—买房游戏</span></p><p><strong><span style="color:#548dd4;">a. 附近楼盘查询功能实现</span></strong></p><p style="text-align:center;"><img src="http://ww2.sinaimg.cn/large/64d0692bjw1eqfr98oiu6j205t0aat8u.jpg"><img src="http://ww2.sinaimg.cn/large/64d0692bjw1eqfr9ihrvzj205u0aejri.jpg"></p><p>基于i楼市楼盘数据库数据，根据用户上传的地理位置信息（经纬度）对比楼盘经纬度计算出用户当前坐标最近的十个楼盘，并返回结果展示，用例：</p><ol style="list-style-type:lower-roman;"><li><p>用户点击公号底部菜单“楼盘导航-附近楼盘”；</p></li><li><p>系统返回9条具体楼盘信息及链接，头图为楼盘地图页链接；</p></li><li><p>用户点击附近楼盘地图进入地图找房页，或点击具体楼盘查看详情</p></li></ol><p>使用到的接口和技术：</p><ul style="list-style-type:disc;"><li><p>微信获取用户地理位置信息接口</p></li><li><p>微信发送消息接口</p></li><li><p>百度地图JavaScript API极速版</p></li><li><p>PHP后端数据库查询</p></li></ul><p><span style="color:#548dd4;"><strong>b.语音/文字查询相关问答资讯</strong></span></p><p>功能流程：</p><ul style="list-style-type:num1;"><li><p>用户在公号里输入语音或文字；</p></li><li><p>微信接口获取关键词（语音识别为文字），系统匹配i楼市数据库楼盘名称，匹配上便返回楼盘详情页链接；</p></li><li><p>未匹配上，系统爬虫检索百度知道、链家房产问答、搜房问答，根据关键词密度及内容来源权重进行排序，生成问答内容页面并在公号里返回相关链接；</p></li><li><p>用户点击图文列表浏览问答资讯结果页。</p></li></ul><p>使用到得接口及技术：</p><ul style="list-style-type:disc;"><li><p>微信语音识别接口</p></li><li><p>微信接收、发送消息接口</p></li><li><p>PHP后端数据库查询</p></li><li><p>Nodejs异步实时抓取爬虫</p></li><li><p>中文分词算法</p></li><li><p>关键词密度及来源权重排序算法</p></li></ul><p>数据接口由<a render="ext" extra-data="type=atname" href="/n/Davi201104" usercard="name=Davi201104">@Davi201104</a> 处理。爬虫是由<a render="ext" extra-data="type=atname" href="/n/cyclegtx" usercard="name=cyclegtx">@cyclegtx</a> 使用node编写的异步抓取程序，实时多线程更换代理IP抓取百度知道、链家房产问答、搜房问答等页面内容，结果返回速度很快。并加入分词技术进行关键词密度计算，对结果进行权重排序，使返回结果跟贴合用户需求。具体实现请参见后续<a render="ext" extra-data="type=atname" href="/n/cyclegtx" usercard="name=cyclegtx">@cyclegtx</a> 介绍。</p><p><span style="color:#548dd4;"><strong>c. 微信游戏</strong></span></p><p>基于网上公布的2048 Web版源码进行的二次开发。名为“2048买房攻略”。</p><p style="text-align:center;"><img src="http://ww3.sinaimg.cn/large/64d0692bjw1eqfrdhvwoej206i0blaa6.jpg"><img src="http://ww3.sinaimg.cn/large/64d0692bjw1eqfrdpa12mj206h0biq2z.jpg"></p><p>将2048方块等级2、4、8……2048依次改为床位、地下室、隔断……四合院，规则不变，UI未做大的修改。当时同期出来比较火的还是杜蕾斯公号发布的恋爱版2048。</p><p>不同的是我们首先加入了排行榜系统，用户关注买房邦公号即可记录信息进入排行榜。</p><p>另外<a render="ext" extra-data="type=atname" href="/n/cyclegtx" usercard="name=cyclegtx">@cyclegtx</a> 与<a render="ext" extra-data="type=atname" href="/n/Davi201104" usercard="name=Davi201104">@Davi201104</a> 基于微信的接口还开发了一套邀请对战功能：</p><p style="text-align:center;"><img src="http://ww1.sinaimg.cn/large/64d0692bjw1eqfre23iyjj20640at3yi.jpg"><img src="http://ww1.sinaimg.cn/large/64d0692bjw1eqfre6vsv1j20670azq2w.jpg"></p><p>用户点击邀请好友对战，分享链接给好友，好友点击以后，公号发送对方已接受对战的链接消息，点击链接即可查看双方数据对比。</p><p>使用到的接口及技术：</p><ul style="list-style-type:disc;"><li><p>微信获取用户基础信息</p></li><li><p>微信发送消息</p></li><li><p>数据图表展示chart.js</p></li></ul><p>除这个，之前我们还第一时间弄出了flapybird的Web版，当时只在微博上发布，日访问ip达3000+，后面<a render="ext" extra-data="type=atname" href="/n/cyclegtx" usercard="name=cyclegtx">@cyclegtx</a> 又基于公号接口尝试实现了“谁是卧底”等游戏，大神后续又制作了不少H5的互动小游戏，对这块有兴趣的可以关注团队博客更新。</p><p><strong><span style="color:#548dd4;">d.砍房价活动</span></strong></p><p style="text-align:center;"><img src="http://ww2.sinaimg.cn/large/64d0692bjw1eqfrfivqcwj208f0e9dgb.jpg"></p><p>这是买房邦公号做的一期活动，用户分享本页面链接至朋友圈，邀请好友关注买房邦并点击“帮TA攒钱”，原用户即可减免房款100元。</p><p>目前这种活动各种公号已经泛滥了，做得比较好的是vivo手机、华为手机等类似邀请好友免费得手机等活动，这一块微信开始管制了，涉及到引导关注和分享的可能会被屏蔽，大家需要注意。</p><p>使用到的接口与技术：</p><ul style="list-style-type:disc;"><li><p>微信获取用户基础信息</p></li><li><p>是否关注判定</p></li><li><p>页面生成，链接绑定用户ID</p></li><li><p>PHP数据库查询</p></li></ul><p><strong>5、房麦</strong></p><p>房麦为置业用户提供一个从房产政策、市场走势、法律条例、房贷费率到社区优势、房源特点等全方位的房产业务咨询服务平台。</p><p style="text-align:center;"><img src="http://ww1.sinaimg.cn/large/64d0692bjw1eqfrgmin9gj206b0b70st.jpg"><img src="http://ww4.sinaimg.cn/large/64d0692bjw1eqfrgvd3yaj206a0b5t8p.jpg"></p><p>基于嘀嘀打车的模式，用户发起置业需求，房产经纪人抢单回复需求，同时平台上还有其他涉及置业相关的税务、投资、法务等专家，用户在房麦平台上可与他们沟通咨询。</p><p>此APP及是一款基于语音的需求发布响应平台，也是一款即时通讯应用：</p><p style="text-align:center;"><img src="http://ww4.sinaimg.cn/large/64d0692bjw1eqfrhzqdroj205p0a4dfw.jpg"><img src="http://ww1.sinaimg.cn/large/64d0692bjw1eqfri7lesuj205p0a474c.jpg"></p><p>产品规划脑图：</p><p style="text-align:center;"><img src="http://ww4.sinaimg.cn/large/64d0692bjw1eqfrihm5ghj213n0hdadc.jpg"></p><p>使用到的接口及技术：</p><ul style="list-style-type:disc;"><li><p>Java数据接口</p></li><li><p>Webview展示楼盘H5页面</p></li><li><p>文字语音消息推送（极光推送）</p></li><li><p>Socket即时通讯</p></li><li><p>nosql存储</p></li></ul><p>我们花了3个月时间，将安卓及iOS版全部开发完成，客户端分为用户端、房产经纪人端和大V（房产名人）端，房麦最终没有上线，主要在经纪人这块的资源整合没有跟上，而我们的竞争对手巨头搜房在我们1个月的时候就在搜房APP中加入了与我原型简直一毛一样的需求发布功能，后面我们开发完毕，赶集网就已经发布了“懒人找房”App，并且开始大力推广。</p><p>想来都是泪啊。互联网比拼的就是速度，其中包括很重要资源整合速度。</p><p>关于即时通讯这块客户端的实现请关注博客<a render="ext" extra-data="type=atname" href="/n/zhangzicong6" usercard="name=zhangzicong6">@zhangzicong6</a> 的分享。</p><p><strong>6、卖房邦</strong></p><p>比房多多早上线的房产全民营销平台微信公众号。已交接给下一位产品同学，目前正在改版中，有兴趣的童鞋可以扫码关注：</p><p style="text-align:center;"><img src="http://ww1.sinaimg.cn/large/64d0692bjw1eqfrkwljqfj2093092aak.jpg"></p><p>7、智慧售楼处/Wifi智能路由</p><p style="text-align:center;"><img src="http://ww4.sinaimg.cn/large/64d0692bjw1eqfrlelvdhj20fe07h0t0.jpg"></p><p>将智能路由器应用到房产上，用户连接免费Wifi会浏览相关房产广告，结合大数据用户分析，向不同的用户推送不同的广告（这一部分还没实现）。</p><p>值得一提的是智慧Wifi的微信聚客的作用——关注微信公号即可上网。</p><p>这块内容主要负责人不是我，所以细节这里不做详述，有兴趣的可浏览官网：<a href="http://wifi.iloushi.cn/weike/">http://wifi.iloushi.cn/weike/</a></p><p><strong>8、微信营销平台/H5互动页面模板生成</strong></p><p><strong><span style="color:#548dd4;">a. &nbsp;微官网/互动页面</span></strong></p><p>案例列表（手机扫码浏览）：</p><p style="text-align:center;"><img src="http://ww4.sinaimg.cn/large/64d0692bjw1eqfrm1epbij206k06kt93.jpg"> &nbsp;&nbsp;</p><p style="text-align:center;"><span style="text-align:center;">i楼市产品介绍 &nbsp;</span></p><p style="text-align:center;"><img src="http://ww4.sinaimg.cn/large/64d0692bjw1eqfrm9br4mj206f06fdgc.jpg"></p><p style="text-align:center;"><span>互动页面案例列表</span></p><p><strong><span style="color:#548dd4;">b. 微信红包</span></strong></p><p style="text-align:center;"><img src="http://ww4.sinaimg.cn/large/64d0692bjw1eqfrms7gv0j205f09lq2x.jpg"><img src="http://ww2.sinaimg.cn/large/64d0692bjw1eqfrmzfywkj205f09m3yh.jpg"></p><p>同买房邦砍房价活动，用户点击红包随机获得一定的金额，分享给好友，好友点击红包后，用户会增加一次拆红包的机会，分享好友越多获得的金额也越多，最终用户攒够一定的金额即可兑换奖品，兑换前用户必须关注指定的公众号。</p><p>红包活动是个很好的宣传推广及公号聚客的首段，但微信现在开始抵制这种强制关注和引导分享的行为，容易被屏蔽。</p><p>最终的数据：</p><p style="text-align:center;"><img src="http://ww2.sinaimg.cn/large/64d0692bjw1eqfrnjv49ej20fd08n74h.jpg"></p><p>期间由于我们准备不足，在高峰期时服务器根本扛不住，虽然这点数据对于大一点的公司根本不值一提。我们的公号初始用户只有不到200人，不到半天的时间，覆盖人群11+W，可见微信传播裂变指数级增长的威力。互联网的去中心化，让每个人成为传播的节点，微信营销有得搞。</p><p><strong><span style="color:#548dd4;">c. 微信平台管理</span></strong></p><p>跟网络其他微信营销平台一样，菜单设置、文章批量管理、活动管理、互动页面生成功能都有，只是聚焦于房产这块。这块已交接其他同事负责，这里也不做详述。</p><p>还有几个底下做着玩的小项目，这里就不提了。</p><p><strong>总结</strong></p><p>综上，<span>这一年里做的东西着实不少，但是能拿出手的寥寥无几，主要是公司房产方面的项目。有的不一定是产品设计体验或者方向的问题。一个产品的成功基础就是用户需求，然后就是运营和资源整合了。</span></p><p>有什么的资源就应该做什么样的事情，很多产品我们做得比较早但却被后来者居上，主要还是投入的不够，毕竟项目太多，人力和资源都比较分散。</p><p>在i楼市的这一年多，收获非常多，感谢领导<a render="ext" extra-data="type=atname" href="/n/zhenlihai" usercard="name=zhenlihai">@zhenlihai</a> 的信任和在工作上生活上的各种帮助，铭感于心，如今自己出来了，深感创业的不易，共勉。</p><p>以上只是对项目做了一个罗列，不够详细，毕竟是回忆。后面我会养成记录的习惯（拖延症治疗中），继续会跟大家分享互联网产品的一些东西，互相学习共同提高。</p><p>欢迎大家关注我们！</p><p>博客：<a href="http://ued.sexy/blog.html">http://ued.sexy/blog.html</a></p><p>微博：<a href="http://www.weibo.com/uedtianji" class="S_link2">http://www.weibo.com/uedtianji</a></p><p>Github：<a href="https://github.com/uedtianji">https://github.com/uedtianji</a></p><p style="display:none;"><img src="http://e.weibo.com/v1/public/stats/article?serial=MAT_20150323165931_11711367815251&amp;owner=1691380011&amp;cid=30&amp;ispay=0&amp;isreward=1"></p>            </div>
+</div>
+</div>
+  <div id="comments" class="comments-view">
+      <div class="publish-comment">
+          <!-- 多说评论框 start -->
+          <div class="ds-thread" data-short-name="uedsexy" data-thread-key="jorellee/pm" data-title=" 2014年我们玩过的那些产品" data-url="http://ued.sexy/1427102907322.html"></div>
+          <!-- 多说评论框 end -->
+      </div>
+  </div>
+</div>
+</section>
+      </div>
+    </div>
+    <div class="site-footer">
+      <div class="container">
+        <div class="copyright clearfix">
+          <p>Copyright © 2014 <a href="http://ued.sexy" target="_blank">ued.sexy</a></p>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:document.querySelector(".ds-thread").getAttribute("data-short-name")};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0] 
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script>
+  </body>
+</html>
